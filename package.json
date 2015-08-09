@@ -3,6 +3,9 @@
   "description": "A simple & tiny CUI maze game",
   "version": "0.0.1",
   "author": "kjirou",
+  "bin": {
+    "escape-from-the-maze": "./bin/escape-from-the-maze"
+  },
   "bugs": {
     "url": "https://github.com/kjirou/escape-from-the-maze/issues"
   },

@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var escapeFromTheMaze = require('../index');
+
+
+escapeFromTheMaze.run();
