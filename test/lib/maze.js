@@ -19,8 +19,8 @@ describe('maze lib', function() {
     ]);
   });
 
-  it('toText', function() {
+  it('toBlessedContent', function() {
     var maze = new Maze([1, 1]);
-    assert(maze.toText(), '###\n# #\n###');
+    assert(maze.toBlessedContent(), '###\n#{green-fg}@{/}#\n###');
   });
 });
