@@ -12,6 +12,7 @@
   "dependencies": {
     "blessed": "0.1.21",
     "generate-maze-by-clustering": "0.0.4",
+    "rx": "3.0.0",
     "underscore.string": "3.1.1"
   },
   "devDependencies": {

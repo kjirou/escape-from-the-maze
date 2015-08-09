@@ -13,20 +13,20 @@ var createScreen = function createScreen() {
   var mazeBox = blessed.text({
     top: 'top',
     left: 'left',
-    width: maze.size[0],
-    height: maze.size[1],
+    width: maze.getWidth(),
+    height: maze.getHeight(),
     content: maze.toBlessedContent(),
     tags: true,
     style: {
       fg: 'white',
-      bg: 'magenta'
-      //bg: 'black'
+      //bg: 'magenta'
+      bg: 'black'
     }
   });
   screen.append(mazeBox);
 
   var stateBarBox = blessed.text({
-    top: maze.size[1],
+    top: maze.getHeight(),
     left: 'left',
     content: '[kjirou] 99:99.9999',
     tags: true,
