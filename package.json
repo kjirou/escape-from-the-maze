@@ -1,0 +1,32 @@
+{
+  "name": "escape-from-the-maze",
+  "description": "A simple & tiny CUI maze game",
+  "version": "0.0.1",
+  "author": "kjirou",
+  "bugs": {
+    "url": "https://github.com/kjirou/escape-from-the-maze/issues"
+  },
+  "dependencies": {
+    "blessed": "0.1.21",
+    "generate-maze-by-clustering": "0.0.4"
+  },
+  "devDependencies": {
+    "fixpack": "2.2.0",
+    "mocha": "2.2.5"
+  },
+  "homepage": "https://github.com/kjirou/escape-from-the-maze#readme",
+  "keywords": [
+    "cui",
+    "game",
+    "maze"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjirou/escape-from-the-maze.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}

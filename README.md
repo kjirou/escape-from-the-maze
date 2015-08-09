@@ -1,2 +1,2 @@
 # escape-from-the-maze
-A simple &amp; tiny maze game
+A simple &amp; tiny CUI maze game
