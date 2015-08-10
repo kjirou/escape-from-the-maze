@@ -3,7 +3,7 @@ var assert = require('assert');
 var Maze = require('lib/maze');
 
 
-describe('maze lib', function() {
+describe('lib/maze', function() {
 
   it('extentToSize', function() {
     assert(Maze.extentToSize(1), 1 * 2 + 1);
