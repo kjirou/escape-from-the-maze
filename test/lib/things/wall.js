@@ -14,6 +14,11 @@ describe('lib/things/wall', function() {
     assert.strictEqual(wall.getTypeId(), 'wall');
   });
 
+  it('getSymbol', function() {
+    var wall = new WallThing();
+    assert.strictEqual(wall.getSymbol(), '#');
+  });
+
   it('isPassable', function() {
     var wall = new WallThing();
     assert.strictEqual(wall.isPassable(), false);

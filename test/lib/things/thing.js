@@ -14,6 +14,11 @@ describe('lib/things/thing', function() {
     assert.strictEqual(thing.getTypeId(), 'thing');
   });
 
+  it('getSymbol', function() {
+    var thing = new Thing();
+    assert.strictEqual(thing.getSymbol(), '?');
+  });
+
   it('isPassable', function() {
     var thing = new Thing();
     assert.strictEqual(thing.isPassable(), true);
