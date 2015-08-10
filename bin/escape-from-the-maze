@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require('../env/app');
+require('../env/cli');
 
 var escapeFromTheMaze = require('../index');
 
