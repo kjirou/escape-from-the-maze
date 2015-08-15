@@ -12,6 +12,7 @@
   "dependencies": {
     "blessed": "0.1.21",
     "generate-maze-by-clustering": "0.0.4",
+    "keymirror": "0.1.1",
     "lodash": "3.10.1",
     "rx": "3.0.0",
     "underscore.string": "3.1.1",
