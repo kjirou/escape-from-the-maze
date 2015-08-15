@@ -10,6 +10,29 @@ describe('lib/cell', function() {
     assert.strictEqual(typeof Cell, 'function');
   });
 
+  it('thing accessors', function() {
+    var cell = new Cell();
+    var thing = new Thing();
+
+    assert.strictEqual(cell.findThing(thing), null);
+    assert.strictEqual(cell.hasThing(thing), false);
+    cell.setThing(thing);
+    assert.strictEqual(cell.findThing(thing), thing);
+    assert.strictEqual(cell.findThingOrError(thing), thing);
+    assert.strictEqual(cell.hasThing(thing), true);
+
+    var anotherThing = new Thing();
+    assert.strictEqual(cell.findThing(anotherThing), null);
+    assert.throws(function() {
+      cell.findThingOrError(anotherThing);
+    }, /Can not /);
+
+    assert.strictEqual(cell.removeThing(anotherThing), false);
+    assert.strictEqual(cell.hasThing(thing), true);
+    assert.strictEqual(cell.removeThing(thing), true);
+    assert.strictEqual(cell.hasThing(thing), false);
+  });
+
   it('isPassable', function() {
     var cell, thing;
     cell = new Cell();

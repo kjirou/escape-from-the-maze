@@ -8,7 +8,7 @@ var createScreen = function createScreen() {
   var screen = blessed.screen();
   screen.title = 'Escape From The Maze';
 
-  var maze = new Maze([20, 10]);
+  var maze = new Maze([20, 10], { withPlayer: true, withGoal: true });
 
   var mazeBox = blessed.text({
     top: 'top',
