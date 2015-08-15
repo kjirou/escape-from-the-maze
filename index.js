@@ -15,7 +15,7 @@ var createScreen = function createScreen() {
     left: 'left',
     width: maze.getWidth(),
     height: maze.getHeight(),
-    content: maze.toBlessedContent(),
+    content: maze.toContent(),
     tags: true,
     style: {
       fg: 'white',

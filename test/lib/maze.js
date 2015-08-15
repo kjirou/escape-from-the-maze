@@ -1,4 +1,5 @@
 var assert = require('assert');
+var _ = require('lodash');
 
 var Maze = require('lib/maze');
 
@@ -19,17 +20,22 @@ describe('lib/maze', function() {
   });
 
   it('_createCells', function() {
-    var actual = Maze.prototype._createCells([1, 1]);
-    assert.deepEqual(actual, [
-      ['#', '#', '#'],
-      ['#', ' ', '#'],
-      ['#', '#', '#']
-    ]);
+    var cells = Maze.prototype._createCells([1, 1]);
+    var actual = cells.map(function(rowCells) {
+      return rowCells.map(function(cell) {
+        return cell.toContent();
+      }).join('');
+    }).join('\n');
+    assert.deepEqual(actual, '' +
+      '###\n' +
+      '# #\n' +
+      '###'
+    );
   });
 
-  it('toBlessedContent', function() {
+  it('toContent', function() {
     var maze = new Maze([1, 2]);
-    assert.strictEqual(maze.toBlessedContent(),
+    assert.strictEqual(maze.toContent(),
       '###\n' +
       '#{green-fg}@{/}#\n' +
       '# #\n' +

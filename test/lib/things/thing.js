@@ -25,4 +25,9 @@ describe('lib/things/thing', function() {
     thing._isPassable = false;
     assert.strictEqual(thing.isPassable(), false);
   });
+
+  it('toContent', function() {
+    var thing = new Thing();
+    assert.strictEqual(thing.toContent(), thing.getSymbol());
+  });
 });
