@@ -19,6 +19,7 @@
     "uuid": "2.0.1"
   },
   "devDependencies": {
+    "eslint": "1.1.0",
     "espower-loader": "0.11.0",
     "fixpack": "2.2.0",
     "mocha": "2.2.5",
@@ -38,6 +39,7 @@
     "url": "git+https://github.com/kjirou/escape-from-the-maze.git"
   },
   "scripts": {
+    "lint": "eslint *.js env lib test",
     "test": "mocha"
   }
 }

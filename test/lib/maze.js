@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var assert = require('power-assert');
 
 var Maze = require('lib/maze');

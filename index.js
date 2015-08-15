@@ -1,5 +1,4 @@
 var blessed = require('blessed');
-var generateMaze = require('generate-maze-by-clustering');
 
 var Maze = require('lib/maze');
 var PlayerThing = require('lib/things/player');
