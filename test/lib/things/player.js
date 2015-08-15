@@ -1,4 +1,5 @@
 var assert = require('assert');
+var validatorjs = require('validator');
 
 var PlayerThing = require('lib/things/player');
 
@@ -7,6 +8,11 @@ describe('lib/things/player', function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof PlayerThing, 'function');
+  });
+
+  it('uuid', function() {
+    var thing = new PlayerThing();
+    assert(validatorjs.isUUID(thing.uuid, 4));
   });
 
   it('getTypeId', function() {

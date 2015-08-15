@@ -1,4 +1,5 @@
 var assert = require('assert');
+var validatorjs = require('validator');
 
 var Thing = require('lib/things/thing');
 
@@ -7,6 +8,11 @@ describe('lib/things/thing', function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof Thing, 'function');
+  });
+
+  it('uuid', function() {
+    var thing = new Thing();
+    assert(validatorjs.isUUID(thing.uuid, 4));
   });
 
   it('getTypeId', function() {

@@ -2,13 +2,20 @@ var blessed = require('blessed');
 var generateMaze = require('generate-maze-by-clustering');
 
 var Maze = require('lib/maze');
+var PlayerThing = require('lib/things/player');
+var UpstairsThing = require('lib/things/upstairs');
 
 
 var createScreen = function createScreen() {
   var screen = blessed.screen();
   screen.title = 'Escape From The Maze';
 
-  var maze = new Maze([20, 10], { withPlayer: true, withGoal: true });
+  var maze = new Maze([20, 10]);
+  maze.getCell([1, 1]).setThing(new PlayerThing());
+  maze.getCell([
+    maze.getHeight() - 2,
+    maze.getWidth() - 2
+  ]).setThing(new UpstairsThing());
 
   var mazeBox = blessed.text({
     top: 'top',

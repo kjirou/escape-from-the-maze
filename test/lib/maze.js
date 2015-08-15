@@ -1,9 +1,10 @@
 var assert = require('assert');
 var _ = require('lodash');
 
-var PlayerThing = require('lib/things/player');
-var Thing = require('lib/things/thing');
 var Maze = require('lib/maze');
+var Thing = require('lib/things/thing');
+var PlayerThing = require('lib/things/player');
+var UpstairsThing = require('lib/things/upstairs');
 
 
 describe('lib/maze', function() {
@@ -11,14 +12,6 @@ describe('lib/maze', function() {
   it('extentToSize', function() {
     assert(Maze.extentToSize(1), 1 * 2 + 1);
     assert(Maze.extentToSize(5), 5 * 2 + 1);
-  });
-
-  it('getSize, getWidth, getHeight', function() {
-    var maze = new Maze([3, 2]);
-    assert.strictEqual(maze.getSize()[0], 7);
-    assert.strictEqual(maze.getSize()[1], 5);
-    assert.strictEqual(maze.getWidth(), 7);
-    assert.strictEqual(maze.getHeight(), 5);
   });
 
   it('_createCells', function() {
@@ -29,10 +22,18 @@ describe('lib/maze', function() {
       }).join('');
     }).join('\n');
     assert.deepEqual(actual, '' +
-      '###\n' +
-      '# #\n' +
-      '###'
+      '   \n' +
+      '   \n' +
+      '   '
     );
+  });
+
+  it('getWidth, getHeight, getSize', function() {
+    var maze = new Maze([3, 2]);
+    assert.strictEqual(maze.getWidth(), 7);
+    assert.strictEqual(maze.getHeight(), 5);
+    assert.strictEqual(maze.getSize()[0], 7);
+    assert.strictEqual(maze.getSize()[1], 5);
   });
 
   it('getCell, getCellOrError', function() {
@@ -50,8 +51,9 @@ describe('lib/maze', function() {
   });
 
   it('validateThingMovement', function() {
-    var maze = new Maze([1, 3], { withPlayer: true });
-    var player = maze.getStartCell().getThingOrError();
+    var maze = new Maze([1, 3]);
+    var player = new PlayerThing();
+    maze.getCell([1, 1]).setThing(player);
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [2, 1]), true);
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [3, 1]), true);
     assert.strictEqual(maze.validateThingMovement(new Thing(), [1, 1], [3, 1]), false, 'The thing is not placed on the cell');
@@ -66,7 +68,7 @@ describe('lib/maze', function() {
 
     maze = new Maze([1, 3]);
     player = new PlayerThing();
-    maze.getCell([1, 1]).setThing(player);
+    maze.addThing(player, [1, 1]);
     maze.moveThing(player, [1, 1], [2, 1]);
     assert.strictEqual(maze.getCell([1, 1]).getThing(), null);
     assert.strictEqual(maze.getCell([2, 1]).getThing(), player);
@@ -90,7 +92,12 @@ describe('lib/maze', function() {
   });
 
   it('toContent', function() {
-    var maze = new Maze([1, 2], { withPlayer: true, withGoal: true });
+    var maze = new Maze([1, 2]);
+    maze.getCell([1, 1]).setThing(new PlayerThing());
+    maze.getCell([
+      maze.getHeight() - 2,
+      maze.getWidth() - 2
+    ]).setThing(new UpstairsThing());
     assert.strictEqual(maze.toContent(),
       '###\n' +
       '#{green-fg}@{/}#\n' +

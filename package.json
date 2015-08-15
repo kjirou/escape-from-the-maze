@@ -14,11 +14,13 @@
     "generate-maze-by-clustering": "0.0.4",
     "lodash": "3.10.1",
     "rx": "3.0.0",
-    "underscore.string": "3.1.1"
+    "underscore.string": "3.1.1",
+    "uuid": "2.0.1"
   },
   "devDependencies": {
     "fixpack": "2.2.0",
-    "mocha": "2.2.5"
+    "mocha": "2.2.5",
+    "validator": "4.0.3"
   },
   "homepage": "https://github.com/kjirou/escape-from-the-maze#readme",
   "keywords": [
