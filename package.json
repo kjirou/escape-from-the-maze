@@ -19,8 +19,10 @@
     "uuid": "2.0.1"
   },
   "devDependencies": {
+    "espower-loader": "0.11.0",
     "fixpack": "2.2.0",
     "mocha": "2.2.5",
+    "power-assert": "0.11.0",
     "validator": "4.0.3"
   },
   "homepage": "https://github.com/kjirou/escape-from-the-maze#readme",

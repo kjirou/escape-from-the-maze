@@ -1,5 +1,5 @@
-var assert = require('assert');
 var _ = require('lodash');
+var assert = require('power-assert');
 
 var Maze = require('lib/maze');
 var Thing = require('lib/things/thing');
@@ -10,8 +10,8 @@ var UpstairsThing = require('lib/things/upstairs');
 describe('lib/maze', function() {
 
   it('extentToSize', function() {
-    assert(Maze.extentToSize(1), 1 * 2 + 1);
-    assert(Maze.extentToSize(5), 5 * 2 + 1);
+    assert.strictEqual(Maze.extentToSize(1), 1 * 2 + 1);
+    assert.strictEqual(Maze.extentToSize(5), 5 * 2 + 1);
   });
 
   it('createCells', function() {

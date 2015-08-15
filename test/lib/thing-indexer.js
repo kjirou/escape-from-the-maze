@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = require('power-assert');
 var uuidModule = require('uuid');
 
 var ThingIndexer = require('lib/thing-indexer');

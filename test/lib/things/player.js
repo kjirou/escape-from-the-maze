@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = require('power-assert');
 var validatorjs = require('validator');
 
 var PlayerThing = require('lib/things/player');

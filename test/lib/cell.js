@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = require('power-assert');
 
 var Cell = require('lib/cell');
 var Thing = require('lib/things/thing');
