@@ -10,12 +10,14 @@ var createScreen = function createScreen() {
   var screen = blessed.screen();
   screen.title = 'Escape From The Maze';
 
-  var maze = new Maze([20, 10]);
-  maze.getCell([1, 1]).setThing(new PlayerThing());
-  maze.getCell([
+  var maze = Maze.createByExtent([20, 10]);
+  var player = new PlayerThing();
+  var upstairs = new UpstairsThing();
+  maze.addThing(player, [1, 1]);
+  maze.addThing(upstairs, [
     maze.getHeight() - 2,
     maze.getWidth() - 2
-  ]).setThing(new UpstairsThing());
+  ]);
 
   var mazeBox = blessed.text({
     top: 'top',
@@ -46,6 +48,30 @@ var createScreen = function createScreen() {
 
   screen.key(['escape', 'q', 'C-c'], function(ch, key) {
     return process.exit(0);
+  });
+
+  screen.key(['up', 'w', 'k'], function(ch, key) {
+    maze.walkThing(player, Maze.DIRECTIONS.UP);
+    mazeBox.setContent(maze.toContent());
+    screen.render();
+  });
+
+  screen.key(['right', 'd', 'l'], function(ch, key) {
+    maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
+    mazeBox.setContent(maze.toContent());
+    screen.render();
+  });
+
+  screen.key(['down', 's', 'j'], function(ch, key) {
+    maze.walkThing(player, Maze.DIRECTIONS.DOWN);
+    mazeBox.setContent(maze.toContent());
+    screen.render();
+  });
+
+  screen.key(['left', 'a', 'h'], function(ch, key) {
+    maze.walkThing(player, Maze.DIRECTIONS.LEFT);
+    mazeBox.setContent(maze.toContent());
+    screen.render();
   });
 
   return screen;
