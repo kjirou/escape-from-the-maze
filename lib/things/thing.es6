@@ -29,4 +29,4 @@ class Thing {
 Thing.typeId = 'thing';
 
 
- export default Thing;
+export default Thing;

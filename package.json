@@ -34,13 +34,13 @@
     "maze"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "index.es6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kjirou/escape-from-the-maze.git"
   },
   "scripts": {
-    "lint": "eslint *.js env lib test",
+    "lint": "eslint --ext .es6 *.es6 env lib test",
     "start": "bin/escape-from-the-maze",
     "test": "mocha"
   }

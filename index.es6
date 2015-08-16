@@ -74,7 +74,7 @@ function createScreen() {
   });
 
   return screen;
-};
+}
 
 
 export var run = function run() {

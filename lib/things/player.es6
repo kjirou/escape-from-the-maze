@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import util from 'util';
 
 import Thing from 'lib/things/thing';
 
