@@ -41,6 +41,7 @@
   },
   "scripts": {
     "lint": "eslint *.js env lib test",
+    "start": "bin/escape-from-the-maze",
     "test": "mocha"
   }
 }
