@@ -1,9 +1,9 @@
-var assert = require('power-assert');
+import assert from 'power-assert';
 
-var Maze = require('lib/maze');
-var Thing = require('lib/things/thing');
-var PlayerThing = require('lib/things/player');
-var UpstairsThing = require('lib/things/upstairs');
+import Maze from 'lib/maze';
+import Thing from 'lib/things/thing';
+import PlayerThing from 'lib/things/player';
+import UpstairsThing from 'lib/things/upstairs';
 
 
 describe('lib/maze', function() {
@@ -14,8 +14,8 @@ describe('lib/maze', function() {
   });
 
   it('createCells', function() {
-    var cells = Maze.createCells([3, 3]);
-    var actual = cells.map(function(rowCells) {
+    let cells = Maze.createCells([3, 3]);
+    let actual = cells.map(function(rowCells) {
       return rowCells.map(function(cell) {
         return cell.toContent();
       }).join('');
@@ -28,7 +28,7 @@ describe('lib/maze', function() {
   });
 
   it('getWidth, getHeight, getSize', function() {
-    var maze = Maze.createByExtent([3, 2]);
+    let maze = Maze.createByExtent([3, 2]);
     assert.strictEqual(maze.getWidth(), 7);
     assert.strictEqual(maze.getHeight(), 5);
     assert.strictEqual(maze.getSize()[0], 7);
@@ -36,7 +36,7 @@ describe('lib/maze', function() {
   });
 
   it('getCell, getCellOrError', function() {
-    var maze = Maze.createByExtent([1, 2]);
+    let maze = Maze.createByExtent([1, 2]);
     assert.strictEqual(maze.getCell([0, 0]), maze._cells[0][0]);
     assert.strictEqual(maze.getCell([0, 1]), maze._cells[0][1]);
 
@@ -50,8 +50,8 @@ describe('lib/maze', function() {
   });
 
   it('validateThingMovement', function() {
-    var maze = Maze.createByExtent([1, 3]);
-    var player = new PlayerThing();
+    let maze = Maze.createByExtent([1, 3]);
+    let player = new PlayerThing();
     maze.getCell([1, 1]).setThing(player);
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [2, 1]), true);
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [3, 1]), true);
@@ -63,7 +63,7 @@ describe('lib/maze', function() {
   });
 
   it('moveThing', function() {
-    var maze, player;
+    let maze, player;
 
     maze = Maze.createByExtent([1, 3]);
     player = new PlayerThing();
@@ -91,7 +91,7 @@ describe('lib/maze', function() {
   });
 
   it('walkThing', function() {
-    var maze, player;
+    let maze, player;
     maze = new Maze();
     maze.includeMapText([
       '#####',
@@ -118,7 +118,7 @@ describe('lib/maze', function() {
   });
 
   it('toContent', function() {
-    var maze = Maze.createByExtent([1, 2]);
+    let maze = Maze.createByExtent([1, 2]);
     maze.getCell([1, 1]).setThing(new PlayerThing());
     maze.getCell([
       maze.getHeight() - 2,

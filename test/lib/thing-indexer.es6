@@ -1,7 +1,7 @@
-var assert = require('power-assert');
-var uuidModule = require('uuid');
+import assert from 'power-assert';
+import uuidModule from 'uuid';
 
-var ThingIndexer = require('lib/thing-indexer');
+import ThingIndexer from 'lib/thing-indexer';
 
 
 describe('lib/thing-indexer', function() {
@@ -11,8 +11,8 @@ describe('lib/thing-indexer', function() {
   });
 
   it('update, get', function() {
-    var indexer = new ThingIndexer();
-    var uuid = uuidModule.v4();
+    let indexer = new ThingIndexer();
+    let uuid = uuidModule.v4();
     indexer.update(uuid, [1, 2]);
     indexer.update(uuid, [1, 3]);
     assert.deepEqual(indexer.get(uuid), [1, 3]);
@@ -20,9 +20,9 @@ describe('lib/thing-indexer', function() {
   });
 
   it('remove', function() {
-    var indexer = new ThingIndexer();
-    var uuid1 = uuidModule.v4();
-    var uuid2 = uuidModule.v4();
+    let indexer = new ThingIndexer();
+    let uuid1 = uuidModule.v4();
+    let uuid2 = uuidModule.v4();
     indexer.update(uuid1, [1, 2]);
     indexer.update(uuid2, [1, 3]);
     assert.deepEqual(indexer.get(uuid1), [1, 2]);

@@ -1,6 +1,6 @@
-var assert = require('power-assert');
+import assert from 'power-assert';
 
-var WallThing = require('lib/things/wall');
+import WallThing from 'lib/things/wall';
 
 
 describe('lib/things/wall', function() {
@@ -10,17 +10,17 @@ describe('lib/things/wall', function() {
   });
 
   it('getTypeId', function() {
-    var wall = new WallThing();
+    let wall = new WallThing();
     assert.strictEqual(wall.getTypeId(), 'wall');
   });
 
   it('getSymbol', function() {
-    var wall = new WallThing();
+    let wall = new WallThing();
     assert.strictEqual(wall.getSymbol(), '#');
   });
 
   it('isPassable', function() {
-    var wall = new WallThing();
+    let wall = new WallThing();
     assert.strictEqual(wall.isPassable(), false);
   });
 });

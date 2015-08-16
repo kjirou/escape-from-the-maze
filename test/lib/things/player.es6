@@ -1,7 +1,7 @@
-var assert = require('power-assert');
-var validatorjs = require('validator');
+import assert from 'power-assert';
+import validatorjs from 'validator';
 
-var PlayerThing = require('lib/things/player');
+import PlayerThing from 'lib/things/player';
 
 
 describe('lib/things/player', function() {
@@ -11,27 +11,27 @@ describe('lib/things/player', function() {
   });
 
   it('uuid', function() {
-    var thing = new PlayerThing();
+    let thing = new PlayerThing();
     assert(validatorjs.isUUID(thing.uuid, 4));
   });
 
   it('getTypeId', function() {
-    var thing = new PlayerThing();
+    let thing = new PlayerThing();
     assert.strictEqual(thing.getTypeId(), 'player');
   });
 
   it('getSymbol', function() {
-    var thing = new PlayerThing();
+    let thing = new PlayerThing();
     assert.strictEqual(thing.getSymbol(), '@');
   });
 
   it('isPassable', function() {
-    var thing = new PlayerThing();
+    let thing = new PlayerThing();
     assert.strictEqual(thing.isPassable(), true);
   });
 
   it('toContent', function() {
-    var thing = new PlayerThing();
+    let thing = new PlayerThing();
     assert.strictEqual(thing.toContent(), '{green-fg}@{/}');
   });
 });

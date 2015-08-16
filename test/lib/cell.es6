@@ -1,7 +1,7 @@
-var assert = require('power-assert');
+import assert from 'power-assert';
 
-var Cell = require('lib/cell');
-var Thing = require('lib/things/thing');
+import Cell from 'lib/cell';
+import Thing from 'lib/things/thing';
 
 
 describe('lib/cell', function() {
@@ -11,8 +11,8 @@ describe('lib/cell', function() {
   });
 
   it('thing accessors', function() {
-    var cell = new Cell();
-    var thing = new Thing();
+    let cell = new Cell();
+    let thing = new Thing();
 
     assert.strictEqual(cell.findThing(thing), null);
     assert.strictEqual(cell.hasThing(thing), false);
@@ -21,7 +21,7 @@ describe('lib/cell', function() {
     assert.strictEqual(cell.findThingOrError(thing), thing);
     assert.strictEqual(cell.hasThing(thing), true);
 
-    var anotherThing = new Thing();
+    let anotherThing = new Thing();
     assert.strictEqual(cell.findThing(anotherThing), null);
     assert.throws(function() {
       cell.findThingOrError(anotherThing);
@@ -34,7 +34,7 @@ describe('lib/cell', function() {
   });
 
   it('isPassable', function() {
-    var cell, thing;
+    let cell, thing;
     cell = new Cell();
     assert.strictEqual(cell.isPassable(), true);
 
@@ -55,7 +55,7 @@ describe('lib/cell', function() {
   });
 
   it('toContent', function() {
-    var cell;
+    let cell;
     cell = new Cell();
     assert.strictEqual(cell.toContent(), ' ');
     cell.setThing(new Thing());
