@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 require('../env/cli');
 
 var escapeFromTheMaze = require('../index');
