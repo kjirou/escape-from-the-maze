@@ -37,7 +37,7 @@
     "maze"
   ],
   "license": "MIT",
-  "main": "index.es6",
+  "main": "app.es6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kjirou/escape-from-the-maze.git"
