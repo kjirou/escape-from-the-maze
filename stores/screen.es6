@@ -25,7 +25,7 @@ class ScreenStore extends Store {
       switch (action.type) {
         case 'changePage':
           this._pageId = action.pageId;
-          emitter.emit(EVENTS.RENDER);
+          emitter.emit(EVENTS.CHANGE_PAGE);
           break;
       }
     });

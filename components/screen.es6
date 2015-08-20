@@ -35,9 +35,7 @@ class ScreenComponent extends Component {
       welcome: new WelcomePageComponent(this._$el)
     };
 
-    emitter.on(EVENTS.RENDER, () => {
-      this.render();
-    });
+    emitter.on(EVENTS.CHANGE_PAGE, this.render.bind(this));
   }
 
   render() {
