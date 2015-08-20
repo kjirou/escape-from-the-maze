@@ -1,6 +1,3 @@
-import blessed from 'blessed';
-
-import ScreenActionCreators from 'actions/screen-action-creators';
 import PageComponent from 'components/pages/page';
 
 

@@ -43,7 +43,7 @@
     "url": "git+https://github.com/kjirou/escape-from-the-maze.git"
   },
   "scripts": {
-    "lint": "eslint --ext .es6 *.es6 env lib test",
+    "lint": "eslint --ext .es6 *.es6 actions components conf consts dispatchers env inputs lib stores test",
     "start": "bin/escape-from-the-maze",
     "test": "mocha"
   }

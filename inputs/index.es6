@@ -1,11 +1,9 @@
-import blessed from 'blessed';
 import chalk from 'chalk';
 import _ from 'lodash';
 import Rx from 'rx';
 
 import GameActionCreators from 'actions/game-action-creators';
 import ScreenActionCreators from 'actions/screen-action-creators';
-import conf from 'conf';
 import Maze from 'lib/maze';
 import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
@@ -53,10 +51,9 @@ function onKeypressSourceData({ name, ctrl }) {
       break;
     default:
       throw new Error(screenStore.pageId + ' is invalid pageId');
-      break;
   }
 
-  if (name === 'escape' || ctrl && name === "c") {
+  if (name === 'escape' || ctrl && name === 'c') {
     process.stdin.pause();
     process.exit(0);
     return;
@@ -115,7 +112,7 @@ export default class Inputs {
       },
       function onTimerSourceError(err) {
         var msg = chalk.red('Error: ' + err);
-        console.log(msg);
+        console.error(msg);
         screen.debug(msg);
       }
     );
@@ -124,7 +121,7 @@ export default class Inputs {
       onKeypressSourceData,
       function onKeypressSourceError(err) {
         var msg = chalk.red('Error: ' + err);
-        console.log(msg);
+        console.error(msg);
         screen.debug(msg);
       }
     );

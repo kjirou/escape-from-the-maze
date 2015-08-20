@@ -3,7 +3,6 @@ import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
 import Store from 'stores/store';
 
-import conf from 'conf';
 import Maze from 'lib/maze';
 import PlayerThing from 'lib/things/player';
 import UpstairsThing from 'lib/things/upstairs';

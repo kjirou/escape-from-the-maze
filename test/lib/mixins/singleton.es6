@@ -1,7 +1,7 @@
-import _ from 'lodash'
-import assert from 'power-assert'
+import _ from 'lodash';
+import assert from 'power-assert';
 
-import SingletonMixin from 'lib/mixins/singleton'
+import SingletonMixin from 'lib/mixins/singleton';
 
 
 describe('lib/mixins/singleton', function() {

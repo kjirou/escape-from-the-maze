@@ -1,4 +1,3 @@
-import blessed from 'blessed';
 import {EventEmitter} from 'events';
 import _ from 'lodash';
 
