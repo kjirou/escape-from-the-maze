@@ -14,10 +14,6 @@ class ScreenManager {
 
     screen.title = 'Escape From The Maze';
 
-    screen.key(['escape', 'C-c'], function(ch, key) {
-      process.exit(0);
-    });
-
     this._screen = screen;
 
     Object.defineProperty(this, 'screen', { get() { return this._screen; } });

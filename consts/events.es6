@@ -2,7 +2,10 @@ import keymirror from 'keymirror';
 
 
 const EVENTS = keymirror({
-  RENDER: null
+  CHANGE_PAGE: null,
+  RENDER: null,
+  UPDATE_MAZE: null,
+  UPDATE_MAZE_CLOCK: null
 });
 
 
