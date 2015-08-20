@@ -1,4 +1,4 @@
-import Dispatcher from 'dispatcher';
+import Dispatchers from 'dispatchers';
 
 
 let GameActionCreators = {
@@ -9,7 +9,7 @@ let GameActionCreators = {
    * @param {string} pageId
    */
   walkPlayer(direction) {
-    Dispatcher.getInstance().handleViewAction({
+    Dispatchers.getInstance().handleViewAction({
       type: 'walkPlayer',
       direction
     });
