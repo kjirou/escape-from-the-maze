@@ -6,16 +6,13 @@ import Rx from 'rx';
 import GameActionCreators from 'actions/game-action-creators';
 import ScreenActionCreators from 'actions/screen-action-creators';
 import conf from 'conf';
+import Maze from 'lib/maze';
 import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
-import Maze from 'lib/maze';
+import {calculateMillisecondsPerFrame} from 'lib/util';
 import GameStore from 'stores/game';
 import ScreenStore from 'stores/screen';
 
-
-function calculateMillisecondsPerFrame() {
-  return ~~(1000 / conf.fps);
-}
 
 function onKeypressSourceData({ name, ctrl }) {
   let {screen} = ScreenManager.getInstance();
@@ -107,9 +104,13 @@ export default class Inputs {
     var cnt = -1;
     timerSource.subscribe(
       function onTimerSourceData({ value, interval }) {
+        let gameStore = GameStore.getInstance();
         cnt += 1;
         if (cnt % 50 === 0) {
           screen.debug('Frame count:', value);
+        }
+        if (gameStore.isStarted()) {
+          GameActionCreators.forwardGameTimeByFrame();
         }
       },
       function onTimerSourceError(err) {

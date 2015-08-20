@@ -13,6 +13,12 @@ let GameActionCreators = {
       type: 'walkPlayer',
       direction
     });
+  },
+
+  forwardGameTimeByFrame() {
+    Dispatchers.getInstance().handleViewAction({
+      type: 'forwardGameTimeByFrame'
+    });
   }
 };
 
