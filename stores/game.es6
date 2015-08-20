@@ -65,4 +65,8 @@ export default class GameStore extends Store {
   isStarted() {
     return !!this._maze;
   }
+
+  doesPlayerArriveGoal() {
+    return this._maze.isArrivedGoal(this._things.player, this._things.upstairs);
+  }
 }

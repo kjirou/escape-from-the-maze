@@ -10,12 +10,14 @@ describe('lib/thing-indexer', function() {
     assert.strictEqual(typeof ThingIndexer, 'function');
   });
 
-  it('update, get', function() {
+  it('update, get, getIds', function() {
     let indexer = new ThingIndexer();
+    assert.deepEqual(indexer.getIds(), []);
     let uuid = uuidModule.v4();
     indexer.update(uuid, [1, 2]);
     indexer.update(uuid, [1, 3]);
     assert.deepEqual(indexer.get(uuid), [1, 3]);
+    assert.deepEqual(indexer.getIds(), [uuid]);
     assert.strictEqual(indexer.get('not-existing-uuid'), null);
   });
 

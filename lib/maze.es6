@@ -173,6 +173,12 @@ class Maze {
     return true;
   }
 
+  isArrivedGoal(playerThing, goalThing) {
+    let playerPos = this._thingIndexer.get(playerThing.uuid);
+    let goalPos = this._thingIndexer.get(goalThing.uuid);
+    return _.isEqual(playerPos, goalPos);
+  }
+
   toContent() {
     return this._cells.map(function(rowCells) {
       return rowCells.map(function(cell) {

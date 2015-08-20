@@ -19,6 +19,10 @@ class ThingIndexer {
   has(id) {
     return id in this._indexes;
   }
+
+  getIds() {
+    return Object.keys(this._indexes);
+  }
 }
 
 
