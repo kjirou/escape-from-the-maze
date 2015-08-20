@@ -48,8 +48,10 @@ function onKeypressSourceData({ name, ctrl }) {
           a: Maze.DIRECTIONS.LEFT,
           h: Maze.DIRECTIONS.LEFT
         }[name];
-        GameActionCreators.walkPlayer(direction);
-        return;
+        if (direction) {
+          GameActionCreators.walkPlayer(direction);
+          return;
+        }
       }
       break;
     default:
