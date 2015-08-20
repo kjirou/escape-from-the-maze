@@ -1,5 +1,5 @@
 import EVENTS from 'consts/events';
-import Dispatcher from 'dispatcher';
+import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
 import Store from 'stores/store';
 
@@ -26,9 +26,9 @@ export default class GameStore extends Store {
 
     Object.defineProperty(this, 'maze', { get() { return this._maze; } });
 
-    let dispatcher = Dispatcher.getInstance();
+    let dispatchers = Dispatchers.getInstance();
     let {emitter} = EventManager.getInstance();
-    let dispatchToken0 = dispatcher.register(({action}) => {
+    let dispatchToken0 = dispatchers.register(({action}) => {
       switch (action.type) {
         case 'prepareGame':
           this.prepareMaze();

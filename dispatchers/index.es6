@@ -4,7 +4,7 @@ import _ from 'lodash';
 import SingletonMixin from 'lib/mixins/singleton';
 
 
-export default class Dispatcher extends flux.Dispatcher {
+export default class Dispatchers extends flux.Dispatcher {
 
   handleViewAction(action) {
     this.dispatch({
@@ -14,4 +14,4 @@ export default class Dispatcher extends flux.Dispatcher {
   }
 }
 
-_.assign(Dispatcher, SingletonMixin);
+_.assign(Dispatchers, SingletonMixin);

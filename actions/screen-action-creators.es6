@@ -1,17 +1,17 @@
-import Dispatcher from 'dispatcher';
+import Dispatchers from 'dispatchers';
 
 
 let ScreenActionCreators = {
 
   changePage(pageId) {
-    Dispatcher.getInstance().handleViewAction({
+    Dispatchers.getInstance().handleViewAction({
       type: 'changePage',
       pageId
     });
   },
 
   prepareGame() {
-    Dispatcher.getInstance().handleViewAction({
+    Dispatchers.getInstance().handleViewAction({
       type: 'prepareGame'
     });
   }

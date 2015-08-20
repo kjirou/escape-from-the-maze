@@ -1,5 +1,5 @@
 import EVENTS from 'consts/events';
-import Dispatcher from 'dispatcher';
+import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
 import GameStore from 'stores/game';
 import Store from 'stores/store';
@@ -14,18 +14,18 @@ class ScreenStore extends Store {
 
     Object.defineProperty(this, 'pageId', { get() { return this._pageId; } });
 
-    let dispatcher = Dispatcher.getInstance();
+    let dispatchers = Dispatchers.getInstance();
     let {emitter} = EventManager.getInstance();
     let gameStore = GameStore.getInstance();
-    let dispatchToken0 = dispatcher.register(({action}) => {
-      dispatcher.waitFor([
+    let dispatchToken0 = dispatchers.register(({action}) => {
+      dispatchers.waitFor([
         ...gameStore.dispatchTokens
       ]);
 
       switch (action.type) {
         case 'changePage':
           this._pageId = action.pageId;
-          emitter.emit(EVENTS.RENDER);
+          emitter.emit(EVENTS.CHANGE_PAGE);
           break;
       }
     });

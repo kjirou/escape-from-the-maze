@@ -2,7 +2,8 @@
 
 require('../env/cli');
 
-var escapeFromTheMaze = require('../index');
+var App = require('../app');
 
 
-escapeFromTheMaze.run();
+var app = App.getInstance();
+app.run();
