@@ -3,8 +3,8 @@ import keymirror from 'keymirror';
 
 const EVENTS = keymirror({
   CHANGE_PAGE: null,
-  UPDATE_MAZE: null,
-  UPDATE_MAZE_CLOCK: null
+  UPDATE_GAME_TIME: null,
+  UPDATE_MAZE: null
 });
 
 

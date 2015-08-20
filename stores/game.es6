@@ -3,9 +3,11 @@ import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
 import Store from 'stores/store';
 
+import conf from 'conf';
 import Maze from 'lib/maze';
 import PlayerThing from 'lib/things/player';
 import UpstairsThing from 'lib/things/upstairs';
+import {calculateMillisecondsPerFrame} from 'lib/util';
 
 
 function createDefaultThings() {
@@ -22,14 +24,20 @@ export default class GameStore extends Store {
     super(...args);
 
     this._maze = null;
+    this._gameTime = 0;  // int, ms
     this._things = createDefaultThings();
 
     Object.defineProperty(this, 'maze', { get() { return this._maze; } });
+    Object.defineProperty(this, 'gameTime', { get() { return this._gameTime; } });
 
     let dispatchers = Dispatchers.getInstance();
     let {emitter} = EventManager.getInstance();
     let dispatchToken0 = dispatchers.register(({action}) => {
       switch (action.type) {
+        case 'forwardGameTimeByFrame':
+          this._gameTime += calculateMillisecondsPerFrame();
+          emitter.emit(EVENTS.UPDATE_GAME_TIME);
+          break;
         case 'prepareGame':
           this.prepareMaze();
           emitter.emit(EVENTS.UPDATE_MAZE);
@@ -59,6 +67,7 @@ export default class GameStore extends Store {
 
   clearMaze() {
     this._maze = null;
+    this._gameTime = 0;
     this._things = createDefaultThings();
   }
 

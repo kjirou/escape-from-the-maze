@@ -53,11 +53,11 @@ export default class GamePageComponent extends PageComponent {
         fg: 'white',
         bg: 'black'
       },
-      content: '99:99:99.9999'
+      content: 'Time: 0'
     });
 
     this.emitter.on(EVENTS.UPDATE_MAZE, this.renderMazeBox.bind(this));
-    //this.emitter.on(EVENTS.UPDATE_MAZE_CLOCK, this.renderStateBarBox.bind(this));
+    this.emitter.on(EVENTS.UPDATE_GAME_TIME, this.renderStateBarBox.bind(this));
   }
 
   renderMazeBox() {
@@ -70,13 +70,16 @@ export default class GamePageComponent extends PageComponent {
     this.screen.render();
   }
 
-  //renderStateBarBox() {
-  //  let gameStore = GameStore.getInstance();
-  //  this.screen.render();
-  //}
+  // FIXME: Too heavy
+  renderStateBarBox() {
+    let gameStore = GameStore.getInstance();
+    let gameTimeBySeconds = ~~(gameStore.gameTime / 1000);
+    this._$stateBarBox.setContent('Time: ' + gameTimeBySeconds);
+    this.screen.render();
+  }
 
   render() {
     this.renderMazeBox();
-    //this.renderStateBarBox();
+    this.renderStateBarBox();
   }
 }
