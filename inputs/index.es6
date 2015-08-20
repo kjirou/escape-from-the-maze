@@ -26,7 +26,7 @@ function onKeypressSourceData({ name, ctrl }) {
 
   switch (screenStore.pageId) {
     case 'welcome':
-      if (name = 'space') {
+      if (name === 'space') {
         ScreenActionCreators.prepareGame();
         ScreenActionCreators.changePage('game');
         return;
