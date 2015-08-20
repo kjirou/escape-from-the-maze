@@ -23,6 +23,25 @@ export default class GamePageComponent extends PageComponent {
       }
     });
 
+    this._$resultBox = blessed.box({
+      parent: this._$mazeBox,
+      top: 'center',
+      left: 'center',
+      width: 19,
+      height: 5,
+      tags: true,
+      border: {
+        type: 'line'
+      },
+      align: 'center',
+      valign: 'middle',
+      style: {
+        fg: 'white',
+        bg: 'black'
+      },
+      hidden: true
+    });
+
     this._$stateBarBox = blessed.box({
       parent: this.$el,
       top: this._$mazeBox.height,
@@ -44,6 +63,10 @@ export default class GamePageComponent extends PageComponent {
   renderMazeBox() {
     let gameStore = GameStore.getInstance();
     this._$mazeBox.setContent(gameStore.maze.toContent());
+    if (gameStore.doesPlayerArriveGoal()) {
+      this._$resultBox.setContent('Escape success!');
+      this._$resultBox.show();
+    }
     this.screen.render();
   }
 

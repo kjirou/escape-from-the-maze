@@ -90,8 +90,8 @@ describe('lib/maze', function() {
     });
   });
 
-  it('walkThing', function() {
-    let maze, player;
+  it('walkThing, isArrivedGoal', function() {
+    let maze, player, upstairs;
     maze = new Maze();
     maze.includeMapText([
       '#####',
@@ -100,15 +100,19 @@ describe('lib/maze', function() {
       '#####'
     ].join('\n'));
     player = new PlayerThing();
+    upstairs = new UpstairsThing();
     maze.addThing(player, [1, 1]);
+    maze.addThing(upstairs, [maze.getHeight() - 2, maze.getWidth() - 2]);
     maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
     maze.walkThing(player, Maze.DIRECTIONS.DOWN);
+    assert.strictEqual(maze.isArrivedGoal(player, upstairs), false);
     maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
-    assert.strictEqual(maze.getCell([2, 3]).getThing(), player);
+    assert.deepEqual(maze.getCell([2, 3]).getThings(), [upstairs, player]);
+    assert.strictEqual(maze.isArrivedGoal(player, upstairs), true);
 
     maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
     maze.walkThing(player, Maze.DIRECTIONS.DOWN);
-    assert.strictEqual(maze.getCell([2, 3]).getThing(), player, 'Can not move to impassable cell');
+    assert.deepEqual(maze.getCell([2, 3]).getThings(), [upstairs, player], 'Can not move to impassable cell');
 
     maze.walkThing(player, Maze.DIRECTIONS.LEFT);
     assert.strictEqual(maze.getCell([2, 2]).getThing(), player);
