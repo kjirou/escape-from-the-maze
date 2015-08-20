@@ -1,28 +1,17 @@
 import blessed from 'blessed';
 
 import PageComponent from 'components/pages/page';
-import Maze from 'lib/maze';
-import ScreenManager from 'lib/screen-manager';
-import PlayerThing from 'lib/things/player';
-import UpstairsThing from 'lib/things/upstairs';
+import EVENTS from 'consts/events';
+import GameStore from 'stores/game';
 
 
-class GamePageComponent extends PageComponent {
+export default class GamePageComponent extends PageComponent {
 
   constructor(...args) {
     super(...args);
 
-    let maze = Maze.createByExtent([20, 10]);
-    let player = new PlayerThing();
-    let upstairs = new UpstairsThing();
-    maze.addThing(player, [1, 1]);
-    maze.addThing(upstairs, [
-      maze.getHeight() - 2,
-      maze.getWidth() - 2
-    ]);
-
-    this._mazeBox = blessed.box({
-      parent: this._$el,
+    this._$mazeBox = blessed.box({
+      parent: this.$el,
       top: 'top',
       left: 'left',
       width: '100%',
@@ -31,13 +20,12 @@ class GamePageComponent extends PageComponent {
       style: {
         fg: 'white',
         bg: 'black'
-      },
-      content: maze.toContent()
+      }
     });
 
-    this._stateBarBox = blessed.box({
-      parent: this._$el,
-      top: this._mazeBox.height,
+    this._$stateBarBox = blessed.box({
+      parent: this.$el,
+      top: this._$mazeBox.height,
       left: 'left',
       width: '100%',
       height: 1,
@@ -49,33 +37,23 @@ class GamePageComponent extends PageComponent {
       content: '99:99:99.9999'
     });
 
-    let {screen} = ScreenManager.getInstance();
+    this.emitter.on(EVENTS.UPDATE_MAZE, this.renderMazeBox.bind(this));
+    //this.emitter.on(EVENTS.UPDATE_MAZE_CLOCK, this.renderStateBarBox.bind(this));
+  }
 
-    this._$el.key(['up', 'w', 'k'], (ch, key) => {
-      maze.walkThing(player, Maze.DIRECTIONS.UP);
-      this._mazeBox.setContent(maze.toContent());
-      screen.render();
-    });
+  renderMazeBox() {
+    let gameStore = GameStore.getInstance();
+    this._$mazeBox.setContent(gameStore.maze.toContent());
+    this.screen.render();
+  }
 
-    this._$el.key(['right', 'd', 'l'], (ch, key) => {
-      maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
-      this._mazeBox.setContent(maze.toContent());
-      screen.render();
-    });
+  //renderStateBarBox() {
+  //  let gameStore = GameStore.getInstance();
+  //  this.screen.render();
+  //}
 
-    this._$el.key(['down', 's', 'j'], (ch, key) => {
-      maze.walkThing(player, Maze.DIRECTIONS.DOWN);
-      this._mazeBox.setContent(maze.toContent());
-      screen.render();
-    });
-
-    this._$el.key(['left', 'a', 'h'], (ch, key) => {
-      maze.walkThing(player, Maze.DIRECTIONS.LEFT);
-      this._mazeBox.setContent(maze.toContent());
-      screen.render();
-    });
+  render() {
+    this.renderMazeBox();
+    //this.renderStateBarBox();
   }
 }
-
-
-export default GamePageComponent;

@@ -10,10 +10,6 @@ class WelcomePageComponent extends PageComponent {
     super(...args);
 
     this.$el.setContent('Escape From The Maze\n\n  Push [space] to start');
-
-    this.$el.key('space', () => {
-      ScreenActionCreators.changePage('game');
-    });
   }
 }
 
