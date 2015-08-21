@@ -173,10 +173,11 @@ class Maze {
     return true;
   }
 
-  isArrivedGoal(playerThing, goalThing) {
-    let playerPos = this._thingIndexer.get(playerThing.uuid);
-    let goalPos = this._thingIndexer.get(goalThing.uuid);
-    return _.isEqual(playerPos, goalPos);
+  /*
+   * @return {Array|null}
+   */
+  searchThingPos(thing) {
+    return this._thingIndexer.get(thing.uuid);
   }
 
   /*

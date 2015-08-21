@@ -75,6 +75,6 @@ export default class GameStore extends Store {
   }
 
   doesPlayerArriveGoal() {
-    return this._maze.isArrivedGoal(this._things.player, this._things.upstairs);
+    return this._maze.areThingsStayingTogether([this._things.player, this._things.upstairs]);
   }
 }
