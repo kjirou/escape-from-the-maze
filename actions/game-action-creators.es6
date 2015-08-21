@@ -19,6 +19,12 @@ let GameActionCreators = {
     Dispatchers.getInstance().handleViewAction({
       type: 'forwardGameTimeByFrame'
     });
+  },
+
+  clearGame() {
+    Dispatchers.getInstance().handleViewAction({
+      type: 'clearGame'
+    });
   }
 };
 

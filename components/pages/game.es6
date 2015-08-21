@@ -27,8 +27,8 @@ export default class GamePageComponent extends PageComponent {
       parent: this._$mazeBox,
       top: 'center',
       left: 'center',
-      width: 19,
-      height: 5,
+      width: 21,
+      height: 7,
       tags: true,
       border: {
         type: 'line'
@@ -62,10 +62,15 @@ export default class GamePageComponent extends PageComponent {
 
   renderMazeBox() {
     let gameStore = GameStore.getInstance();
+    if (!gameStore.isStarted()) {
+      return;
+    }
     this._$mazeBox.setContent(gameStore.maze.toContent());
     if (gameStore.doesPlayerArriveGoal()) {
-      this._$resultBox.setContent('Escape success!');
+      this._$resultBox.setContent('Escape success!\n\nPush [space]');
       this._$resultBox.show();
+    } else {
+      this._$resultBox.hide();
     }
     this.screen.render();
   }

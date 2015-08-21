@@ -49,6 +49,12 @@ class Maze {
   constructor() {
     this._thingIndexer = new ThingIndexer();
     this._cells = null;
+    this._isArrivedGoal = false;
+
+    Object.defineProperty(this, 'isArrivedGoal', {
+      get() { return this._isArrivedGoal; },
+      set(v) { this._isArrivedGoal = v; }
+    });
   }
 
   /**
@@ -173,10 +179,28 @@ class Maze {
     return true;
   }
 
-  isArrivedGoal(playerThing, goalThing) {
-    let playerPos = this._thingIndexer.get(playerThing.uuid);
-    let goalPos = this._thingIndexer.get(goalThing.uuid);
-    return _.isEqual(playerPos, goalPos);
+  /*
+   * @return {Array|null}
+   */
+  searchThingPos(thing) {
+    return this._thingIndexer.get(thing.uuid);
+  }
+
+  /*
+   * Are things on the cell?
+   *
+   * @return {boolean}
+   */
+  areThingsOn(pos, things) {
+    return things.every((thing) => {
+      let thingPos = this._thingIndexer.get(thing.uuid);
+      return _.isEqual(pos, thingPos);
+    });
+  }
+
+  areThingsStayingTogether(things) {
+    var pos = this._thingIndexer.get(things[0].uuid);
+    return this.areThingsOn(pos, things.slice(1));
   }
 
   toContent() {
@@ -189,7 +213,7 @@ class Maze {
 }
 
 
-_.assign(Maze, {
+Object.assign(Maze, {
   DIRECTIONS: DIRECTIONS,
   createCells: createCells,
   extentToSize: extentToSize
