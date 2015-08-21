@@ -179,6 +179,23 @@ class Maze {
     return _.isEqual(playerPos, goalPos);
   }
 
+  /*
+   * Are things on the cell?
+   *
+   * @return {boolean}
+   */
+  areThingsOn(pos, things) {
+    return things.every((thing) => {
+      let thingPos = this._thingIndexer.get(thing.uuid);
+      return _.isEqual(pos, thingPos);
+    });
+  }
+
+  areThingsStayingTogether(things) {
+    var pos = this._thingIndexer.get(things[0].uuid);
+    return this.areThingsOn(pos, things.slice(1));
+  }
+
   toContent() {
     return this._cells.map(function(rowCells) {
       return rowCells.map(function(cell) {

@@ -90,7 +90,7 @@ describe('lib/maze', function() {
     });
   });
 
-  it('walkThing, isArrivedGoal', function() {
+  it('walkThing', function() {
     let maze, player, upstairs;
     maze = new Maze();
     maze.includeMapText([
@@ -105,10 +105,8 @@ describe('lib/maze', function() {
     maze.addThing(upstairs, [maze.getHeight() - 2, maze.getWidth() - 2]);
     maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
     maze.walkThing(player, Maze.DIRECTIONS.DOWN);
-    assert.strictEqual(maze.isArrivedGoal(player, upstairs), false);
     maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
     assert.deepEqual(maze.getCell([2, 3]).getThings(), [upstairs, player]);
-    assert.strictEqual(maze.isArrivedGoal(player, upstairs), true);
 
     maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
     maze.walkThing(player, Maze.DIRECTIONS.DOWN);
@@ -119,6 +117,24 @@ describe('lib/maze', function() {
 
     maze.walkThing(player, Maze.DIRECTIONS.UP);
     assert.strictEqual(maze.getCell([1, 2]).getThing(), player);
+  });
+
+  it('areThingsOn, areThingsStayingTogether', function() {
+    let maze = new Maze();
+    maze.includeMapText([
+      '#####',
+      '#   #',
+      '#   #',
+      '#####'
+    ].join('\n'));
+    let things = Array.from({ length: 3 }).map(() => new Thing());
+    maze.addThing(things[0], [1, 1]);
+    maze.addThing(things[1], [1, 1]);
+    maze.addThing(things[2], [1, 2]);
+    assert.strictEqual(maze.areThingsOn([1, 1], [things[0], things[1]]), true);
+    assert.strictEqual(maze.areThingsOn([1, 1], [things[0], things[2]]), false);
+    assert.strictEqual(maze.areThingsStayingTogether([things[0], things[1]]), true);
+    assert.strictEqual(maze.areThingsStayingTogether([things[0], things[2]]), false);
   });
 
   it('toContent', function() {
