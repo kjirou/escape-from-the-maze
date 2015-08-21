@@ -12,6 +12,16 @@ import GameStore from 'stores/game';
 import ScreenStore from 'stores/screen';
 
 
+function onTimerSourceData({ value, interval }) {
+  let gameStore = GameStore.getInstance();
+  if (value % 100 === 0) {
+    screen.debug('frames:', value);
+  }
+  if (gameStore.isStarted()) {
+    GameActionCreators.forwardGameTimeByFrame();
+  }
+}
+
 function onKeypressSourceData({ name, ctrl }) {
   let {screen} = ScreenManager.getInstance();
   let screenStore = ScreenStore.getInstance();
@@ -60,6 +70,12 @@ function onKeypressSourceData({ name, ctrl }) {
   }
 }
 
+function onSubscribeError(err) {
+  var msg = chalk.red('Error: ' + err);
+  console.error(msg);
+  screen.debug(msg);
+}
+
 
 export default class Inputs {
 
@@ -98,34 +114,26 @@ export default class Inputs {
       })
     ;
 
-    var cnt = -1;
-    timerSource.subscribe(
-      function onTimerSourceData({ value, interval }) {
-        let gameStore = GameStore.getInstance();
-        cnt += 1;
-        if (cnt % 50 === 0) {
-          screen.debug('Frame count:', value);
-        }
-        if (gameStore.isStarted()) {
-          GameActionCreators.forwardGameTimeByFrame();
-        }
-      },
-      function onTimerSourceError(err) {
-        var msg = chalk.red('Error: ' + err);
-        console.error(msg);
-        screen.debug(msg);
-      }
+    this._timerSubscription = timerSource.subscribe(
+      onTimerSourceData,
+      onSubscribeError
     );
-
-    keypressSource.subscribe(
+    this._keypressSubscription = keypressSource.subscribe(
       onKeypressSourceData,
-      function onKeypressSourceError(err) {
-        var msg = chalk.red('Error: ' + err);
-        console.error(msg);
-        screen.debug(msg);
-      }
+      onSubscribeError
     );
+  }
+
+  _destructor() {
+    this._timerSubscription.dispose();
+    this._keypressSubscription.dispose();
   }
 }
 
 _.assign(Inputs, SingletonMixin);
+
+Inputs._destructInstance = function _destructInstance() {
+  if (this._instance) {
+    this._instance._destructor();
+  }
+};
