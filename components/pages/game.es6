@@ -62,10 +62,15 @@ export default class GamePageComponent extends PageComponent {
 
   renderMazeBox() {
     let gameStore = GameStore.getInstance();
+    if (!gameStore.isStarted()) {
+      return;
+    }
     this._$mazeBox.setContent(gameStore.maze.toContent());
     if (gameStore.doesPlayerArriveGoal()) {
       this._$resultBox.setContent('Escape success!');
       this._$resultBox.show();
+    } else {
+      this._$resultBox.hide();
     }
     this.screen.render();
   }

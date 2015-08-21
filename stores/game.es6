@@ -33,6 +33,10 @@ export default class GameStore extends Store {
     let {emitter} = EventManager.getInstance();
     let dispatchToken0 = dispatchers.register(({action}) => {
       switch (action.type) {
+        case 'clearGame':
+          this._clearMaze();
+          emitter.emit(EVENTS.UPDATE_MAZE);
+          break;
         case 'forwardGameTimeByFrame':
           this._gameTime += calculateMillisecondsPerFrame();
           emitter.emit(EVENTS.UPDATE_GAME_TIME);
@@ -64,7 +68,7 @@ export default class GameStore extends Store {
     this._things.upstairs = upstairsThing;
   }
 
-  clearMaze() {
+  _clearMaze() {
     this._maze = null;
     this._gameTime = 0;
     this._things = createDefaultThings();
