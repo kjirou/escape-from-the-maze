@@ -1,5 +1,4 @@
-import ACTIONS from 'consts/actions';
-import EVENTS from 'consts/events';
+import {ACTIONS, EVENTS} from 'consts';
 import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
 import GameStore from 'stores/game';
