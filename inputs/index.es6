@@ -13,11 +13,12 @@ import ScreenStore from 'stores/screen';
 
 
 function onTimerSourceData({ value, interval }) {
+  let {screen} = ScreenManager.getInstance();
   let gameStore = GameStore.getInstance();
   if (value % 100 === 0) {
     screen.debug('frames:', value);
   }
-  if (gameStore.isStarted()) {
+  if (gameStore.isStarted() && !gameStore.hadPlayerBeenArriveGoal()) {
     GameActionCreators.forwardGameTimeByFrame();
   }
 }
