@@ -1,3 +1,4 @@
+import ACTIONS from 'consts/actions';
 import Dispatchers from 'dispatchers';
 
 
@@ -10,20 +11,20 @@ let GameActionCreators = {
    */
   walkPlayer(direction) {
     Dispatchers.getInstance().handleViewAction({
-      type: 'walkPlayer',
+      type: ACTIONS.WALK_PLAYER,
       direction
     });
   },
 
   forwardGameTimeByFrame() {
     Dispatchers.getInstance().handleViewAction({
-      type: 'forwardGameTimeByFrame'
+      type: ACTIONS.FORWARD_GAME_TIME_BY_FRAME
     });
   },
 
   clearGame() {
     Dispatchers.getInstance().handleViewAction({
-      type: 'clearGame'
+      type: ACTIONS.CLEAR_GAME
     });
   }
 };

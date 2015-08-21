@@ -1,3 +1,4 @@
+import ACTIONS from 'consts/actions';
 import EVENTS from 'consts/events';
 import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
@@ -23,7 +24,7 @@ class ScreenStore extends Store {
       ]);
 
       switch (action.type) {
-        case 'changePage':
+        case ACTIONS.CHANGE_PAGE:
           this._pageId = action.pageId;
           emitter.emit(EVENTS.CHANGE_PAGE);
           break;

@@ -1,3 +1,4 @@
+import ACTIONS from 'consts/actions';
 import EVENTS from 'consts/events';
 import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
@@ -33,19 +34,19 @@ export default class GameStore extends Store {
     let {emitter} = EventManager.getInstance();
     let dispatchToken0 = dispatchers.register(({action}) => {
       switch (action.type) {
-        case 'clearGame':
+        case ACTIONS.CLEAR_GAME:
           this._clearMaze();
           emitter.emit(EVENTS.UPDATE_MAZE);
           break;
-        case 'forwardGameTimeByFrame':
+        case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
           this._gameTime += calculateMillisecondsPerFrame();
           emitter.emit(EVENTS.UPDATE_GAME_TIME);
           break;
-        case 'prepareGame':
+        case ACTIONS.PREPARE_GAME:
           this.prepareMaze();
           emitter.emit(EVENTS.UPDATE_MAZE);
           break;
-        case 'walkPlayer':
+        case ACTIONS.WALK_PLAYER:
           this._maze.walkThing(this._things.player, action.direction);
           emitter.emit(EVENTS.UPDATE_MAZE);
           break;
