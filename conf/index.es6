@@ -1,5 +1,6 @@
 let conf = {
-  fps: 30
+  fps: 30,
+  ignoreScreenOutput: false
 };
 
 

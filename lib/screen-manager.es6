@@ -1,16 +1,23 @@
 import blessed from 'blessed';
+import devnull from 'dev-null';
 import _ from 'lodash';
 
+import conf from 'conf';
 import SingletonMixin from 'lib/mixins/singleton';
 
 
-class ScreenManager {
+export default class ScreenManager {
 
-  constructor() {
-
-    let screen = blessed.screen({
+  constructor(options = {}) {
+    options = _.assign({
       debug: true
-    });
+    }, options);
+
+    if (conf.ignoreScreenOutput) {
+      options.output = devnull();
+    }
+
+    let screen = blessed.screen(options);
 
     screen.title = 'Escape From The Maze';
 
@@ -19,7 +26,5 @@ class ScreenManager {
     Object.defineProperty(this, 'screen', { get() { return this._screen; } });
   }
 }
+
 _.assign(ScreenManager, SingletonMixin);
-
-
-export default ScreenManager;

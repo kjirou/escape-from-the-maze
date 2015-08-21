@@ -11,6 +11,9 @@ let SingletomMixin = {
   },
 
   clearInstance: function clearInstance() {
+    if (this._destructInstance) {
+      this._destructInstance();
+    }
     this._instance = null;
   }
 };
