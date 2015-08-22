@@ -26,7 +26,7 @@ export class SimpleStage extends Stage {
 }
 Object.assign(SimpleStage, {
   typeId: 'simple',
-  description: 'Just run, no gimmick.'
+  description: 'Just run, no gimmick'
 });
 
 export class EasyStage extends Stage {
@@ -34,7 +34,7 @@ export class EasyStage extends Stage {
 Object.assign(EasyStage, {
   typeId: 'easy',
   picks: 1,
-  description: 'Enable gimmicks.'
+  description: 'Enable gimmicks'
 });
 
 export class NormalStage extends Stage {
@@ -44,7 +44,7 @@ Object.assign(NormalStage, {
   mazeCount: 2,
   timeLimit: 45,
   picks: 2,
-  description: 'Plural mazes continue.'
+  description: 'Plural mazes continue'
 });
 
 export class HardStage extends Stage {
@@ -54,7 +54,7 @@ Object.assign(HardStage, {
   mazeCount: 3,
   timeLimit: 30,
   picks: 3,
-  description: 'More difficult.'
+  description: 'More difficult'
 });
 
 export class LunaticStage extends Stage {
@@ -64,7 +64,7 @@ Object.assign(LunaticStage, {
   mazeCount: 3,
   timeLimit: 25,
   picks: 1,
-  description: 'I could not get the *victory*.'
+  description: 'For a person of leisure'
 });
 
 
