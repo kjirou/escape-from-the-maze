@@ -17,14 +17,17 @@ function onTimerSourceData({ value, interval }) {
   if (gameStore.isPlaying()) {
     GameActionCreators.forwardGameTimeByFrame();
   }
+  if (gameStore.didPlayerGetVictoryJustNow()) {
+    GameActionCreators.saveVictory();
+  } else if (gameStore.didPlayerGetDefeatJustNow()) {
+    GameActionCreators.saveDefeat();
+  }
 }
 
 function onKeypressSourceData({ name, ctrl }) {
   let {screen} = ScreenManager.getInstance();
   let screenStore = ScreenStore.getInstance();
   let gameStore = GameStore.getInstance();
-
-  screen.debug(name, ctrl);
 
   switch (screenStore.pageId) {
     case 'welcome':
