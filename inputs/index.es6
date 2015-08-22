@@ -13,13 +13,14 @@ import ScreenStore from 'stores/screen';
 
 
 function onTimerSourceData({ value, interval }) {
-  let {screen} = ScreenManager.getInstance();
   let gameStore = GameStore.getInstance();
-  if (value % 100 === 0) {
-    screen.debug('frames:', value);
-  }
-  if (gameStore.isStarted() && !gameStore.hadPlayerBeenArriveGoal()) {
+  if (gameStore.isPlaying()) {
     GameActionCreators.forwardGameTimeByFrame();
+  }
+  if (gameStore.didPlayerGetVictoryJustNow()) {
+    GameActionCreators.saveVictory();
+  } else if (gameStore.didPlayerGetDefeatJustNow()) {
+    GameActionCreators.saveDefeat();
   }
 }
 
@@ -27,8 +28,6 @@ function onKeypressSourceData({ name, ctrl }) {
   let {screen} = ScreenManager.getInstance();
   let screenStore = ScreenStore.getInstance();
   let gameStore = GameStore.getInstance();
-
-  screen.debug(name, ctrl);
 
   switch (screenStore.pageId) {
     case 'welcome':
@@ -39,7 +38,7 @@ function onKeypressSourceData({ name, ctrl }) {
       }
       break;
     case 'game':
-      if (gameStore.isStarted() && !gameStore.hadPlayerBeenArriveGoal()) {
+      if (gameStore.isPlaying()) {
         let direction = {
           up: Maze.DIRECTIONS.UP,
           w: Maze.DIRECTIONS.UP,
@@ -58,9 +57,9 @@ function onKeypressSourceData({ name, ctrl }) {
           GameActionCreators.walkPlayer(direction);
           return;
         }
-      } else if (gameStore.hadPlayerBeenArriveGoal()) {
+      } else if (gameStore.isDecided()) {
         if (name === 'space') {
-          GameActionCreators.clearGame();
+          GameActionCreators.resetGame();
           ScreenActionCreators.changePage('welcome');
         }
       }

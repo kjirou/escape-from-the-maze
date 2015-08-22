@@ -14,15 +14,15 @@ describe('stores/game', function() {
     assert.strictEqual(typeof GameStore, 'function');
   });
 
-  it('doesPlayerArriveGoal', function() {
+  it('_doesPlayerArriveGoal', function() {
     var store = new GameStore();
     store.prepareMaze();
-    assert.strictEqual(store.doesPlayerArriveGoal(), false);
+    assert.strictEqual(store._doesPlayerArriveGoal(), false);
     store.maze.moveThing(
       store._things.player,
       [1, 1],
       store.maze.searchThingPos(store._things.upstairs)
     );
-    assert.strictEqual(store.doesPlayerArriveGoal(), true);
+    assert.strictEqual(store._doesPlayerArriveGoal(), true);
   });
 });

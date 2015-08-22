@@ -4,6 +4,30 @@ import Dispatchers from 'dispatchers';
 
 let GameActionCreators = {
 
+  forwardGameTimeByFrame() {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.FORWARD_GAME_TIME_BY_FRAME
+    });
+  },
+
+  resetGame() {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.RESET_GAME
+    });
+  },
+
+  saveDefeat() {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.SAVE_DEFEAT
+    });
+  },
+
+  saveVictory() {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.SAVE_VICTORY
+    });
+  },
+
   /**
    * Walk player to direction
    *
@@ -13,18 +37,6 @@ let GameActionCreators = {
     Dispatchers.getInstance().handleViewAction({
       type: ACTIONS.WALK_PLAYER,
       direction
-    });
-  },
-
-  forwardGameTimeByFrame() {
-    Dispatchers.getInstance().handleViewAction({
-      type: ACTIONS.FORWARD_GAME_TIME_BY_FRAME
-    });
-  },
-
-  clearGame() {
-    Dispatchers.getInstance().handleViewAction({
-      type: ACTIONS.CLEAR_GAME
     });
   }
 };
