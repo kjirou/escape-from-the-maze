@@ -39,7 +39,7 @@ export default class GameStore extends Store {
 
     let dispatchers = Dispatchers.getInstance();
     let {emitter} = EventManager.getInstance();
-    let dispatchToken0 = dispatchers.register(({action}) => {
+    this._dispatchToken = dispatchers.register(({action}) => {
       switch (action.type) {
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
           this._gameTime += calculateMillisecondsPerFrame();
@@ -67,7 +67,6 @@ export default class GameStore extends Store {
           break;
       }
     });
-    this.dispatchTokens.push(dispatchToken0);
   }
 
   _reset() {

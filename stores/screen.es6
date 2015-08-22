@@ -17,9 +17,9 @@ class ScreenStore extends Store {
     let dispatchers = Dispatchers.getInstance();
     let {emitter} = EventManager.getInstance();
     let gameStore = GameStore.getInstance();
-    let dispatchToken0 = dispatchers.register(({action}) => {
+    this._dispatchToken = dispatchers.register(({action}) => {
       dispatchers.waitFor([
-        ...gameStore.dispatchTokens
+        gameStore.getDispatchToken()
       ]);
 
       switch (action.type) {
@@ -29,7 +29,6 @@ class ScreenStore extends Store {
           break;
       }
     });
-    this.dispatchTokens.push(dispatchToken0);
   }
 }
 
