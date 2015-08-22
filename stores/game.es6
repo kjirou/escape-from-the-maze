@@ -46,7 +46,7 @@ export default class GameStore extends Store {
           emitter.emit(EVENTS.UPDATE_GAME_TIME);
           break;
         case ACTIONS.PREPARE_GAME:
-          this.prepareMaze();
+          this._prepare();
           emitter.emit(EVENTS.UPDATE_MAZE);
           break;
         case ACTIONS.RESET_GAME:
@@ -79,7 +79,7 @@ export default class GameStore extends Store {
     this._things = createDefaultThings();
   }
 
-  prepareMaze() {
+  _prepare() {
     let maze = Maze.createByExtent([20, 10]);
     let playerThing = new PlayerThing();
     let upstairsThing = new UpstairsThing();

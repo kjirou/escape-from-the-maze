@@ -16,7 +16,7 @@ describe('stores/game', function() {
 
   it('_doesPlayerArriveGoal', function() {
     var store = new GameStore();
-    store.prepareMaze();
+    store._prepare();
     assert.strictEqual(store._doesPlayerArriveGoal(), false);
     store.maze.moveThing(
       store._things.player,
