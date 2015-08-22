@@ -1,7 +1,7 @@
 {
   "name": "escape-from-the-maze",
   "description": "A simple & tiny CUI maze game",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "author": "kjirou",
   "bin": {
     "escape-from-the-maze": "./bin/escape-from-the-maze"
@@ -31,6 +31,10 @@
     "power-assert": "0.11.0",
     "sinon": "1.16.0",
     "validator": "4.0.3"
+  },
+  "engines": {
+    "node": "<=0.12",
+    "npm": "<=2"
   },
   "homepage": "https://github.com/kjirou/escape-from-the-maze#readme",
   "keywords": [
