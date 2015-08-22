@@ -8,6 +8,7 @@ const ACTIONS = keymirror({
   RESET_GAME: null,
   SAVE_DEFEAT: null,
   SAVE_VICTORY: null,
+  SELECT_STAGE: null,
   WALK_PLAYER: null
 });
 

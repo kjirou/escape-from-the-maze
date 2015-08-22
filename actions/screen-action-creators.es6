@@ -11,9 +11,10 @@ let ScreenActionCreators = {
     });
   },
 
-  prepareGame() {
+  prepareGame(stageTypeId) {
     Dispatchers.getInstance().handleViewAction({
-      type: ACTIONS.PREPARE_GAME
+      type: ACTIONS.PREPARE_GAME,
+      stageTypeId
     });
   }
 };

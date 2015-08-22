@@ -49,12 +49,6 @@ class Maze {
   constructor() {
     this._thingIndexer = new ThingIndexer();
     this._cells = null;
-    this._isArrivedGoal = false;
-
-    Object.defineProperty(this, 'isArrivedGoal', {
-      get() { return this._isArrivedGoal; },
-      set(v) { this._isArrivedGoal = v; }
-    });
   }
 
   /**

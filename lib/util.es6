@@ -1,11 +1,18 @@
 import conf from 'conf';
 
 
-let util = {};
-
-util.calculateMillisecondsPerFrame = function calculateMillisecondsPerFrame() {
+export function calculateMillisecondsPerFrame() {
   return ~~(1000 / conf.fps);
-};
+}
 
-
-export default util;
+/*
+ * Convert from list<object> to dict by property-name
+ *
+ * @param {string} propertyName
+ * @return {Object}
+ */
+export function dictionarize(list, propertyName) {
+  let dict = {};
+  list.forEach(v => dict[v[propertyName]] = v);
+  return dict;
+}
