@@ -22,9 +22,9 @@ let GameActionCreators = {
     });
   },
 
-  clearGame() {
+  resetGame() {
     Dispatchers.getInstance().handleViewAction({
-      type: ACTIONS.CLEAR_GAME
+      type: ACTIONS.RESET_GAME
     });
   }
 };

@@ -13,12 +13,8 @@ import ScreenStore from 'stores/screen';
 
 
 function onTimerSourceData({ value, interval }) {
-  let {screen} = ScreenManager.getInstance();
   let gameStore = GameStore.getInstance();
-  if (value % 100 === 0) {
-    screen.debug('frames:', value);
-  }
-  if (gameStore.isStarted() && !gameStore.hadPlayerBeenArriveGoal()) {
+  if (gameStore.isPlaying()) {
     GameActionCreators.forwardGameTimeByFrame();
   }
 }
@@ -39,7 +35,7 @@ function onKeypressSourceData({ name, ctrl }) {
       }
       break;
     case 'game':
-      if (gameStore.isStarted() && !gameStore.hadPlayerBeenArriveGoal()) {
+      if (gameStore.isPlaying()) {
         let direction = {
           up: Maze.DIRECTIONS.UP,
           w: Maze.DIRECTIONS.UP,
@@ -58,9 +54,9 @@ function onKeypressSourceData({ name, ctrl }) {
           GameActionCreators.walkPlayer(direction);
           return;
         }
-      } else if (gameStore.hadPlayerBeenArriveGoal()) {
+      } else if (gameStore.isDecided()) {
         if (name === 'space') {
-          GameActionCreators.clearGame();
+          GameActionCreators.resetGame();
           ScreenActionCreators.changePage('welcome');
         }
       }

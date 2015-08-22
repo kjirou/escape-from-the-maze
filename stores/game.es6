@@ -22,9 +22,15 @@ export default class GameStore extends Store {
   constructor(...args) {
     super(...args);
 
-    this._maze = null;
-    this._gameTime = 0;  // int, ms
-    this._things = createDefaultThings();
+    Object.assign(this, {
+      _maze: undefined,
+      _gameTime: undefined,
+      _timeLimit: undefined,
+      _hasBeenVictory: undefined,
+      _hasBeenDefeat: undefined,
+      _things: undefined
+    });
+    this._reset();
 
     Object.defineProperty(this, 'maze', { get() { return this._maze; } });
     Object.defineProperty(this, 'gameTime', { get() { return this._gameTime; } });
@@ -33,8 +39,8 @@ export default class GameStore extends Store {
     let {emitter} = EventManager.getInstance();
     let dispatchToken0 = dispatchers.register(({action}) => {
       switch (action.type) {
-        case ACTIONS.CLEAR_GAME:
-          this._clearMaze();
+        case ACTIONS.RESET_GAME:
+          this._reset();
           emitter.emit(EVENTS.UPDATE_MAZE);
           break;
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
@@ -54,6 +60,15 @@ export default class GameStore extends Store {
     this.dispatchTokens.push(dispatchToken0);
   }
 
+  _reset() {
+    this._maze = null;
+    this._timeLimit = 60000;
+    this._gameTime = 0;  // int, ms
+    this._hasBeenVictory = false;
+    this._hasBeenDefeat = false;
+    this._things = createDefaultThings();
+  }
+
   prepareMaze() {
     let maze = Maze.createByExtent([20, 10]);
     let playerThing = new PlayerThing();
@@ -68,12 +83,6 @@ export default class GameStore extends Store {
     this._things.upstairs = upstairsThing;
   }
 
-  _clearMaze() {
-    this._maze = null;
-    this._gameTime = 0;
-    this._things = createDefaultThings();
-  }
-
   isStarted() {
     return !!this._maze;
   }
@@ -82,7 +91,35 @@ export default class GameStore extends Store {
     return this._maze.areThingsStayingTogether([this._things.player, this._things.upstairs]);
   }
 
-  hadPlayerBeenArriveGoal() {
-    return this._maze.isArrivedGoal || this.doesPlayerArriveGoal();
+  hasPlayerBeenVictory() {
+    return this._hasBeenVictory || this.doesPlayerArriveGoal();
   }
+
+  _isTimeLimitExceeded() {
+    return this._gameTime > this._timeLimit;
+  }
+
+  hasPlayerBeenDefeat() {
+    return this._hasBeenDefeat || this._isTimeLimitExceeded();
+  }
+
+  isDecided() {
+    return this.hasPlayerBeenVictory() || this.hasPlayerBeenDefeat();
+  }
+
+  isPlaying() {
+    return this.isStarted() && !this.isDecided();
+  }
+
+  //isFinished() {
+  //  return this.hasPlayerBeenVictory() || this.hasPlayerBeenDefeat();
+  //}
+
+  //hadPlayerBeenArriveGoal() {
+  //  return this._maze.isArrivedGoal || this.doesPlayerArriveGoal();
+  //}
+
+  //didPlayerLose() {
+  //  return !this.hadPlayerBeenArriveGoal() && this._isTimeLimitExceeded();
+  //}
 }
