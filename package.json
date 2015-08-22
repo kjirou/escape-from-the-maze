@@ -50,7 +50,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .es6 *.es6 actions components conf consts dispatchers env inputs lib stores test",
-    "start": "bin/escape-from-the-maze",
+    "start": "node bin/escape-from-the-maze",
     "test": "mocha"
   }
 }
