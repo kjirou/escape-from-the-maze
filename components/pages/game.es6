@@ -86,7 +86,8 @@ export default class GamePageComponent extends PageComponent {
   renderStateBarBox() {
     let gameStore = GameStore.getInstance();
     let gameTimeBySeconds = ~~(gameStore.gameTime / 1000);
-    this._$stateBarBox.setContent('Time: ' + gameTimeBySeconds);
+    let timeLimitBySeconds = ~~(gameStore.timeLimit / 1000);
+    this._$stateBarBox.setContent(`Time: ${gameTimeBySeconds} / ${timeLimitBySeconds}`);
     this.screen.render();
   }
 

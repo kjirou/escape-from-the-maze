@@ -4,6 +4,7 @@ import EventManager from 'lib/event-manager';
 import Store from 'stores/store';
 
 import Maze from 'lib/maze';
+import {stages} from 'lib/stages';
 import PlayerThing from 'lib/things/player';
 import UpstairsThing from 'lib/things/upstairs';
 import {calculateMillisecondsPerFrame} from 'lib/util';
@@ -23,9 +24,11 @@ export default class GameStore extends Store {
     super(...args);
 
     Object.assign(this, {
-      _maze: undefined,
+      _stageTypeId: undefined,
       _gameTime: undefined,
       _timeLimit: undefined,
+      _picksCount: undefined,
+      _maze: undefined,
       _hasBeenVictory: undefined,
       _hasBeenDefeat: undefined,
       _things: undefined
@@ -33,21 +36,31 @@ export default class GameStore extends Store {
     this._reset();
 
     Object.defineProperty(this, 'maze', { get() { return this._maze; } });
+    Object.defineProperty(this, 'timeLimit', { get() { return this._timeLimit; } });
     Object.defineProperty(this, 'gameTime', { get() { return this._gameTime; } });
     Object.defineProperty(this, 'hasBeenVictory', { get() { return this._hasBeenVictory; } });
     Object.defineProperty(this, 'hasBeenDefeat', { get() { return this._hasBeenDefeat; } });
 
     let dispatchers = Dispatchers.getInstance();
     let {emitter} = EventManager.getInstance();
+    let dispatchToken0 = dispatchers.register(({action}) => {
+      switch (action.type) {
+        case ACTIONS.PREPARE_GAME:
+          this._stageTypeId = action.stageTypeId;
+          this._prepare();
+          emitter.emit(EVENTS.UPDATE_MAZE);
+          emitter.emit(EVENTS.UPDATE_GAME_TIME);
+          break;
+      }
+    });
     this._dispatchToken = dispatchers.register(({action}) => {
+      dispatchers.waitFor([
+        dispatchToken0
+      ]);
       switch (action.type) {
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
           this._gameTime += calculateMillisecondsPerFrame();
           emitter.emit(EVENTS.UPDATE_GAME_TIME);
-          break;
-        case ACTIONS.PREPARE_GAME:
-          this._prepare();
-          emitter.emit(EVENTS.UPDATE_MAZE);
           break;
         case ACTIONS.RESET_GAME:
           this._reset();
@@ -69,27 +82,46 @@ export default class GameStore extends Store {
     });
   }
 
+  _getStage() {
+    return stages[this._stageTypeId] || null;
+  }
+
   _reset() {
-    this._maze = null;
-    this._timeLimit = 60000;
+    this._stageTypeId = null;
+    this._timeLimit = 1;
     this._gameTime = 0;  // int, ms
+    this._picksCount = 0;
+    this._resetMaze();
+  }
+
+  _resetMaze() {
+    this._maze = null;
     this._hasBeenVictory = false;
     this._hasBeenDefeat = false;
     this._things = createDefaultThings();
   }
 
   _prepare() {
+    let stage = this._getStage();
+    this._timeLimit = stage.timeLimit;
+    this._picksCount = stage.picksCount;
+    this._prepareMaze();
+  }
+
+  _prepareMaze() {
     let maze = Maze.createByExtent([20, 10]);
-    let playerThing = new PlayerThing();
-    let upstairsThing = new UpstairsThing();
-    maze.addThing(playerThing, [1, 1]);
-    maze.addThing(upstairsThing, [
+    let player = new PlayerThing();
+    let upstairs = new UpstairsThing();
+    maze.addThing(player, [1, 1]);
+    maze.addThing(upstairs, [
       maze.getHeight() - 2,
       maze.getWidth() - 2
     ]);
     this._maze = maze;
-    this._things.player = playerThing;
-    this._things.upstairs = upstairsThing;
+    this._things = {
+      player,
+      upstairs
+    };
   }
 
   //

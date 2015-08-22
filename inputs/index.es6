@@ -4,6 +4,7 @@ import Rx from 'rx';
 
 import GameActionCreators from 'actions/game-action-creators';
 import ScreenActionCreators from 'actions/screen-action-creators';
+import {KEYS} from 'consts';
 import Maze from 'lib/maze';
 import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
@@ -31,8 +32,9 @@ function onKeypressSourceData({ name, ctrl }) {
 
   switch (screenStore.pageId) {
     case 'welcome':
-      if (name === 'space') {
-        ScreenActionCreators.prepareGame();
+      let stageTypeId = KEYS.STAGE_SELECTION[name];
+      if (stageTypeId) {
+        ScreenActionCreators.prepareGame(stageTypeId);
         ScreenActionCreators.changePage('game');
         return;
       }
@@ -103,6 +105,12 @@ export default class Inputs {
       .fromEventPattern(
         (handler) => {
           wrappedHandler = function(chr, key) {
+            if (!key) {
+              key = {
+                name: chr,
+                ctrl: false
+              };
+            }
             handler(key);
           };
           screen.addListener('keypress', wrappedHandler);

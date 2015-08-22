@@ -16,8 +16,8 @@ export class Stage {
 Object.assign(Stage, {
   typeId: '_stage',
   mazeCount: 1,
-  timeLimit: 60,
-  picks: 0,
+  timeLimit: 60000,
+  picksCount: 0,
   description: '----'
 });
 
@@ -33,7 +33,7 @@ export class EasyStage extends Stage {
 }
 Object.assign(EasyStage, {
   typeId: 'easy',
-  picks: 1,
+  picksCount: 1,
   description: 'Enable gimmicks'
 });
 
@@ -42,8 +42,8 @@ export class NormalStage extends Stage {
 Object.assign(NormalStage, {
   typeId: 'normal',
   mazeCount: 2,
-  timeLimit: 45,
-  picks: 2,
+  timeLimit: 90000,
+  picksCount: 2,
   description: 'Plural mazes continue'
 });
 
@@ -52,8 +52,8 @@ export class HardStage extends Stage {
 Object.assign(HardStage, {
   typeId: 'hard',
   mazeCount: 3,
-  timeLimit: 30,
-  picks: 3,
+  timeLimit: 90000,
+  picksCount: 3,
   description: 'More difficult'
 });
 
@@ -61,9 +61,9 @@ export class LunaticStage extends Stage {
 }
 Object.assign(LunaticStage, {
   typeId: 'lunatic',
-  mazeCount: 3,
-  timeLimit: 25,
-  picks: 1,
+  mazeCount: 5,
+  timeLimit: 90000,
+  picksCount: 3,
   description: 'For a person of leisure'
 });
 
