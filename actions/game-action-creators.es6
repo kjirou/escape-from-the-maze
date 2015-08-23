@@ -22,6 +22,13 @@ let GameActionCreators = {
     });
   },
 
+  crushWallByPlayer(direction) {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.CRUSH_WALL_BY_PLAYER,
+      direction
+    });
+  },
+
   forwardGameTimeByFrame() {
     Dispatchers.getInstance().handleViewAction({
       type: ACTIONS.FORWARD_GAME_TIME_BY_FRAME

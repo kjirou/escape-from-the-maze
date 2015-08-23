@@ -60,7 +60,11 @@ function onKeypressSourceData({ name, ctrl }) {
           h: Maze.DIRECTIONS.LEFT
         }[name];
         if (direction) {
-          GameActionCreators.walkPlayer(direction);
+          if (gameStore.isAssumedPicksMode) {
+            GameActionCreators.crushWallByPlayer(direction);
+          } else {
+            GameActionCreators.walkPlayer(direction);
+          }
           return;
         } else if (name === 'space') {
           if (gameStore.isAssumedPicksMode) {

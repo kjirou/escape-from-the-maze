@@ -81,6 +81,12 @@ export default class GameStore extends Store {
           this._isAssumedPicksMode = false;
           emitter.emit(EVENTS.UPDATE_GAME_STATUS);
           break;
+        case ACTIONS.CRUSH_WALL_BY_PLAYER:
+          this._isAssumedPicksMode = false;
+          this._crushWallByPlayer(action.direction);
+          emitter.emit(EVENTS.UPDATE_MAZE);
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          break;
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
           this._gameTime += calculateMillisecondsPerFrame();
           emitter.emit(EVENTS.UPDATE_GAME_STATUS);
@@ -160,6 +166,26 @@ export default class GameStore extends Store {
       player,
       upstairs
     };
+  }
+
+  /*
+   * @param {string} direction  Maze.DIRECTIONS
+   */
+  _crushWallByPlayer(direction) {
+    if (this._picksCount < 1) {
+      return;
+    }
+    let playerPos = this._maze.searchThingPos(this._things.player);
+    let targetPos = Maze.composeCoordinates(
+      playerPos,
+      Maze.getRelativePosByDirection(direction)
+    );
+    let targetThing = this._maze.getCellOrError(targetPos).getThing();
+    if (!targetThing || targetThing.getTypeId() !== 'wall') {
+      return;
+    }
+    this._maze.removeThing(targetThing, targetPos);
+    this._picksCount -= 1;
   }
 
   _pickThingsByPlayer() {
