@@ -19,7 +19,11 @@ function onTimerSourceData({ value, interval }) {
     GameActionCreators.forwardGameTimeByFrame();
   }
   if (gameStore.didPlayerGetVictoryJustNow()) {
-    GameActionCreators.saveVictory();
+    if (gameStore.hasNextMaze()) {
+      GameActionCreators.advanceToNextMaze();
+    } else {
+      GameActionCreators.saveVictory();
+    }
   } else if (gameStore.didPlayerGetDefeatJustNow()) {
     GameActionCreators.saveDefeat();
   }
