@@ -1,12 +1,13 @@
 import uuid from 'uuid';
 
 
-class Thing {
+export default class Thing {
 
   constructor() {
     this.uuid = uuid.v4();
     this._symbol = '?';
     this._isPassable = true;
+    this._isPickable = false;
   }
 
   getTypeId() {
@@ -21,12 +22,15 @@ class Thing {
     return this._isPassable;
   }
 
+  isPickable() {
+    return this._isPickable;
+  }
+
   toContent() {
     return this._symbol;
   }
 }
 
-Thing.typeId = 'thing';
-
-
-export default Thing;
+Object.assign(Thing, {
+  typeId: 'thing'
+});

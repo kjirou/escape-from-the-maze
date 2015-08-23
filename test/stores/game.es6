@@ -3,6 +3,8 @@ import sinon from 'sinon';
 
 import App from 'app';
 import {Stage} from 'lib/stages';
+import BonusTime5Thing from 'lib/things/bonus-time-5';
+import PenaltyTime3Thing from 'lib/things/penalty-time-3';
 import GameStore from 'stores/game';
 
 
@@ -46,5 +48,26 @@ describe('stores/game', function() {
       store.maze.searchThingPos(store._things.upstairs)
     );
     assert.strictEqual(store._doesPlayerArriveGoal(), true);
+  });
+
+  it('_pickThingsByPlayer', function() {
+    var store = _createGameStore();
+    store._prepare();
+    let playerPos = store._maze.searchThingPos(store._things.player);
+    function getThingCount() {
+      return store._maze.getCellOrError(playerPos).getThings().length;
+    }
+    assert.strictEqual(getThingCount(), 1);
+    let bonusTime5Thing = new BonusTime5Thing();
+    let penaltyTime3Thing = new PenaltyTime3Thing();
+
+    store._maze.addThing(bonusTime5Thing, playerPos);
+    store._maze.addThing(penaltyTime3Thing, playerPos);
+
+    assert.strictEqual(getThingCount(), 3);
+    let baseTimeLimit = store._timeLimit;
+    store._pickThingsByPlayer();
+    assert.strictEqual(getThingCount(), 1);
+    assert(store._timeLimit > baseTimeLimit);
   });
 });

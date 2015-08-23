@@ -197,6 +197,18 @@ class Maze {
     return this.areThingsOn(pos, things.slice(1));
   }
 
+  getBlankPosList() {
+    let posList = [];
+    this._cells.forEach((rowCells, rowIndex) => {
+      rowCells.forEach((cell, columnIndex) => {
+        if (cell.getThings().length === 0) {
+          posList.push([rowIndex, columnIndex]);
+        }
+      });
+    });
+    return posList;
+  }
+
   toContent() {
     return this._cells.map(function(rowCells) {
       return rowCells.map(function(cell) {

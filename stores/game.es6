@@ -1,10 +1,13 @@
 import {ACTIONS, EVENTS} from 'consts';
 import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
+import _ from 'lodash';
 import Store from 'stores/store';
 
 import Maze from 'lib/maze';
 import {stages} from 'lib/stages';
+import BonusTime5Thing from 'lib/things/bonus-time-5';
+import PenaltyTime3Thing from 'lib/things/penalty-time-3';
 import PlayerThing from 'lib/things/player';
 import UpstairsThing from 'lib/things/upstairs';
 import {calculateMillisecondsPerFrame} from 'lib/util';
@@ -86,7 +89,9 @@ export default class GameStore extends Store {
           break;
         case ACTIONS.WALK_PLAYER:
           this._maze.walkThing(this._things.player, action.direction);
+          this._pickThingsByPlayer();
           emitter.emit(EVENTS.UPDATE_MAZE);
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
           break;
       }
     });
@@ -120,6 +125,7 @@ export default class GameStore extends Store {
   }
 
   _prepareMaze() {
+    let stage = this._getStage();
     let maze = Maze.createByExtent([20, 10]);
     let player = new PlayerThing();
     let upstairs = new UpstairsThing();
@@ -128,11 +134,43 @@ export default class GameStore extends Store {
       maze.getHeight() - 2,
       maze.getWidth() - 2
     ]);
+
+    _.range(stage.bonusTimeThingCount).forEach(() => {
+      let pos = _.sample(maze.getBlankPosList());
+      maze.addThing(new BonusTime5Thing(), pos);
+    });
+    _.range(stage.penaltyTimeThingCount).forEach(() => {
+      let pos = _.sample(maze.getBlankPosList());
+      maze.addThing(new PenaltyTime3Thing(), pos);
+    });
+
     this._maze = maze;
     this._things = {
       player,
       upstairs
     };
+  }
+
+  _pickThingsByPlayer() {
+    let playerPos = this._maze.searchThingPos(this._things.player);
+    if (!playerPos) {
+      return;
+    }
+    let things = this._maze.getCellOrError(playerPos).getThings();
+    let pickableThings = things.filter(thing => {
+      return thing !== this._things.player && thing.isPickable();
+    });
+    pickableThings.forEach(thing => {
+      switch (thing.getTypeId()) {
+        case 'bonus_time_5':
+          this._timeLimit += 5000;
+          break;
+        case 'penalty_time_3':
+          this._timeLimit -= 3000;
+          break;
+      }
+      this._maze.removeThing(thing, playerPos);
+    });
   }
 
   getMazeCount() {

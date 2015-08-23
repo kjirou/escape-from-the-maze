@@ -17,6 +17,8 @@ Object.assign(Stage, {
   typeId: '_stage',
   mazeCount: 1,
   timeLimit: 60000,
+  bonusTimeThingCount: 5,
+  penaltyTimeThingCount: 3,
   picksCount: 0,
   description: '----'
 });
@@ -26,6 +28,8 @@ export class SimpleStage extends Stage {
 }
 Object.assign(SimpleStage, {
   typeId: 'simple',
+  bonusTimeThingCount: 0,
+  penaltyTimeThingCount: 0,
   description: 'Just run, no gimmick'
 });
 
