@@ -4,7 +4,7 @@
 
 A simple &amp; tiny CUI maze game
 
-![](https://raw.githubusercontent.com/kjirou/escape-from-the-maze/master/doc/demo.gif)
+![](https://raw.githubusercontent.com/kjirou/escape-from-the-maze/master/doc/demo-2.gif)
 
 
 ## Development
