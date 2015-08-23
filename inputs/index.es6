@@ -62,6 +62,13 @@ function onKeypressSourceData({ name, ctrl }) {
         if (direction) {
           GameActionCreators.walkPlayer(direction);
           return;
+        } else if (name === 'space') {
+          if (gameStore.isAssumedPicksMode) {
+            GameActionCreators.cancelPicksMode();
+          } else {
+            GameActionCreators.assumePicksMode();
+          }
+          return;
         }
       } else if (gameStore.isDecided()) {
         if (name === 'space') {

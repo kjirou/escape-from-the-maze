@@ -32,6 +32,7 @@ export default class GameStore extends Store {
       _timeLimit: undefined,
       _runningMazeCount: undefined,
       _picksCount: undefined,
+      _isAssumedPicksMode: undefined,
       _maze: undefined,
       _hasBeenVictory: undefined,
       _hasBeenDefeat: undefined,
@@ -44,6 +45,7 @@ export default class GameStore extends Store {
     Object.defineProperty(this, 'gameTime', { get() { return this._gameTime; } });
     Object.defineProperty(this, 'runningMazeCount', { get() { return this._runningMazeCount; } });
     Object.defineProperty(this, 'picksCount', { get() { return this._picksCount; } });
+    Object.defineProperty(this, 'isAssumedPicksMode', { get() { return this._isAssumedPicksMode; } });
     Object.defineProperty(this, 'hasBeenVictory', { get() { return this._hasBeenVictory; } });
     Object.defineProperty(this, 'hasBeenDefeat', { get() { return this._hasBeenDefeat; } });
 
@@ -71,6 +73,14 @@ export default class GameStore extends Store {
         dispatchToken0
       ]);
       switch (action.type) {
+        case ACTIONS.ASSUME_PICKS_MODE:
+          this._isAssumedPicksMode = true;
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          break;
+        case ACTIONS.CANCEL_PICKS_MODE:
+          this._isAssumedPicksMode = false;
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          break;
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
           this._gameTime += calculateMillisecondsPerFrame();
           emitter.emit(EVENTS.UPDATE_GAME_STATUS);
@@ -107,6 +117,7 @@ export default class GameStore extends Store {
     this._gameTime = 0;  // int, ms
     this._runningMazeCount = 1;
     this._picksCount = 0;
+    this._isAssumedPicksMode = false;
     this._resetMaze();
   }
 
