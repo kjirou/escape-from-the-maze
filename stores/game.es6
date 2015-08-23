@@ -8,6 +8,7 @@ import Maze from 'lib/maze';
 import {stages} from 'lib/stages';
 import BonusTime5Thing from 'lib/things/bonus-time-5';
 import PenaltyTime3Thing from 'lib/things/penalty-time-3';
+import PicksThing from 'lib/things/picks';
 import PlayerThing from 'lib/things/player';
 import UpstairsThing from 'lib/things/upstairs';
 import {calculateMillisecondsPerFrame} from 'lib/util';
@@ -160,6 +161,10 @@ export default class GameStore extends Store {
       let pos = _.sample(maze.getBlankPosList());
       maze.addThing(new PenaltyTime3Thing(), pos);
     });
+    _.range(stage.picksThingCount).forEach(() => {
+      let pos = _.sample(maze.getBlankPosList());
+      maze.addThing(new PicksThing(), pos);
+    });
 
     this._maze = maze;
     this._things = {
@@ -204,6 +209,9 @@ export default class GameStore extends Store {
           break;
         case 'penalty_time_3':
           this._timeLimit -= 3000;
+          break;
+        case 'picks':
+          this._picksCount += 1;
           break;
       }
       this._maze.removeThing(thing, playerPos);
