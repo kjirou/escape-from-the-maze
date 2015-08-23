@@ -10,6 +10,25 @@ let GameActionCreators = {
     });
   },
 
+  assumePicksMode() {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.ASSUME_PICKS_MODE
+    });
+  },
+
+  cancelPicksMode() {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.CANCEL_PICKS_MODE
+    });
+  },
+
+  crushWallByPlayer(direction) {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.CRUSH_WALL_BY_PLAYER,
+      direction
+    });
+  },
+
   forwardGameTimeByFrame() {
     Dispatchers.getInstance().handleViewAction({
       type: ACTIONS.FORWARD_GAME_TIME_BY_FRAME

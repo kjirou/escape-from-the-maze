@@ -220,9 +220,11 @@ class Maze {
 
 
 Object.assign(Maze, {
-  DIRECTIONS: DIRECTIONS,
-  createCells: createCells,
-  extentToSize: extentToSize
+  DIRECTIONS,
+  composeCoordinates,
+  createCells,
+  extentToSize,
+  getRelativePosByDirection
 });
 
 

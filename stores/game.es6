@@ -8,6 +8,7 @@ import Maze from 'lib/maze';
 import {stages} from 'lib/stages';
 import BonusTime5Thing from 'lib/things/bonus-time-5';
 import PenaltyTime3Thing from 'lib/things/penalty-time-3';
+import PicksThing from 'lib/things/picks';
 import PlayerThing from 'lib/things/player';
 import UpstairsThing from 'lib/things/upstairs';
 import {calculateMillisecondsPerFrame} from 'lib/util';
@@ -32,6 +33,7 @@ export default class GameStore extends Store {
       _timeLimit: undefined,
       _runningMazeCount: undefined,
       _picksCount: undefined,
+      _isAssumedPicksMode: undefined,
       _maze: undefined,
       _hasBeenVictory: undefined,
       _hasBeenDefeat: undefined,
@@ -44,6 +46,7 @@ export default class GameStore extends Store {
     Object.defineProperty(this, 'gameTime', { get() { return this._gameTime; } });
     Object.defineProperty(this, 'runningMazeCount', { get() { return this._runningMazeCount; } });
     Object.defineProperty(this, 'picksCount', { get() { return this._picksCount; } });
+    Object.defineProperty(this, 'isAssumedPicksMode', { get() { return this._isAssumedPicksMode; } });
     Object.defineProperty(this, 'hasBeenVictory', { get() { return this._hasBeenVictory; } });
     Object.defineProperty(this, 'hasBeenDefeat', { get() { return this._hasBeenDefeat; } });
 
@@ -71,6 +74,20 @@ export default class GameStore extends Store {
         dispatchToken0
       ]);
       switch (action.type) {
+        case ACTIONS.ASSUME_PICKS_MODE:
+          this._isAssumedPicksMode = true;
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          break;
+        case ACTIONS.CANCEL_PICKS_MODE:
+          this._isAssumedPicksMode = false;
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          break;
+        case ACTIONS.CRUSH_WALL_BY_PLAYER:
+          this._isAssumedPicksMode = false;
+          this._crushWallByPlayer(action.direction);
+          emitter.emit(EVENTS.UPDATE_MAZE);
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          break;
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
           this._gameTime += calculateMillisecondsPerFrame();
           emitter.emit(EVENTS.UPDATE_GAME_STATUS);
@@ -107,6 +124,7 @@ export default class GameStore extends Store {
     this._gameTime = 0;  // int, ms
     this._runningMazeCount = 1;
     this._picksCount = 0;
+    this._isAssumedPicksMode = false;
     this._resetMaze();
   }
 
@@ -143,12 +161,36 @@ export default class GameStore extends Store {
       let pos = _.sample(maze.getBlankPosList());
       maze.addThing(new PenaltyTime3Thing(), pos);
     });
+    _.range(stage.picksThingCount).forEach(() => {
+      let pos = _.sample(maze.getBlankPosList());
+      maze.addThing(new PicksThing(), pos);
+    });
 
     this._maze = maze;
     this._things = {
       player,
       upstairs
     };
+  }
+
+  /*
+   * @param {string} direction  Maze.DIRECTIONS
+   */
+  _crushWallByPlayer(direction) {
+    if (this._picksCount < 1) {
+      return;
+    }
+    let playerPos = this._maze.searchThingPos(this._things.player);
+    let targetPos = Maze.composeCoordinates(
+      playerPos,
+      Maze.getRelativePosByDirection(direction)
+    );
+    let targetThing = this._maze.getCellOrError(targetPos).getThing();
+    if (!targetThing || targetThing.getTypeId() !== 'wall') {
+      return;
+    }
+    this._maze.removeThing(targetThing, targetPos);
+    this._picksCount -= 1;
   }
 
   _pickThingsByPlayer() {
@@ -167,6 +209,9 @@ export default class GameStore extends Store {
           break;
         case 'penalty_time_3':
           this._timeLimit -= 3000;
+          break;
+        case 'picks':
+          this._picksCount += 1;
           break;
       }
       this._maze.removeThing(thing, playerPos);

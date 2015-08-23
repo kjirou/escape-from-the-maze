@@ -19,6 +19,7 @@ Object.assign(Stage, {
   timeLimit: 60000,
   bonusTimeThingCount: 5,
   penaltyTimeThingCount: 3,
+  picksThingCount: 1,
   picksCount: 0,
   description: '----'
 });
@@ -30,6 +31,7 @@ Object.assign(SimpleStage, {
   typeId: 'simple',
   bonusTimeThingCount: 0,
   penaltyTimeThingCount: 0,
+  picksThingCount: 0,
   description: 'Just run, no gimmick'
 });
 

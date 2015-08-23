@@ -87,11 +87,15 @@ export default class GamePageComponent extends PageComponent {
     let gameStore = GameStore.getInstance();
     let gameTimeBySeconds = ~~(gameStore.gameTime / 1000);
     let timeLimitBySeconds = ~~(gameStore.timeLimit / 1000);
-    this._$statusBarBox.setContent(
-      `${gameStore.runningMazeCount}/${gameStore.getMazeCount()}F, ` +
-      `Time: ${gameTimeBySeconds}/${timeLimitBySeconds}, ` +
-      `Picks: ${gameStore.picksCount}`
-    );
+    let picksContent = `Picks: ${gameStore.picksCount}`;
+    let content = `${gameStore.runningMazeCount}/${gameStore.getMazeCount()}F, ` +
+      `Time: ${gameTimeBySeconds}/${timeLimitBySeconds}, `;
+    if (gameStore.isAssumedPicksMode) {
+      content += `{green-fg}${picksContent}{/}`;
+    } else {
+      content += picksContent;
+    }
+    this._$statusBarBox.setContent(content);
     this.screen.render();
   }
 
