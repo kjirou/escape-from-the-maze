@@ -137,6 +137,32 @@ describe('lib/maze', function() {
     assert.strictEqual(maze.areThingsStayingTogether([things[0], things[2]]), false);
   });
 
+  it('getBlankPosList', function() {
+    let maze = new Maze();
+    maze.includeMapText([
+      '#####',
+      '#   #',
+      '#   #',
+      '#####'
+    ].join('\n'));
+    assert.deepEqual(maze.getBlankPosList(), [
+      [1, 1],
+      [1, 2],
+      [1, 3],
+      [2, 1],
+      [2, 2],
+      [2, 3]
+    ]);
+    maze.addThing(new Thing(), [1, 2]);
+    maze.addThing(new Thing(), [2, 3]);
+    assert.deepEqual(maze.getBlankPosList(), [
+      [1, 1],
+      [1, 3],
+      [2, 1],
+      [2, 2]
+    ]);
+  });
+
   it('toContent', function() {
     let maze = Maze.createByExtent([1, 2]);
     maze.getCell([1, 1]).setThing(new PlayerThing());
