@@ -2,6 +2,7 @@ import keymirror from 'keymirror';
 
 
 const ACTIONS = keymirror({
+  ADVANCE_TO_NEXT_MAZE: null,
   CHANGE_PAGE: null,
   FORWARD_GAME_TIME_BY_FRAME: null,
   PREPARE_GAME: null,

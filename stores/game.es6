@@ -27,6 +27,7 @@ export default class GameStore extends Store {
       _stageTypeId: undefined,
       _gameTime: undefined,
       _timeLimit: undefined,
+      _runningMazeCount: undefined,
       _picksCount: undefined,
       _maze: undefined,
       _hasBeenVictory: undefined,
@@ -38,6 +39,8 @@ export default class GameStore extends Store {
     Object.defineProperty(this, 'maze', { get() { return this._maze; } });
     Object.defineProperty(this, 'timeLimit', { get() { return this._timeLimit; } });
     Object.defineProperty(this, 'gameTime', { get() { return this._gameTime; } });
+    Object.defineProperty(this, 'runningMazeCount', { get() { return this._runningMazeCount; } });
+    Object.defineProperty(this, 'picksCount', { get() { return this._picksCount; } });
     Object.defineProperty(this, 'hasBeenVictory', { get() { return this._hasBeenVictory; } });
     Object.defineProperty(this, 'hasBeenDefeat', { get() { return this._hasBeenDefeat; } });
 
@@ -45,11 +48,18 @@ export default class GameStore extends Store {
     let {emitter} = EventManager.getInstance();
     let dispatchToken0 = dispatchers.register(({action}) => {
       switch (action.type) {
+        case ACTIONS.ADVANCE_TO_NEXT_MAZE:
+          this._resetMaze();
+          this._prepareMaze();
+          this._runningMazeCount += 1;
+          emitter.emit(EVENTS.UPDATE_MAZE);
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          break;
         case ACTIONS.PREPARE_GAME:
           this._stageTypeId = action.stageTypeId;
           this._prepare();
           emitter.emit(EVENTS.UPDATE_MAZE);
-          emitter.emit(EVENTS.UPDATE_GAME_TIME);
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
           break;
       }
     });
@@ -60,7 +70,7 @@ export default class GameStore extends Store {
       switch (action.type) {
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
           this._gameTime += calculateMillisecondsPerFrame();
-          emitter.emit(EVENTS.UPDATE_GAME_TIME);
+          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
           break;
         case ACTIONS.RESET_GAME:
           this._reset();
@@ -90,6 +100,7 @@ export default class GameStore extends Store {
     this._stageTypeId = null;
     this._timeLimit = 1;
     this._gameTime = 0;  // int, ms
+    this._runningMazeCount = 1;
     this._picksCount = 0;
     this._resetMaze();
   }
@@ -122,6 +133,18 @@ export default class GameStore extends Store {
       player,
       upstairs
     };
+  }
+
+  getMazeCount() {
+    let stage = this._getStage();
+    if (!stage) {
+      return 0;
+    }
+    return stage.mazeCount;
+  }
+
+  hasNextMaze() {
+    return this._runningMazeCount < this.getMazeCount();
   }
 
   //

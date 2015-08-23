@@ -4,6 +4,12 @@ import Dispatchers from 'dispatchers';
 
 let GameActionCreators = {
 
+  advanceToNextMaze() {
+    Dispatchers.getInstance().handleViewAction({
+      type: ACTIONS.ADVANCE_TO_NEXT_MAZE
+    });
+  },
+
   forwardGameTimeByFrame() {
     Dispatchers.getInstance().handleViewAction({
       type: ACTIONS.FORWARD_GAME_TIME_BY_FRAME

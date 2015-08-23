@@ -42,7 +42,7 @@ export default class GamePageComponent extends PageComponent {
       hidden: true
     });
 
-    this._$stateBarBox = blessed.box({
+    this._$statusBarBox = blessed.box({
       parent: this.$el,
       top: this._$mazeBox.height,
       left: 'left',
@@ -57,7 +57,7 @@ export default class GamePageComponent extends PageComponent {
     });
 
     this.emitter.on(EVENTS.UPDATE_MAZE, this.renderMazeBox.bind(this));
-    this.emitter.on(EVENTS.UPDATE_GAME_TIME, this.renderStateBarBox.bind(this));
+    this.emitter.on(EVENTS.UPDATE_GAME_STATUS, this.renderStatusBarBox.bind(this));
   }
 
   renderMazeBox() {
@@ -83,16 +83,20 @@ export default class GamePageComponent extends PageComponent {
   }
 
   // FIXME: Too heavy
-  renderStateBarBox() {
+  renderStatusBarBox() {
     let gameStore = GameStore.getInstance();
     let gameTimeBySeconds = ~~(gameStore.gameTime / 1000);
     let timeLimitBySeconds = ~~(gameStore.timeLimit / 1000);
-    this._$stateBarBox.setContent(`Time: ${gameTimeBySeconds} / ${timeLimitBySeconds}`);
+    this._$statusBarBox.setContent(
+      `${gameStore.runningMazeCount}/${gameStore.getMazeCount()}F, ` +
+      `Time: ${gameTimeBySeconds}/${timeLimitBySeconds}, ` +
+      `Picks: ${gameStore.picksCount}`
+    );
     this.screen.render();
   }
 
   render() {
     this.renderMazeBox();
-    this.renderStateBarBox();
+    this.renderStatusBarBox();
   }
 }
