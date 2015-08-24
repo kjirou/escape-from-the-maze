@@ -5,13 +5,13 @@ import _ from 'lodash';
 import Store from 'stores/store';
 
 import {stages} from 'lib/stages';
-import BonusTime5Thing from 'lib/things/bonus-time-5';
-import PenaltyTime3Thing from 'lib/things/penalty-time-3';
-import PicksThing from 'lib/things/picks';
-import PlayerThing from 'lib/things/player';
-import UpstairsThing from 'lib/things/upstairs';
 import {calculateMillisecondsPerFrame} from 'lib/util';
 import MazeModel from 'models/MazeModel';
+import BonusTime5ThingModel from 'models/things/BonusTime5ThingModel';
+import PenaltyTime3ThingModel from 'models/things/PenaltyTime3ThingModel';
+import PicksThingModel from 'models/things/PicksThingModel';
+import PlayerThingModel from 'models/things/PlayerThingModel';
+import UpstairsThingModel from 'models/things/UpstairsThingModel';
 
 
 function createDefaultThings() {
@@ -145,8 +145,8 @@ export default class GameStore extends Store {
   _prepareMaze() {
     let stage = this._getStage();
     let maze = MazeModel.createByExtent([20, 10]);
-    let player = new PlayerThing();
-    let upstairs = new UpstairsThing();
+    let player = new PlayerThingModel();
+    let upstairs = new UpstairsThingModel();
     maze.addThing(player, [1, 1]);
     maze.addThing(upstairs, [
       maze.getHeight() - 2,
@@ -155,15 +155,15 @@ export default class GameStore extends Store {
 
     _.range(stage.bonusTimeThingCount).forEach(() => {
       let pos = _.sample(maze.getBlankPosList());
-      maze.addThing(new BonusTime5Thing(), pos);
+      maze.addThing(new BonusTime5ThingModel(), pos);
     });
     _.range(stage.penaltyTimeThingCount).forEach(() => {
       let pos = _.sample(maze.getBlankPosList());
-      maze.addThing(new PenaltyTime3Thing(), pos);
+      maze.addThing(new PenaltyTime3ThingModel(), pos);
     });
     _.range(stage.picksThingCount).forEach(() => {
       let pos = _.sample(maze.getBlankPosList());
-      maze.addThing(new PicksThing(), pos);
+      maze.addThing(new PicksThingModel(), pos);
     });
 
     this._maze = maze;

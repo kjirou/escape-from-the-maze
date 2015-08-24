@@ -15,6 +15,6 @@ export default class PicksThingModel extends ThingModel {
   }
 }
 
-Object.assign(UpstairsThingModel, {
+Object.assign(PicksThingModel, {
   typeId: 'picks'
 });

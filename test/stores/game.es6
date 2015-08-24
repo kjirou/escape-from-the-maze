@@ -3,9 +3,9 @@ import sinon from 'sinon';
 
 import App from 'app';
 import {Stage} from 'lib/stages';
-import BonusTime5Thing from 'lib/things/bonus-time-5';
-import PenaltyTime3Thing from 'lib/things/penalty-time-3';
 import MazeModel from 'models/MazeModel';
+import BonusTime5ThingModel from 'models/things/BonusTime5ThingModel';
+import PenaltyTime3ThingModel from 'models/things/PenaltyTime3ThingModel';
 import GameStore from 'stores/game';
 
 
@@ -73,8 +73,8 @@ describe('stores/game', function() {
       return store._maze.getCellOrError(playerPos).getThings().length;
     }
     assert.strictEqual(getThingCount(), 1);
-    let bonusTime5Thing = new BonusTime5Thing();
-    let penaltyTime3Thing = new PenaltyTime3Thing();
+    let bonusTime5Thing = new BonusTime5ThingModel();
+    let penaltyTime3Thing = new PenaltyTime3ThingModel();
 
     store._maze.addThing(bonusTime5Thing, playerPos);
     store._maze.addThing(penaltyTime3Thing, playerPos);
