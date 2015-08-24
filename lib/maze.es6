@@ -4,8 +4,8 @@ import keymirror from 'keymirror';
 import _s from 'underscore.string';
 
 import Cell from 'lib/cell';
-import ThingIndexer from 'lib/thing-indexer';
 import WallThing from 'lib/things/wall';
+import ThingIndexerModel from 'models/ThingIndexerModel';
 
 
 const DIRECTIONS = keymirror({
@@ -47,7 +47,7 @@ function composeCoordinates(startPos, relativePos) {
 class Maze {
 
   constructor() {
-    this._thingIndexer = new ThingIndexer();
+    this._thingIndexer = new ThingIndexerModel();
     this._cells = null;
   }
 

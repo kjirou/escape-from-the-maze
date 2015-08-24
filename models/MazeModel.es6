@@ -5,8 +5,8 @@ import _s from 'underscore.string';
 
 import CellModel from 'models/CellModel';
 import Model from 'models/Model';
+import ThingIndexerModel from 'models/ThingIndexerModel';
 import WallThingModel from 'models/things/WallThingModel';
-import ThingIndexer from 'lib/thing-indexer';
 
 
 const DIRECTIONS = keymirror({
@@ -50,7 +50,7 @@ export default class MazeModel extends Model {
   constructor() {
     super();
 
-    this._thingIndexer = new ThingIndexer();
+    this._thingIndexer = new ThingIndexerModel();
     this._cells = null;
   }
 
