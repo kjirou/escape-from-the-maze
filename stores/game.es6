@@ -4,7 +4,6 @@ import EventManager from 'lib/event-manager';
 import _ from 'lodash';
 import Store from 'stores/store';
 
-import Maze from 'lib/maze';
 import {stages} from 'lib/stages';
 import BonusTime5Thing from 'lib/things/bonus-time-5';
 import PenaltyTime3Thing from 'lib/things/penalty-time-3';
@@ -12,6 +11,7 @@ import PicksThing from 'lib/things/picks';
 import PlayerThing from 'lib/things/player';
 import UpstairsThing from 'lib/things/upstairs';
 import {calculateMillisecondsPerFrame} from 'lib/util';
+import MazeModel from 'models/MazeModel';
 
 
 function createDefaultThings() {
@@ -144,7 +144,7 @@ export default class GameStore extends Store {
 
   _prepareMaze() {
     let stage = this._getStage();
-    let maze = Maze.createByExtent([20, 10]);
+    let maze = MazeModel.createByExtent([20, 10]);
     let player = new PlayerThing();
     let upstairs = new UpstairsThing();
     maze.addThing(player, [1, 1]);
@@ -181,9 +181,9 @@ export default class GameStore extends Store {
       return;
     }
     let playerPos = this._maze.searchThingPos(this._things.player);
-    let targetPos = Maze.composeCoordinates(
+    let targetPos = MazeModel.composeCoordinates(
       playerPos,
-      Maze.getRelativePosByDirection(direction)
+      MazeModel.getRelativePosByDirection(direction)
     );
     let targetThing = this._maze.getCellOrError(targetPos).getThing();
     if (!targetThing || targetThing.getTypeId() !== 'wall') {

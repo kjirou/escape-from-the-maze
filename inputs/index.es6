@@ -5,10 +5,10 @@ import Rx from 'rx';
 import GameActionCreators from 'actions/game-action-creators';
 import ScreenActionCreators from 'actions/screen-action-creators';
 import {KEYS} from 'consts';
-import Maze from 'lib/maze';
 import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
 import {calculateMillisecondsPerFrame} from 'lib/util';
+import MazeModel from 'models/MazeModel';
 import GameStore from 'stores/game';
 import ScreenStore from 'stores/screen';
 
@@ -46,18 +46,18 @@ function onKeypressSourceData({ name, ctrl }) {
     case 'game':
       if (gameStore.isPlaying()) {
         let direction = {
-          up: Maze.DIRECTIONS.UP,
-          w: Maze.DIRECTIONS.UP,
-          k: Maze.DIRECTIONS.UP,
-          right: Maze.DIRECTIONS.RIGHT,
-          d: Maze.DIRECTIONS.RIGHT,
-          l: Maze.DIRECTIONS.RIGHT,
-          down: Maze.DIRECTIONS.DOWN,
-          s: Maze.DIRECTIONS.DOWN,
-          j: Maze.DIRECTIONS.DOWN,
-          left: Maze.DIRECTIONS.LEFT,
-          a: Maze.DIRECTIONS.LEFT,
-          h: Maze.DIRECTIONS.LEFT
+          up: MazeModel.DIRECTIONS.UP,
+          w: MazeModel.DIRECTIONS.UP,
+          k: MazeModel.DIRECTIONS.UP,
+          right: MazeModel.DIRECTIONS.RIGHT,
+          d: MazeModel.DIRECTIONS.RIGHT,
+          l: MazeModel.DIRECTIONS.RIGHT,
+          down: MazeModel.DIRECTIONS.DOWN,
+          s: MazeModel.DIRECTIONS.DOWN,
+          j: MazeModel.DIRECTIONS.DOWN,
+          left: MazeModel.DIRECTIONS.LEFT,
+          a: MazeModel.DIRECTIONS.LEFT,
+          h: MazeModel.DIRECTIONS.LEFT
         }[name];
         if (direction) {
           if (gameStore.isAssumedPicksMode) {

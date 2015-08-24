@@ -2,10 +2,10 @@ import assert from 'power-assert';
 import sinon from 'sinon';
 
 import App from 'app';
-import Maze from 'lib/maze';
 import {Stage} from 'lib/stages';
 import BonusTime5Thing from 'lib/things/bonus-time-5';
 import PenaltyTime3Thing from 'lib/things/penalty-time-3';
+import MazeModel from 'models/MazeModel';
 import GameStore from 'stores/game';
 
 
@@ -59,7 +59,7 @@ describe('stores/game', function() {
     let upperPos = [playerPos[0] - 1, playerPos[1]];
     let wallAtUpper = store._maze.getCellOrError(upperPos).getThing();
     assert.strictEqual(wallAtUpper.getTypeId(), 'wall');
-    store._crushWallByPlayer(Maze.DIRECTIONS.UP);
+    store._crushWallByPlayer(MazeModel.DIRECTIONS.UP);
     let crushedThing = store._maze.getCellOrError(upperPos).getThing();
     assert.strictEqual(crushedThing, null);
     assert.strictEqual(store._picksCount, 0);
