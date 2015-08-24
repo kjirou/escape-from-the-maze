@@ -1,20 +1,20 @@
 import assert from 'power-assert';
 
-import Maze from 'lib/maze';
-import Thing from 'lib/things/thing';
-import PlayerThing from 'lib/things/player';
-import UpstairsThing from 'lib/things/upstairs';
+import MazeModel from 'models/MazeModel';
+import ThingModel from 'models/things/ThingModel';
+import PlayerThingModel from 'models/things/PlayerThingModel';
+import UpstairsThingModel from 'models/things/UpstairsThingModel';
 
 
-describe('lib/maze', function() {
+describe(__filename, function() {
 
   it('extentToSize', function() {
-    assert.strictEqual(Maze.extentToSize(1), 1 * 2 + 1);
-    assert.strictEqual(Maze.extentToSize(5), 5 * 2 + 1);
+    assert.strictEqual(MazeModel.extentToSize(1), 1 * 2 + 1);
+    assert.strictEqual(MazeModel.extentToSize(5), 5 * 2 + 1);
   });
 
   it('createCells', function() {
-    let cells = Maze.createCells([3, 3]);
+    let cells = MazeModel.createCells([3, 3]);
     let actual = cells.map(function(rowCells) {
       return rowCells.map(function(cell) {
         return cell.toContent();
@@ -28,7 +28,7 @@ describe('lib/maze', function() {
   });
 
   it('getWidth, getHeight, getSize', function() {
-    let maze = Maze.createByExtent([3, 2]);
+    let maze = MazeModel.createByExtent([3, 2]);
     assert.strictEqual(maze.getWidth(), 7);
     assert.strictEqual(maze.getHeight(), 5);
     assert.strictEqual(maze.getSize()[0], 7);
@@ -36,7 +36,7 @@ describe('lib/maze', function() {
   });
 
   it('getCell, getCellOrError', function() {
-    let maze = Maze.createByExtent([1, 2]);
+    let maze = MazeModel.createByExtent([1, 2]);
     assert.strictEqual(maze.getCell([0, 0]), maze._cells[0][0]);
     assert.strictEqual(maze.getCell([0, 1]), maze._cells[0][1]);
 
@@ -50,12 +50,12 @@ describe('lib/maze', function() {
   });
 
   it('validateThingMovement', function() {
-    let maze = Maze.createByExtent([1, 3]);
-    let player = new PlayerThing();
+    let maze = MazeModel.createByExtent([1, 3]);
+    let player = new PlayerThingModel();
     maze.getCell([1, 1]).setThing(player);
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [2, 1]), true);
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [3, 1]), true);
-    assert.strictEqual(maze.validateThingMovement(new Thing(), [1, 1], [3, 1]), false, 'The thing is not placed on the cell');
+    assert.strictEqual(maze.validateThingMovement(new ThingModel(), [1, 1], [3, 1]), false, 'The thing is not placed on the cell');
     assert.strictEqual(maze.validateThingMovement(player, [2, 1], [3, 1]), false, 'The player does not exist on the cell');
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [99, 1]), false);
     assert.strictEqual(maze.validateThingMovement(player, [1, 1], [2, 99]), false);
@@ -65,8 +65,8 @@ describe('lib/maze', function() {
   it('moveThing', function() {
     let maze, player;
 
-    maze = Maze.createByExtent([1, 3]);
-    player = new PlayerThing();
+    maze = MazeModel.createByExtent([1, 3]);
+    player = new PlayerThingModel();
     maze.addThing(player, [1, 1]);
     maze.moveThing(player, [1, 1], [2, 1]);
     assert.strictEqual(maze.getCell([1, 1]).getThing(), null);
@@ -76,8 +76,8 @@ describe('lib/maze', function() {
     assert.strictEqual(maze.getCell([2, 1]).getThing(), null);
     assert.strictEqual(maze.getCell([3, 1]).getThing(), player);
 
-    maze = Maze.createByExtent([1, 3]);
-    player = new PlayerThing();
+    maze = MazeModel.createByExtent([1, 3]);
+    player = new PlayerThingModel();
     maze.getCell([1, 1]).setThing(player);
     assert.throws(function() {
       maze.moveThing(player, [2, 1], [3, 1]);
@@ -92,42 +92,42 @@ describe('lib/maze', function() {
 
   it('walkThing', function() {
     let maze, player, upstairs;
-    maze = new Maze();
+    maze = new MazeModel();
     maze.includeMapText([
       '#####',
       '#   #',
       '#   #',
       '#####'
     ].join('\n'));
-    player = new PlayerThing();
-    upstairs = new UpstairsThing();
+    player = new PlayerThingModel();
+    upstairs = new UpstairsThingModel();
     maze.addThing(player, [1, 1]);
     maze.addThing(upstairs, [maze.getHeight() - 2, maze.getWidth() - 2]);
-    maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
-    maze.walkThing(player, Maze.DIRECTIONS.DOWN);
-    maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
+    maze.walkThing(player, MazeModel.DIRECTIONS.RIGHT);
+    maze.walkThing(player, MazeModel.DIRECTIONS.DOWN);
+    maze.walkThing(player, MazeModel.DIRECTIONS.RIGHT);
     assert.deepEqual(maze.getCell([2, 3]).getThings(), [upstairs, player]);
 
-    maze.walkThing(player, Maze.DIRECTIONS.RIGHT);
-    maze.walkThing(player, Maze.DIRECTIONS.DOWN);
+    maze.walkThing(player, MazeModel.DIRECTIONS.RIGHT);
+    maze.walkThing(player, MazeModel.DIRECTIONS.DOWN);
     assert.deepEqual(maze.getCell([2, 3]).getThings(), [upstairs, player], 'Can not move to impassable cell');
 
-    maze.walkThing(player, Maze.DIRECTIONS.LEFT);
+    maze.walkThing(player, MazeModel.DIRECTIONS.LEFT);
     assert.strictEqual(maze.getCell([2, 2]).getThing(), player);
 
-    maze.walkThing(player, Maze.DIRECTIONS.UP);
+    maze.walkThing(player, MazeModel.DIRECTIONS.UP);
     assert.strictEqual(maze.getCell([1, 2]).getThing(), player);
   });
 
   it('areThingsOn, areThingsStayingTogether', function() {
-    let maze = new Maze();
+    let maze = new MazeModel();
     maze.includeMapText([
       '#####',
       '#   #',
       '#   #',
       '#####'
     ].join('\n'));
-    let things = Array.from({ length: 3 }).map(() => new Thing());
+    let things = Array.from({ length: 3 }).map(() => new ThingModel());
     maze.addThing(things[0], [1, 1]);
     maze.addThing(things[1], [1, 1]);
     maze.addThing(things[2], [1, 2]);
@@ -138,7 +138,7 @@ describe('lib/maze', function() {
   });
 
   it('getBlankPosList', function() {
-    let maze = new Maze();
+    let maze = new MazeModel();
     maze.includeMapText([
       '#####',
       '#   #',
@@ -153,8 +153,8 @@ describe('lib/maze', function() {
       [2, 2],
       [2, 3]
     ]);
-    maze.addThing(new Thing(), [1, 2]);
-    maze.addThing(new Thing(), [2, 3]);
+    maze.addThing(new ThingModel(), [1, 2]);
+    maze.addThing(new ThingModel(), [2, 3]);
     assert.deepEqual(maze.getBlankPosList(), [
       [1, 1],
       [1, 3],
@@ -164,12 +164,12 @@ describe('lib/maze', function() {
   });
 
   it('toContent', function() {
-    let maze = Maze.createByExtent([1, 2]);
-    maze.getCell([1, 1]).setThing(new PlayerThing());
+    let maze = MazeModel.createByExtent([1, 2]);
+    maze.getCell([1, 1]).setThing(new PlayerThingModel());
     maze.getCell([
       maze.getHeight() - 2,
       maze.getWidth() - 2
-    ]).setThing(new UpstairsThing());
+    ]).setThing(new UpstairsThingModel());
     assert.strictEqual(maze.toContent(),
       '###\n' +
       '#{green-fg}@{/}#\n' +

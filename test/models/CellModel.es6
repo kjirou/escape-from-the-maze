@@ -1,18 +1,18 @@
 import assert from 'power-assert';
 
-import Cell from 'lib/cell';
-import Thing from 'lib/things/thing';
+import CellModel from 'models/CellModel';
+import ThingModel from 'models/things/ThingModel';
 
 
-describe('lib/cell', function() {
+describe(__filename, function() {
 
   it('should be defined', function() {
-    assert.strictEqual(typeof Cell, 'function');
+    assert.strictEqual(typeof CellModel, 'function');
   });
 
   it('thing accessors', function() {
-    let cell = new Cell();
-    let thing = new Thing();
+    let cell = new CellModel();
+    let thing = new ThingModel();
 
     assert.strictEqual(cell.findThing(thing), null);
     assert.strictEqual(cell.hasThing(thing), false);
@@ -21,7 +21,7 @@ describe('lib/cell', function() {
     assert.strictEqual(cell.findThingOrError(thing), thing);
     assert.strictEqual(cell.hasThing(thing), true);
 
-    let anotherThing = new Thing();
+    let anotherThing = new ThingModel();
     assert.strictEqual(cell.findThing(anotherThing), null);
     assert.throws(function() {
       cell.findThingOrError(anotherThing);
@@ -35,20 +35,20 @@ describe('lib/cell', function() {
 
   it('isPassable', function() {
     let cell, thing;
-    cell = new Cell();
+    cell = new CellModel();
     assert.strictEqual(cell.isPassable(), true);
 
-    thing = new Thing();
+    thing = new ThingModel();
     thing._isPassable = true;
     cell.setThing(thing);
     assert.strictEqual(cell.isPassable(), true);
 
-    thing = new Thing();
+    thing = new ThingModel();
     thing._isPassable = false;
     cell.setThing(thing);
     assert.strictEqual(cell.isPassable(), false);
 
-    thing = new Thing();
+    thing = new ThingModel();
     thing._isPassable = true;
     cell.setThing(thing);
     assert.strictEqual(cell.isPassable(), false);
@@ -56,9 +56,9 @@ describe('lib/cell', function() {
 
   it('toContent', function() {
     let cell;
-    cell = new Cell();
+    cell = new CellModel();
     assert.strictEqual(cell.toContent(), ' ');
-    cell.setThing(new Thing());
+    cell.setThing(new ThingModel());
     assert.strictEqual(cell.toContent(), '?');
   });
 });

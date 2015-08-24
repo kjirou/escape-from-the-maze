@@ -1,7 +1,7 @@
-import Thing from 'lib/things/thing';
+import ThingModel from 'models/things/ThingModel';
 
 
-export default class PicksThing extends Thing {
+export default class PicksThingModel extends ThingModel {
 
   constructor() {
     super();
@@ -15,6 +15,6 @@ export default class PicksThing extends Thing {
   }
 }
 
-Object.assign(PicksThing, {
+Object.assign(PicksThingModel, {
   typeId: 'picks'
 });

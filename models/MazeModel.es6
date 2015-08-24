@@ -3,9 +3,10 @@ import _ from 'lodash';
 import keymirror from 'keymirror';
 import _s from 'underscore.string';
 
-import Cell from 'lib/cell';
-import ThingIndexer from 'lib/thing-indexer';
-import WallThing from 'lib/things/wall';
+import CellModel from 'models/CellModel';
+import Model from 'models/Model';
+import ThingIndexerModel from 'models/ThingIndexerModel';
+import WallThingModel from 'models/things/WallThingModel';
 
 
 const DIRECTIONS = keymirror({
@@ -18,7 +19,7 @@ const DIRECTIONS = keymirror({
 function createCells(size) {
   return _.range(size[1]).map(function() {
     return _.range(size[0]).map(function() {
-      return new Cell();
+      return new CellModel();
     });
   });
 }
@@ -44,10 +45,12 @@ function composeCoordinates(startPos, relativePos) {
 }
 
 
-class Maze {
+export default class MazeModel extends Model {
 
   constructor() {
-    this._thingIndexer = new ThingIndexer();
+    super();
+
+    this._thingIndexer = new ThingIndexerModel();
     this._cells = null;
   }
 
@@ -79,7 +82,7 @@ class Maze {
           .map(function(columnIndex) {
             let chr = mapAsCharacters[rowIndex][columnIndex];
             if (chr === '#') {
-              that.addThing(new WallThing(), [rowIndex, columnIndex]);
+              that.addThing(new WallThingModel(), [rowIndex, columnIndex]);
             }
           })
         ;
@@ -218,14 +221,10 @@ class Maze {
   }
 }
 
-
-Object.assign(Maze, {
+Object.assign(MazeModel, {
   DIRECTIONS,
   composeCoordinates,
   createCells,
   extentToSize,
   getRelativePosByDirection
 });
-
-
-export default Maze;

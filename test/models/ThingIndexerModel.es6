@@ -1,17 +1,17 @@
 import assert from 'power-assert';
 import uuidModule from 'uuid';
 
-import ThingIndexer from 'lib/thing-indexer';
+import ThingIndexerModel from 'models/ThingIndexerModel';
 
 
-describe('lib/thing-indexer', function() {
+describe(__filename, function() {
 
   it('should be defined', function() {
-    assert.strictEqual(typeof ThingIndexer, 'function');
+    assert.strictEqual(typeof ThingIndexerModel, 'function');
   });
 
   it('update, get, getIds', function() {
-    let indexer = new ThingIndexer();
+    let indexer = new ThingIndexerModel();
     assert.deepEqual(indexer.getIds(), []);
     let uuid = uuidModule.v4();
     indexer.update(uuid, [1, 2]);
@@ -22,7 +22,7 @@ describe('lib/thing-indexer', function() {
   });
 
   it('remove', function() {
-    let indexer = new ThingIndexer();
+    let indexer = new ThingIndexerModel();
     let uuid1 = uuidModule.v4();
     let uuid2 = uuidModule.v4();
     indexer.update(uuid1, [1, 2]);

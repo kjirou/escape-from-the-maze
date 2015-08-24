@@ -1,9 +1,13 @@
 import _ from 'lodash';
 
+import Model from 'models/Model';
 
-class Cell {
+
+export default class CellModel extends Model {
 
   constructor() {
+    super();
+
     this._things = [];
   }
 
@@ -78,6 +82,3 @@ class Cell {
     }
   }
 }
-
-
-export default Cell;

@@ -1,7 +1,7 @@
-import Thing from 'lib/things/thing';
+import ThingModel from 'models/things/ThingModel';
 
 
-export default class BonusTime5Thing extends Thing {
+export default class BonusTime5ThingModel extends ThingModel {
 
   constructor() {
     super();
@@ -15,6 +15,6 @@ export default class BonusTime5Thing extends Thing {
   }
 }
 
-Object.assign(BonusTime5Thing, {
+Object.assign(BonusTime5ThingModel, {
   typeId: 'bonus_time_5'
 });

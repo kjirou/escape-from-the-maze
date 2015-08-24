@@ -1,6 +1,11 @@
-class ThingIndexer {
+import Model from 'models/Model';
+
+
+export default class ThingIndexerModel extends Model {
 
   constructor() {
+    super();
+
     this._indexes = {};
   }
 
@@ -24,6 +29,3 @@ class ThingIndexer {
     return Object.keys(this._indexes);
   }
 }
-
-
-export default ThingIndexer;

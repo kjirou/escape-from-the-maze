@@ -1,9 +1,13 @@
 import uuid from 'uuid';
 
+import Model from 'models/Model';
 
-export default class Thing {
+
+export default class ThingModel extends Model {
 
   constructor() {
+    super();
+
     this.uuid = uuid.v4();
     this._symbol = '?';
     this._isPassable = true;
@@ -31,6 +35,6 @@ export default class Thing {
   }
 }
 
-Object.assign(Thing, {
-  typeId: 'thing'
+Object.assign(ThingModel, {
+  typeId: '_thing'
 });
