@@ -1,18 +1,18 @@
 import ACTIONS from 'consts/actions';
-import Dispatchers from 'dispatchers';
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
 
 const ScreenActionCreators = {
 
   changePage(pageId) {
-    Dispatchers.getInstance().handleViewAction({
+    AppDispatcher.getInstance().dispatch({
       type: ACTIONS.CHANGE_PAGE,
       pageId
     });
   },
 
   prepareGame(stageTypeId) {
-    Dispatchers.getInstance().handleViewAction({
+    AppDispatcher.getInstance().dispatch({
       type: ACTIONS.PREPARE_GAME,
       stageTypeId
     });

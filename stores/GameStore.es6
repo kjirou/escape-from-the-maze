@@ -1,5 +1,5 @@
 import {ACTIONS, EVENTS} from 'consts';
-import Dispatchers from 'dispatchers';
+import AppDispatcher from 'dispatcher/AppDispatcher';
 import EventManager from 'lib/event-manager';
 import _ from 'lodash';
 
@@ -50,9 +50,9 @@ export default class GameStore extends Store {
     Object.defineProperty(this, 'hasBeenVictory', { get() { return this._hasBeenVictory; } });
     Object.defineProperty(this, 'hasBeenDefeat', { get() { return this._hasBeenDefeat; } });
 
-    let dispatchers = Dispatchers.getInstance();
+    let dispatcher = AppDispatcher.getInstance();
     let {emitter} = EventManager.getInstance();
-    let dispatchToken0 = dispatchers.register(({action}) => {
+    let dispatchToken0 = dispatcher.register((action) => {
       switch (action.type) {
         case ACTIONS.ADVANCE_TO_NEXT_MAZE:
           this._resetMaze();
@@ -69,8 +69,8 @@ export default class GameStore extends Store {
           break;
       }
     });
-    this._dispatchToken = dispatchers.register(({action}) => {
-      dispatchers.waitFor([
+    this._dispatchToken = dispatcher.register((action) => {
+      dispatcher.waitFor([
         dispatchToken0
       ]);
       switch (action.type) {
