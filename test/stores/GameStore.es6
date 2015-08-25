@@ -6,10 +6,10 @@ import {Stage} from 'lib/stages';
 import MazeModel from 'models/MazeModel';
 import BonusTime5ThingModel from 'models/things/BonusTime5ThingModel';
 import PenaltyTime3ThingModel from 'models/things/PenaltyTime3ThingModel';
-import GameStore from 'stores/game';
+import GameStore from 'stores/GameStore';
 
 
-describe('stores/game', function() {
+describe(__filename, function() {
 
   function _createGameStore() {
     var store = new GameStore();

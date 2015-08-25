@@ -2,7 +2,7 @@ import blessed from 'blessed';
 
 import PageComponent from 'components/pages/page';
 import EVENTS from 'consts/events';
-import GameStore from 'stores/game';
+import GameStore from 'stores/GameStore';
 
 
 export default class GamePageComponent extends PageComponent {

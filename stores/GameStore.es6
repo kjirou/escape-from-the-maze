@@ -2,7 +2,6 @@ import {ACTIONS, EVENTS} from 'consts';
 import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
 import _ from 'lodash';
-import Store from 'stores/store';
 
 import {stages} from 'lib/stages';
 import {calculateMillisecondsPerFrame} from 'lib/util';
@@ -12,6 +11,7 @@ import PenaltyTime3ThingModel from 'models/things/PenaltyTime3ThingModel';
 import PicksThingModel from 'models/things/PicksThingModel';
 import PlayerThingModel from 'models/things/PlayerThingModel';
 import UpstairsThingModel from 'models/things/UpstairsThingModel';
+import Store from 'stores/Store';
 
 
 function createDefaultThings() {

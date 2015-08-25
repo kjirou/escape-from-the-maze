@@ -1,9 +1,9 @@
 import assert from 'power-assert';
 
-import ScreenStore from 'stores/screen';
+import ScreenStore from 'stores/ScreenStore';
 
 
-describe('stores/screen', function() {
+describe(__filename, function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof ScreenStore, 'function');

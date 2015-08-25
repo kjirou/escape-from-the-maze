@@ -4,7 +4,7 @@ import Component from 'components/component';
 import EVENTS from 'consts/events';
 import GamePageComponent from 'components/pages/game';
 import WelcomePageComponent from 'components/pages/welcome';
-import ScreenStore from 'stores/screen';
+import ScreenStore from 'stores/ScreenStore';
 
 
 export default class ScreenComponent extends Component {

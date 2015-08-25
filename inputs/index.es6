@@ -9,8 +9,8 @@ import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
 import {calculateMillisecondsPerFrame} from 'lib/util';
 import MazeModel from 'models/MazeModel';
-import GameStore from 'stores/game';
-import ScreenStore from 'stores/screen';
+import GameStore from 'stores/GameStore';
+import ScreenStore from 'stores/ScreenStore';
 
 
 function onTimerSourceData({ value, interval }) {

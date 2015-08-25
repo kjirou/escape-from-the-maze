@@ -1,8 +1,8 @@
 import {ACTIONS, EVENTS} from 'consts';
 import Dispatchers from 'dispatchers';
 import EventManager from 'lib/event-manager';
-import GameStore from 'stores/game';
-import Store from 'stores/store';
+import Store from 'stores/Store';
+import GameStore from 'stores/GameStore';
 
 
 class ScreenStore extends Store {

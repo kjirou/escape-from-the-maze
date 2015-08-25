@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import SingletonMixin from 'lib/mixins/singleton';
 
 
@@ -17,4 +15,4 @@ export default class Store {
   }
 }
 
-_.assign(Store, SingletonMixin);
+Object.assign(Store, SingletonMixin);

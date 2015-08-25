@@ -1,9 +1,9 @@
 import assert from 'power-assert';
 
-import Store from 'stores/store';
+import Store from 'stores/Store';
 
 
-describe('stores/store', function() {
+describe(__filename, function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof Store, 'function');

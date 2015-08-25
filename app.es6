@@ -6,8 +6,8 @@ import Inputs from 'inputs';
 import EventManager from 'lib/event-manager';
 import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
-import GameStore from 'stores/game';
-import ScreenStore from 'stores/screen';
+import GameStore from 'stores/GameStore';
+import ScreenStore from 'stores/ScreenStore';
 
 
 export default class App {
