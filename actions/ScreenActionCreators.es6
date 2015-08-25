@@ -2,7 +2,7 @@ import ACTIONS from 'consts/actions';
 import Dispatchers from 'dispatchers';
 
 
-let ScreenActionCreators = {
+const ScreenActionCreators = {
 
   changePage(pageId) {
     Dispatchers.getInstance().handleViewAction({

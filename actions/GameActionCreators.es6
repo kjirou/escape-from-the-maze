@@ -2,7 +2,7 @@ import ACTIONS from 'consts/actions';
 import Dispatchers from 'dispatchers';
 
 
-let GameActionCreators = {
+const GameActionCreators = {
 
   advanceToNextMaze() {
     Dispatchers.getInstance().handleViewAction({
@@ -53,11 +53,6 @@ let GameActionCreators = {
     });
   },
 
-  /**
-   * Walk player to direction
-   *
-   * @param {string} pageId
-   */
   walkPlayer(direction) {
     Dispatchers.getInstance().handleViewAction({
       type: ACTIONS.WALK_PLAYER,

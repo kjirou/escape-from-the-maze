@@ -2,8 +2,8 @@ import chalk from 'chalk';
 import _ from 'lodash';
 import Rx from 'rx';
 
-import GameActionCreators from 'actions/game-action-creators';
-import ScreenActionCreators from 'actions/screen-action-creators';
+import GameActionCreators from 'actions/GameActionCreators';
+import ScreenActionCreators from 'actions/ScreenActionCreators';
 import {KEYS} from 'consts';
 import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
