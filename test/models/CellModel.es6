@@ -2,9 +2,10 @@ import assert from 'power-assert';
 
 import CellModel from 'models/CellModel';
 import ThingModel from 'models/things/ThingModel';
+import {heading} from 'test/support/helpers';
 
 
-describe(__filename, function() {
+describe(heading(__filename), function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof CellModel, 'function');

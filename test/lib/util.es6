@@ -4,9 +4,10 @@ import {
   calculateMillisecondsPerFrame,
   dictionarize
 } from 'lib/util';
+import {heading} from 'test/support/helpers';
 
 
-describe('lib/util', function() {
+describe(heading(__filename), function() {
 
   it('calculateMillisecondsPerFrame', function() {
     assert.strictEqual(calculateMillisecondsPerFrame(), 33);

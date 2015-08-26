@@ -1,9 +1,10 @@
 import assert from 'power-assert';
 
 import Store from 'stores/Store';
+import {heading} from 'test/support/helpers';
 
 
-describe(__filename, function() {
+describe(heading(__filename), function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof Store, 'function');

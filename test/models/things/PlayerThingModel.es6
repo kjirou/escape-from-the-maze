@@ -2,9 +2,10 @@ import assert from 'power-assert';
 import validatorjs from 'validator';
 
 import PlayerThingModel from 'models/things/PlayerThingModel';
+import {heading} from 'test/support/helpers';
 
 
-describe(__filename, function() {
+describe(heading(__filename), function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof PlayerThingModel, 'function');

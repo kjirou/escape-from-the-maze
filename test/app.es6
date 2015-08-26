@@ -2,9 +2,10 @@ import assert from 'power-assert';
 
 import App from 'app';
 import EventManager from 'lib/event-manager';
+import {heading} from 'test/support/helpers';
 
 
-describe('app', function() {
+describe(heading(__filename), function() {
 
   beforeEach(function() {
     App.purgeInstances();

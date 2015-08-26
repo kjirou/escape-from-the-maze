@@ -2,9 +2,10 @@ import assert from 'power-assert';
 
 import someEs5Module from '../support/some-es5-module';
 import someEs6Module from '../support/some-es6-module';
+import {heading} from 'test/support/helpers';
 
 
-describe('power-assert vendor', function() {
+describe(heading(__filename), function() {
 
   it('should assert .js codes as ES5', function() {
     assert.deepEqual(someEs5Module, {

@@ -7,9 +7,10 @@ import MazeModel from 'models/MazeModel';
 import BonusTime5ThingModel from 'models/things/BonusTime5ThingModel';
 import PenaltyTime3ThingModel from 'models/things/PenaltyTime3ThingModel';
 import GameStore from 'stores/GameStore';
+import {heading} from 'test/support/helpers';
 
 
-describe(__filename, function() {
+describe(heading(__filename), function() {
 
   function _createGameStore() {
     var store = new GameStore();

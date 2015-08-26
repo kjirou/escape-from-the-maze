@@ -2,9 +2,10 @@ import _ from 'lodash';
 import assert from 'power-assert';
 
 import SingletonMixin from 'lib/mixins/singleton';
+import {heading} from 'test/support/helpers';
 
 
-describe('lib/mixins/singleton', function() {
+describe(heading(__filename), function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof SingletonMixin, 'object');

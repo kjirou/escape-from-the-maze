@@ -4,9 +4,10 @@ import MazeModel from 'models/MazeModel';
 import ThingModel from 'models/things/ThingModel';
 import PlayerThingModel from 'models/things/PlayerThingModel';
 import UpstairsThingModel from 'models/things/UpstairsThingModel';
+import {heading} from 'test/support/helpers';
 
 
-describe(__filename, function() {
+describe(heading(__filename), function() {
 
   it('extentToSize', function() {
     assert.strictEqual(MazeModel.extentToSize(1), 1 * 2 + 1);

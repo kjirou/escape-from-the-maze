@@ -6,9 +6,10 @@ import {
   stageList,
   stages
 } from 'lib/stages';
+import {heading} from 'test/support/helpers';
 
 
-describe(__filename, function() {
+describe(heading(__filename), function() {
 
   context('Stage', function() {
 

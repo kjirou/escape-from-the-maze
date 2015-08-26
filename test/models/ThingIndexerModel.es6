@@ -2,9 +2,10 @@ import assert from 'power-assert';
 import uuidModule from 'uuid';
 
 import ThingIndexerModel from 'models/ThingIndexerModel';
+import {heading} from 'test/support/helpers';
 
 
-describe(__filename, function() {
+describe(heading(__filename), function() {
 
   it('should be defined', function() {
     assert.strictEqual(typeof ThingIndexerModel, 'function');

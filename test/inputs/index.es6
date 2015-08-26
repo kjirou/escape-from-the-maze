@@ -3,9 +3,10 @@ import sinon from 'sinon';
 
 import App from 'app';
 import Inputs from 'inputs';
+import {heading} from 'test/support/helpers';
 
 
-describe('inputs', function() {
+describe(heading(__filename), function() {
 
   beforeEach(function() {
     App.purgeInstances();
