@@ -8,19 +8,14 @@ import {
 } from 'lib/stages';
 
 
-describe('lib/stages', function() {
+describe(__filename, function() {
 
   context('Stage', function() {
 
-    it('should not create a instance', function() {
-      assert.throws(() => {
-        new Stage();
-      }, /not create/);
-    });
-
     it('getName', function() {
-      class FooBarStage extends Stage {}
-      FooBarStage.typeId = 'foo_bar';
+      const FooBarStage = Object.assign({}, Stage, {
+        typeId: 'foo_bar'
+      });
       assert.strictEqual(FooBarStage.getName(), 'Foo Bar');
     });
   });

@@ -3,17 +3,7 @@ import _s from 'underscore.string';
 import {dictionarize} from 'lib/util';
 
 
-export class Stage {
-
-  constructor() {
-    throw new Error('Should not create a instance');
-  }
-
-  static getName() {
-    return _s.titleize(_s.humanize(this.typeId));
-  }
-}
-Object.assign(Stage, {
+export const Stage = {
   typeId: '_stage',
   mazeCount: 1,
   timeLimit: 60000,
@@ -21,13 +11,14 @@ Object.assign(Stage, {
   penaltyTimeThingCount: 3,
   picksThingCount: 1,
   picksCount: 0,
-  description: '----'
-});
+  description: '----',
+  getName() {
+    return _s.titleize(_s.humanize(this.typeId));
+  },
+};
 
 
-export class SimpleStage extends Stage {
-}
-Object.assign(SimpleStage, {
+const SimpleStage = Object.assign({}, Stage, {
   typeId: 'simple',
   bonusTimeThingCount: 0,
   penaltyTimeThingCount: 0,
@@ -35,18 +26,14 @@ Object.assign(SimpleStage, {
   description: 'Just run, no gimmick'
 });
 
-export class EasyStage extends Stage {
-}
-Object.assign(EasyStage, {
+const EasyStage = Object.assign({}, Stage, {
   typeId: 'easy',
   picksCount: 1,
   timeLimit: 45000,
   description: 'Enable gimmicks'
 });
 
-export class NormalStage extends Stage {
-}
-Object.assign(NormalStage, {
+const NormalStage = Object.assign({}, Stage, {
   typeId: 'normal',
   mazeCount: 3,
   timeLimit: 75000,
@@ -54,9 +41,7 @@ Object.assign(NormalStage, {
   description: 'Plural mazes continue'
 });
 
-export class HardStage extends Stage {
-}
-Object.assign(HardStage, {
+const HardStage = Object.assign({}, Stage, {
   typeId: 'hard',
   mazeCount: 3,
   timeLimit: 45000,
@@ -64,9 +49,7 @@ Object.assign(HardStage, {
   description: 'More difficult'
 });
 
-export class LunaticStage extends Stage {
-}
-Object.assign(LunaticStage, {
+const LunaticStage = Object.assign({}, Stage, {
   typeId: 'lunatic',
   mazeCount: 5,
   timeLimit: 60000,
@@ -75,11 +58,11 @@ Object.assign(LunaticStage, {
 });
 
 
-export var stageList = [
+export const stageList = [
   SimpleStage,
   EasyStage,
   NormalStage,
   HardStage,
   LunaticStage
 ];
-export var stages = dictionarize(stageList, 'typeId');
+export const stages = dictionarize(stageList, 'typeId');

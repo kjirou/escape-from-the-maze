@@ -26,7 +26,7 @@ describe(__filename, function() {
   });
 
   it('hasNextMaze', function() {
-    class FooStage extends Stage {}
+    const FooStage = Object.assign({}, Stage);
     FooStage.mazeCount = 5;
 
     var store = _createGameStore();
