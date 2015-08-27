@@ -5,6 +5,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import EventManager from 'lib/EventManager';
 import {stages} from 'lib/stages';
 import {calculateMillisecondsPerFrame} from 'lib/util';
+import GameResultModel from 'models/GameResultModel';
 import MazeModel from 'models/MazeModel';
 import BonusTime5ThingModel from 'models/things/BonusTime5ThingModel';
 import PenaltyTime3ThingModel from 'models/things/PenaltyTime3ThingModel';
@@ -37,7 +38,8 @@ export default class GameStore extends Store {
       _maze: undefined,
       _hasBeenVictory: undefined,
       _hasBeenDefeat: undefined,
-      _things: undefined
+      _things: undefined,
+      _gameResult: undefined
     });
     this._reset();
 
@@ -49,6 +51,7 @@ export default class GameStore extends Store {
     Object.defineProperty(this, 'isAssumedPicksMode', { get() { return this._isAssumedPicksMode; } });
     Object.defineProperty(this, 'hasBeenVictory', { get() { return this._hasBeenVictory; } });
     Object.defineProperty(this, 'hasBeenDefeat', { get() { return this._hasBeenDefeat; } });
+    Object.defineProperty(this, 'gameResult', { get() { return this._gameResult; } });
 
     let dispatcher = AppDispatcher.getInstance();
     let {emitter} = EventManager.getInstance();
@@ -102,6 +105,10 @@ export default class GameStore extends Store {
           break;
         case ACTIONS.SAVE_VICTORY:
           this._hasBeenVictory = true;
+          this._gameResult = new GameResultModel({
+            timeLimit: this._timeLimit,
+            lastGameTime: this._gameTime
+          });
           emitter.emit(EVENTS.UPDATE_MAZE);
           break;
         case ACTIONS.WALK_PLAYER:
@@ -126,6 +133,7 @@ export default class GameStore extends Store {
     this._picksCount = 0;
     this._isAssumedPicksMode = false;
     this._resetMaze();
+    this._gameResult = null;
   }
 
   _resetMaze() {

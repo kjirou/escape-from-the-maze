@@ -28,7 +28,7 @@ export default class GamePageComponent extends PageComponent {
       top: 'center',
       left: 'center',
       width: 21,
-      height: 7,
+      height: 9,
       tags: true,
       border: {
         type: 'line'
@@ -68,7 +68,8 @@ export default class GamePageComponent extends PageComponent {
     }
 
     if (this._$resultBox.hidden && gameStore.hasBeenVictory) {
-      this._$resultBox.setContent('Escape success!\n\nPush [space]');
+      this._$resultBox.setContent(
+        `Escape success!\n\nScore: ${gameStore.gameResult.calculateScore()}\n\nPush [space]`);
       this._$resultBox.style.border = { fg: 'green' };
       this._$resultBox.show();
     } else if (this._$resultBox.hidden && gameStore.hasBeenDefeat) {
