@@ -26,7 +26,7 @@ function getDirectionByKeyName(keyName) {
   }[keyName] || null;
 }
 
-function assumeKeyOnWelcomePage(keyName, isControl) {
+function acceptKeyOnWelcomePage(keyName, isControl) {
   let stageTypeId = KEYS.STAGE_SELECTION[keyName];
 
   if (stageTypeId) {
@@ -38,7 +38,7 @@ function assumeKeyOnWelcomePage(keyName, isControl) {
   return false;
 }
 
-function assumeKeyOnGamePage(keyName, isControl) {
+function acceptKeyOnGamePage(keyName, isControl) {
   let gameStore = GameStore.getInstance();
 
   if (gameStore.isPlaying()) {
@@ -77,18 +77,18 @@ function assumeKeyOnGamePage(keyName, isControl) {
 export function onKeypress({ name, ctrl }) {
   let screenStore = ScreenStore.getInstance();
 
-  let assumeKeyByActivePage = {
-    game: assumeKeyOnGamePage,
-    welcome: assumeKeyOnWelcomePage
+  let acceptKeyByActivePage = {
+    game: acceptKeyOnGamePage,
+    welcome: acceptKeyOnWelcomePage
   }[screenStore.pageId];
 
-  if (!assumeKeyByActivePage) {
+  if (!acceptKeyByActivePage) {
     ScreenActionCreators.throwRuntimeError(
       new Error(screenStore.pageId + ' is invalid pageId'));
     return;
   }
 
-  if (assumeKeyByActivePage(name, ctrl)) {
+  if (acceptKeyByActivePage(name, ctrl)) {
     return;
   }
 
