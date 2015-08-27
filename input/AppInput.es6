@@ -1,7 +1,8 @@
 import Rx from 'rx';
 
-import {onKeypress, onKeypressError} from 'input/subscriptions/keypress';
-import {onTimer, onTimerError} from 'input/subscriptions/timer';
+import {onError} from 'input/subscriptions/error';
+import {onKeypress} from 'input/subscriptions/keypress';
+import {onTimer} from 'input/subscriptions/timer';
 import ScreenManager from 'lib/ScreenManager';
 import SingletonMixin from 'lib/mixins/SingletonMixin';
 import {calculateMillisecondsPerFrame} from 'lib/util';
@@ -52,11 +53,11 @@ export default class AppInput {
 
     this._timerSubscription = timerSource.subscribe(
       onTimer,
-      onTimerError
+      onError
     );
     this._keypressSubscription = keypressSource.subscribe(
       onKeypress,
-      onKeypressError
+      onError
     );
   }
 

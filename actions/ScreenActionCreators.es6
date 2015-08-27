@@ -16,6 +16,16 @@ const ScreenActionCreators = {
       type: ACTIONS.PREPARE_GAME,
       stageTypeId
     });
+  },
+
+  /*
+   * @param err {Error}
+   */
+  throwRuntimeError(err) {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.THROW_RUNTIME_ERROR,
+      err
+    });
   }
 };
 

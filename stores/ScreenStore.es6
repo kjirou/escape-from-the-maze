@@ -1,8 +1,10 @@
+import _ from 'lodash';
+
 import {ACTIONS, EVENTS} from 'consts';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import EventManager from 'lib/EventManager';
-import Store from 'stores/Store';
 import GameStore from 'stores/GameStore';
+import Store from 'stores/Store';
 
 
 class ScreenStore extends Store {
@@ -11,6 +13,7 @@ class ScreenStore extends Store {
     super();
 
     this._pageId = 'welcome';
+    this._runtimeErrors = [];
 
     Object.defineProperty(this, 'pageId', { get() { return this._pageId; } });
 
@@ -27,8 +30,16 @@ class ScreenStore extends Store {
           this._pageId = action.pageId;
           emitter.emit(EVENTS.CHANGE_PAGE);
           break;
+        case ACTIONS.THROW_RUNTIME_ERROR:
+          this._runtimeErrors.push(action.err);
+          emitter.emit(EVENTS.UPDATE_ERRORS);
+          break;
       }
     });
+  }
+
+  getLastRuntimeError() {
+    return _.last(this._runtimeErrors);
   }
 }
 

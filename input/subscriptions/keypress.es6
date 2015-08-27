@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 import GameActionCreators from 'actions/GameActionCreators';
 import ScreenActionCreators from 'actions/ScreenActionCreators';
 import {KEYS} from 'consts';
@@ -69,11 +67,4 @@ export function onKeypress({ name, ctrl }) {
     process.exit(0);
     return;
   }
-}
-
-export function onKeypressError(err) {
-  let {screen} = ScreenManager.getInstance();
-  var msg = chalk.red(err);
-  console.error(msg);
-  screen.debug(msg);
 }

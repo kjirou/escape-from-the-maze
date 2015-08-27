@@ -13,6 +13,7 @@ const ACTIONS = keymirror({
   SAVE_DEFEAT: null,
   SAVE_VICTORY: null,
   SELECT_STAGE: null,
+  THROW_RUNTIME_ERROR: null,
   WALK_PLAYER: null
 });
 

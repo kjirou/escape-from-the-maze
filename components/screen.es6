@@ -1,4 +1,5 @@
 import blessed from 'blessed';
+import chalk from 'chalk';
 
 import Component from 'components/component';
 import EVENTS from 'consts/events';
@@ -9,8 +10,8 @@ import ScreenStore from 'stores/ScreenStore';
 
 export default class ScreenComponent extends Component {
 
-  constructor() {
-    super();
+  constructor(...args) {
+    super(...args);
 
     this._$el = blessed.box({
       parent: this.screen,
@@ -30,7 +31,14 @@ export default class ScreenComponent extends Component {
       welcome: new WelcomePageComponent(this._$el)
     };
 
+    this.emitter.on(EVENTS.UPDATE_ERRORS, this.renderDebugConsole.bind(this));
     this.emitter.on(EVENTS.CHANGE_PAGE, this.render.bind(this));
+  }
+
+  renderDebugConsole() {
+    let screenStore = ScreenStore.getInstance();
+    var err = screenStore.getLastRuntimeError();
+    this.screen.debug(chalk.red(err));
   }
 
   render() {
