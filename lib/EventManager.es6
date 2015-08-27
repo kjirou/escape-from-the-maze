@@ -1,5 +1,4 @@
 import {EventEmitter} from 'events';
-import _ from 'lodash';
 
 import SingletonMixin from 'lib/mixins/singleton';
 
@@ -14,4 +13,4 @@ export default class EventManager {
   }
 }
 
-_.assign(EventManager, SingletonMixin);
+Object.assign(EventManager, SingletonMixin);

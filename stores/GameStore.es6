@@ -1,8 +1,8 @@
-import {ACTIONS, EVENTS} from 'consts';
-import AppDispatcher from 'dispatcher/AppDispatcher';
-import EventManager from 'lib/event-manager';
 import _ from 'lodash';
 
+import {ACTIONS, EVENTS} from 'consts';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import EventManager from 'lib/EventManager';
 import {stages} from 'lib/stages';
 import {calculateMillisecondsPerFrame} from 'lib/util';
 import MazeModel from 'models/MazeModel';

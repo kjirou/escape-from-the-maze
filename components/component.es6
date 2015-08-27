@@ -1,5 +1,5 @@
-import EventManager from 'lib/event-manager';
-import ScreenManager from 'lib/screen-manager';
+import EventManager from 'lib/EventManager';
+import ScreenManager from 'lib/ScreenManager';
 
 
 export default class Component {

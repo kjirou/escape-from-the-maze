@@ -5,7 +5,7 @@ import GameActionCreators from 'actions/GameActionCreators';
 import ScreenActionCreators from 'actions/ScreenActionCreators';
 import {KEYS} from 'consts';
 import SingletonMixin from 'lib/mixins/singleton';
-import ScreenManager from 'lib/screen-manager';
+import ScreenManager from 'lib/ScreenManager';
 import {calculateMillisecondsPerFrame} from 'lib/util';
 import MazeModel from 'models/MazeModel';
 import GameStore from 'stores/GameStore';

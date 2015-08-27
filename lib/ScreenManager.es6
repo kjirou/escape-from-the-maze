@@ -9,15 +9,16 @@ import SingletonMixin from 'lib/mixins/singleton';
 export default class ScreenManager {
 
   constructor(options = {}) {
-    options = _.assign({
+    options = Object.assign({
       debug: true
     }, options);
 
+    let blessedOptions = _.pick(options, 'debug');
     if (conf.ignoreScreenOutput) {
-      options.output = devnull();
+      blessedOptions.output = devnull();
     }
 
-    let screen = blessed.screen(options);
+    let screen = blessed.screen(blessedOptions);
 
     screen.title = 'Escape From The Maze';
 
@@ -27,4 +28,4 @@ export default class ScreenManager {
   }
 }
 
-_.assign(ScreenManager, SingletonMixin);
+Object.assign(ScreenManager, SingletonMixin);

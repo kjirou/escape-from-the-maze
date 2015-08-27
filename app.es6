@@ -3,9 +3,9 @@ import _ from 'lodash';
 import ScreenComponent from 'components/screen';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import AppInput from 'input/AppInput';
-import EventManager from 'lib/event-manager';
+import EventManager from 'lib/EventManager';
+import ScreenManager from 'lib/ScreenManager';
 import SingletonMixin from 'lib/mixins/singleton';
-import ScreenManager from 'lib/screen-manager';
 import GameStore from 'stores/GameStore';
 import ScreenStore from 'stores/ScreenStore';
 

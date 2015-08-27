@@ -1,6 +1,6 @@
 import {ACTIONS, EVENTS} from 'consts';
 import AppDispatcher from 'dispatcher/AppDispatcher';
-import EventManager from 'lib/event-manager';
+import EventManager from 'lib/EventManager';
 import Store from 'stores/Store';
 import GameStore from 'stores/GameStore';
 

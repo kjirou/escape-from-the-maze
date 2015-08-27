@@ -1,7 +1,7 @@
 import assert from 'power-assert';
 
 import App from 'app';
-import EventManager from 'lib/event-manager';
+import EventManager from 'lib/EventManager';
 import {heading} from 'test/support/helpers';
 
 
