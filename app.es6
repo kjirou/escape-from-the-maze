@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import ScreenComponent from 'components/screen';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import AppInput from 'input/AppInput';
@@ -47,4 +45,4 @@ export default class App {
   }
 }
 
-_.assign(App, SingletonMixin);
+Object.assign(App, SingletonMixin);
