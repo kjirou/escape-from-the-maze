@@ -10,14 +10,10 @@ import ScreenStore from 'stores/ScreenStore';
 
 export default class App {
 
-  constructor() {
-    this._initializeInstances();
-  }
-
   /*
    * Initialize unique instances in consideration of the order
    */
-  _initializeInstances() {
+  static initializeInstances() {
     [
       () => EventManager.getInstance(),
       () => ScreenManager.getInstance(),
@@ -37,6 +33,10 @@ export default class App {
       () => ScreenManager.clearInstance(),
       () => EventManager.clearInstance()
     ].forEach(task => task());
+  }
+
+  constructor() {
+    this.constructor.initializeInstances();
   }
 
   run() {
