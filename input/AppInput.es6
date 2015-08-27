@@ -1,5 +1,4 @@
 import chalk from 'chalk';
-import _ from 'lodash';
 import Rx from 'rx';
 
 import GameActionCreators from 'actions/GameActionCreators';
@@ -99,7 +98,7 @@ function onSubscribeError(err) {
 }
 
 
-export default class Inputs {
+export default class AppInput {
 
   constructor() {
     let {screen} = ScreenManager.getInstance();
@@ -158,9 +157,9 @@ export default class Inputs {
   }
 }
 
-_.assign(Inputs, SingletonMixin);
+Object.assign(AppInput, SingletonMixin);
 
-Inputs._destructInstance = function _destructInstance() {
+AppInput._destructInstance = function _destructInstance() {
   if (this._instance) {
     this._instance._destructor();
   }

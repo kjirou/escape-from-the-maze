@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import ScreenComponent from 'components/screen';
 import AppDispatcher from 'dispatcher/AppDispatcher';
-import Inputs from 'inputs';
+import AppInput from 'input/AppInput';
 import EventManager from 'lib/event-manager';
 import SingletonMixin from 'lib/mixins/singleton';
 import ScreenManager from 'lib/screen-manager';
@@ -24,7 +24,7 @@ export default class App {
       () => EventManager.getInstance(),
       () => ScreenManager.getInstance(),
       () => AppDispatcher.getInstance(),
-      () => Inputs.getInstance(),
+      () => AppInput.getInstance(),
       () => GameStore.getInstance(),
       () => ScreenStore.getInstance()
     ].forEach(task => task());
@@ -34,7 +34,7 @@ export default class App {
     [
       () => ScreenStore.clearInstance(),
       () => GameStore.clearInstance(),
-      () => Inputs.clearInstance(),
+      () => AppInput.clearInstance(),
       () => AppDispatcher.clearInstance(),
       () => ScreenManager.clearInstance(),
       () => EventManager.clearInstance()
