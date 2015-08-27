@@ -1,8 +1,11 @@
 import assert from 'power-assert';
 import sinon from 'sinon';
 
+import GameActionCreators from 'actions/GameActionCreators';
+import ScreenActionCreators from 'actions/ScreenActionCreators';
 import App from 'app';
 import {Stage} from 'lib/stages';
+import GameResultModel from 'models/GameResultModel';
 import MazeModel from 'models/MazeModel';
 import BonusTime5ThingModel from 'models/things/BonusTime5ThingModel';
 import PenaltyTime3ThingModel from 'models/things/PenaltyTime3ThingModel';
@@ -14,7 +17,7 @@ describe(heading(__filename), function() {
 
   function _createGameStore() {
     var store = new GameStore();
-    store._stageTypeId = 'simple';
+    ScreenActionCreators.prepareGame('simple');
     return store;
   }
 
@@ -85,5 +88,16 @@ describe(heading(__filename), function() {
     store._pickThingsByPlayer();
     assert.strictEqual(getThingCount(), 1);
     assert(store._timeLimit > baseTimeLimit);
+  });
+
+
+  context('action subscription', function() {
+
+    it('SAVE_VICTORY', function() {
+      let store = _createGameStore();
+      assert.strictEqual(store.gameResult, null);
+      GameActionCreators.saveVictory();
+      assert(store.gameResult instanceof GameResultModel);
+    });
   });
 });
