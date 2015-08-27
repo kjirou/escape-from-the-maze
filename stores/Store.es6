@@ -1,4 +1,4 @@
-import SingletonMixin from 'lib/mixins/singleton';
+import SingletonMixin from 'lib/mixins/SingletonMixin';
 
 
 export default class Store {

@@ -1,4 +1,4 @@
-let SingletomMixin = {
+const SingletomMixin = {
 
   _instance: null,
 

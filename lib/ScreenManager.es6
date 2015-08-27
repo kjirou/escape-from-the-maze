@@ -3,7 +3,7 @@ import devnull from 'dev-null';
 import _ from 'lodash';
 
 import conf from 'conf';
-import SingletonMixin from 'lib/mixins/singleton';
+import SingletonMixin from 'lib/mixins/SingletonMixin';
 
 
 export default class ScreenManager {

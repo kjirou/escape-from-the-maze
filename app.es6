@@ -5,7 +5,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import AppInput from 'input/AppInput';
 import EventManager from 'lib/EventManager';
 import ScreenManager from 'lib/ScreenManager';
-import SingletonMixin from 'lib/mixins/singleton';
+import SingletonMixin from 'lib/mixins/SingletonMixin';
 import GameStore from 'stores/GameStore';
 import ScreenStore from 'stores/ScreenStore';
 
