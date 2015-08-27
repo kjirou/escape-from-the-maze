@@ -30,6 +30,9 @@ class ScreenStore extends Store {
           this._pageId = action.pageId;
           emitter.emit(EVENTS.CHANGE_PAGE);
           break;
+        case ACTIONS.EXIT:
+          emitter.emit(EVENTS.EXIT);
+          break;
         case ACTIONS.THROW_RUNTIME_ERROR:
           this._runtimeErrors.push(action.err);
           emitter.emit(EVENTS.UPDATE_ERRORS);

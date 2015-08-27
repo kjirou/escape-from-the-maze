@@ -11,6 +11,12 @@ const ScreenActionCreators = {
     });
   },
 
+  exit() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.EXIT
+    });
+  },
+
   prepareGame(stageTypeId) {
     AppDispatcher.getInstance().dispatch({
       type: ACTIONS.PREPARE_GAME,

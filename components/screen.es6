@@ -32,7 +32,13 @@ export default class ScreenComponent extends Component {
     };
 
     this.emitter.on(EVENTS.UPDATE_ERRORS, this.renderDebugConsole.bind(this));
+    this.emitter.on(EVENTS.EXIT, this.exit.bind(this));
     this.emitter.on(EVENTS.CHANGE_PAGE, this.render.bind(this));
+  }
+
+  exit() {
+    process.stdin.pause();
+    process.exit(0);
   }
 
   renderDebugConsole() {

@@ -79,24 +79,23 @@ export function onKeypress({ name, ctrl }) {
   let screenStore = ScreenStore.getInstance();
   let gameStore = GameStore.getInstance();
 
-  let assumeKeyByPage = {
+  let assumeKeyByActivePage = {
     game: assumeKeyOnGamePage,
     welcome: assumeKeyOnWelcomePage
   }[screenStore.pageId];
 
-  if (!assumeKeyByPage) {
+  if (!assumeKeyByActivePage) {
     ScreenActionCreators.throwRuntimeError(
       new Error(screenStore.pageId + ' is invalid pageId'));
     return;
   }
 
-  if (assumeKeyByPage(name, ctrl)) {
+  if (assumeKeyByActivePage(name, ctrl)) {
     return;
   }
 
   if (name === 'escape' || ctrl && name === 'c') {
-    process.stdin.pause();
-    process.exit(0);
+    ScreenActionCreators.exit();
     return;
   }
 }
