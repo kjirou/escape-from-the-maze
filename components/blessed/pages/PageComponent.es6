@@ -1,9 +1,9 @@
 import blessed from 'blessed';
 
-import Component from 'components/component';
+import Component from '../Component';
 
 
-class PageComponent extends Component {
+export default class PageComponent extends Component {
 
   constructor(...args) {
     super(...args);
@@ -22,6 +22,3 @@ class PageComponent extends Component {
     });
   }
 }
-
-
-export default PageComponent;

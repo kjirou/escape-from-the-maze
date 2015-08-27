@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
-import PageComponent from 'components/pages/page';
+import PageComponent from './PageComponent';
 import {KEYS} from 'consts';
 import {stageList} from 'lib/stages';
 
 
-class WelcomePageComponent extends PageComponent {
+export default class WelcomePageComponent extends PageComponent {
 
   constructor(...args) {
     super(...args);
@@ -19,6 +19,3 @@ class WelcomePageComponent extends PageComponent {
     this.$el.setContent(content);
   }
 }
-
-
-export default WelcomePageComponent;
