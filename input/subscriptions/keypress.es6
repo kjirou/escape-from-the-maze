@@ -1,7 +1,6 @@
 import GameActionCreators from 'actions/GameActionCreators';
 import ScreenActionCreators from 'actions/ScreenActionCreators';
 import {KEYS} from 'consts';
-import ScreenManager from 'lib/ScreenManager';
 import MazeModel from 'models/MazeModel';
 import GameStore from 'stores/GameStore';
 import ScreenStore from 'stores/ScreenStore';
@@ -77,7 +76,6 @@ function assumeKeyOnGamePage(keyName, isControl) {
 
 export function onKeypress({ name, ctrl }) {
   let screenStore = ScreenStore.getInstance();
-  let gameStore = GameStore.getInstance();
 
   let assumeKeyByActivePage = {
     game: assumeKeyOnGamePage,

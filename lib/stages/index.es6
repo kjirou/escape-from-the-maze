@@ -14,7 +14,7 @@ export const Stage = {
   description: '----',
   getName() {
     return _s.titleize(_s.humanize(this.typeId));
-  },
+  }
 };
 
 
