@@ -1,14 +1,14 @@
 import _ from 'lodash';
+import React, {Component} from 'react';
 
-import PageComponent from './PageComponent';
+import variables from '../variables';
 import {KEYS} from 'consts';
 import {stageList} from 'lib/stages';
 
 
-export default class WelcomePageComponent extends PageComponent {
+export default class WelcomePageComponent extends Component {
 
-  constructor(...args) {
-    super(...args);
+  render() {
 
     let invertedKeys = _.invert(KEYS.STAGE_SELECTION);
     let content = '{magenta-fg}Escape From The Maze{/}\n\n';
@@ -16,14 +16,13 @@ export default class WelcomePageComponent extends PageComponent {
     content += stageList.map((Stage) => {
       return `[{green-fg}${invertedKeys[Stage.typeId]}{/}] ${Stage.getName()}: ${Stage.description}`;
     }).join('\n');
-    this.$el.setContent(content);
-  }
 
-  prepareRendering() {
-    this.toggleActivation();
+    let props = Object.assign({}, variables.pageBoxProps);
+
+    return (
+      <box {...props} >
+        {content}
+      </box>
+    );
   }
 }
-
-Object.assign(WelcomePageComponent, {
-  pageId: 'welcome'
-});

@@ -1,8 +1,9 @@
-import ScreenComponent from 'components/blessed/ScreenComponent';
+import ScreenActionCreators from 'actions/ScreenActionCreators';
+import Screen from 'components/Screen';
+import conf from 'conf';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import AppInput from 'input/AppInput';
 import EventManager from 'lib/EventManager';
-import ScreenManager from 'lib/ScreenManager';
 import SingletonMixin from 'lib/mixins/SingletonMixin';
 import GameStore from 'stores/GameStore';
 import ScreenStore from 'stores/ScreenStore';
@@ -16,21 +17,20 @@ export default class App {
   static initializeInstances() {
     [
       () => EventManager.getInstance(),
-      () => ScreenManager.getInstance(),
       () => AppDispatcher.getInstance(),
-      () => AppInput.getInstance(),
       () => GameStore.getInstance(),
-      () => ScreenStore.getInstance()
+      () => ScreenStore.getInstance(),
+      () => AppInput.getInstance()
     ].forEach(task => task());
   }
 
   static purgeInstances() {
     [
+      () => Screen.clearInstance(),
+      () => AppInput.clearInstance(),
       () => ScreenStore.clearInstance(),
       () => GameStore.clearInstance(),
-      () => AppInput.clearInstance(),
       () => AppDispatcher.clearInstance(),
-      () => ScreenManager.clearInstance(),
       () => EventManager.clearInstance()
     ].forEach(task => task());
   }
@@ -39,9 +39,9 @@ export default class App {
     this.constructor.initializeInstances();
   }
 
-  run() {
-    let screenComponent = new ScreenComponent();
-    screenComponent.render();
+  start() {
+    Screen.getInstance({ componentMode: conf.componentMode });
+    ScreenActionCreators.changePage('welcome');
   }
 }
 

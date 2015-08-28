@@ -16,8 +16,13 @@
     "dev-null": "0.1.1",
     "flux": "2.0.3",
     "generate-maze-by-clustering": "0.0.4",
+    "install": "^0.1.8",
     "keymirror": "0.1.1",
+    "keypress": "0.2.1",
     "lodash": "3.10.1",
+    "npm": "^2.14.1",
+    "react": "0.14.0-beta3",
+    "react-blessed": "0.0.2",
     "rx": "3.0.0",
     "underscore.string": "3.1.1",
     "uuid": "2.0.1"

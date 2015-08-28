@@ -1,15 +1,25 @@
 import EventManager from 'lib/EventManager';
-import ScreenManager from 'lib/ScreenManager';
 
 
 export default class Component {
 
-  constructor($parent = null) {
-    this._$parent = $parent;
-    this._$el = null;
+  /*
+   * @param {blessed.screen} screen
+   * @param {blessed.screen|blessed.element} $parent
+   */
+  constructor({ screen, $parent }) {
+    this.screen = screen;
     this.emitter = EventManager.getInstance().emitter;
-    this.screen = ScreenManager.getInstance().screen;
+    this.$parent = $parent;
+    this.$el = null;
+  }
 
-    Object.defineProperty(this, '$el', { get() { return this._$el; } });
+  prepareRendering() {
+    throw new Error('Not implemented');
+  }
+
+  render() {
+    this.prepareRendering();
+    this.screen.render();
   }
 }

@@ -6,4 +6,4 @@ var App = require('../app');
 
 
 var app = App.getInstance();
-app.run();
+app.start();
