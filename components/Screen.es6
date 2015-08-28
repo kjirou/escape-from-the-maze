@@ -1,13 +1,17 @@
 import blessed from 'blessed';
+import chalk from 'chalk';
 import devnull from 'dev-null';
 import _ from 'lodash';
-import reactBlessed from 'react-blessed';
+import React from 'react';
+import {render as renderByReactBlessed} from 'react-blessed';
 
 import BlessedRootComponent from './blessed/RootComponent';
 import ReactBlessedRootComponent from './react-blessed/RootComponent';
 import conf from 'conf';
+import {EVENTS} from 'consts';
 import EventManager from 'lib/EventManager';
 import SingletonMixin from 'lib/mixins/SingletonMixin';
+import ScreenStore from 'stores/ScreenStore';
 
 
 const COMPONENT_MODES = [
@@ -30,6 +34,10 @@ export default class Screen {
     }[componentMode];
 
     this._screen = initializeScreen();
+
+    let {emitter} = EventManager.getInstance();
+    emitter.on(EVENTS.UPDATE_ERRORS, this._debug.bind(this));
+    emitter.on(EVENTS.EXIT, this._exit.bind(this));
   }
 
   _createBlessedOptions() {
@@ -55,7 +63,20 @@ export default class Screen {
   }
 
   _initializeReactBlessedScreen() {
-    return reactBlessed.render(<RootComponent />, this._createBlessedOptions());
+    let screen = renderByReactBlessed(<ReactBlessedRootComponent />, this._createBlessedOptions());
+    screen.debugLog.unkey(['q', 'escape'], () => {});
+    return screen;
+  }
+
+  _exit() {
+    process.stdin.pause();
+    process.exit(0);
+  }
+
+  _debug() {
+    let screenStore = ScreenStore.getInstance();
+    var err = screenStore.getLastRuntimeError();
+    this._screen.debug(chalk.red(err));
   }
 }
 

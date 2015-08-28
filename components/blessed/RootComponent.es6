@@ -1,11 +1,9 @@
 import blessed from 'blessed';
-import chalk from 'chalk';
 
 import Component from './Component';
 import GamePageComponent from './pages/GamePageComponent';
 import WelcomePageComponent from './pages/WelcomePageComponent';
 import {EVENTS} from 'consts';
-import ScreenStore from 'stores/ScreenStore';
 
 
 export default class RootComponent extends Component {
@@ -31,20 +29,7 @@ export default class RootComponent extends Component {
       welcome: new WelcomePageComponent({ screen: this.screen, $parent: this.$el })
     };
 
-    this.emitter.on(EVENTS.UPDATE_ERRORS, this.renderDebugConsole.bind(this));
-    this.emitter.on(EVENTS.EXIT, this.exit.bind(this));
     this.emitter.on(EVENTS.CHANGE_PAGE, this.render.bind(this));
-  }
-
-  exit() {
-    process.stdin.pause();
-    process.exit(0);
-  }
-
-  renderDebugConsole() {
-    let screenStore = ScreenStore.getInstance();
-    var err = screenStore.getLastRuntimeError();
-    this.screen.debug(chalk.red(err));
   }
 
   prepareRendering() {
