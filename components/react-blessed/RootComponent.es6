@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 
 import GamePageComponent from './pages/GamePageComponent';
@@ -17,7 +18,17 @@ function getStateFromStores() {
   let screenStore = ScreenStore.getInstance();
   let gameStore = GameStore.getInstance();
   return {
-    pageId: screenStore.pageId
+    hasBeenDefeat: gameStore.hasBeenDefeat,
+    hasBeenVictory: gameStore.hasBeenVictory,
+    gameTime: gameStore.gameTime,
+    isAssumedPicksMode: gameStore.isAssumedPicksMode,
+    mazeContent: gameStore.isStarted() ? gameStore.maze.toContent() : '',
+    mazeCount: gameStore.getMazeCount(),
+    pageId: screenStore.pageId,
+    picksCount: gameStore.picksCount,
+    score: gameStore.gameResult ? gameStore.gameResult.calculateScore() : 0,
+    runningMazeCount: gameStore.runningMazeCount,
+    timeLimit: gameStore.timeLimit
   };
 }
 
@@ -37,6 +48,12 @@ export default class RootComponent extends Component {
     emitter.on(EVENTS.CHANGE_PAGE, () => {
       this.setState(getStateFromStores());
     });
+    emitter.on(EVENTS.UPDATE_MAZE, () => {
+      this.setState(getStateFromStores());
+    })
+    emitter.on(EVENTS.UPDATE_GAME_STATUS, () => {
+      this.setState(getStateFromStores());
+    });
   }
 
   render() {
@@ -51,13 +68,13 @@ export default class RootComponent extends Component {
       }
     };
 
-    let APageComponent = PAGE_COMPONENTS[this.state.pageId];
-    let pageProps = {
-    };
+    let ActivePageComponent = PAGE_COMPONENTS[this.state.pageId];
+    let pageProps = {};
+    Object.assign(pageProps, this.state);
 
     return (
       <box {...props} >
-        <APageComponent {...pageProps} />
+        <ActivePageComponent {...pageProps} />
       </box>
     );
   }
