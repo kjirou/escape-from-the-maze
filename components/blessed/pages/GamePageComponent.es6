@@ -99,9 +99,4 @@ export default class GamePageComponent extends PageComponent {
     this._$statusBarBox.setContent(content);
     this.screen.render();
   }
-
-  render() {
-    this.renderMazeBox();
-    this.renderStatusBarBox();
-  }
 }

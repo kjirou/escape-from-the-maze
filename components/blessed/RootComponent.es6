@@ -8,13 +8,13 @@ import {EVENTS} from 'consts';
 import ScreenStore from 'stores/ScreenStore';
 
 
-export default class ScreenComponent extends Component {
+export default class RootComponent extends Component {
 
   constructor(...args) {
     super(...args);
 
-    this._$el = blessed.box({
-      parent: this.screen,
+    this.$el = blessed.box({
+      parent: this.$parent,
       top: 'top',
       left: 'left',
       width: 41,
@@ -26,9 +26,9 @@ export default class ScreenComponent extends Component {
       }
     });
 
-    this._pages = {
-      game: new GamePageComponent(this._$el),
-      welcome: new WelcomePageComponent(this._$el)
+    this._$pages = {
+      game: new GamePageComponent({ screen: this.screen, $parent: this.$el }),
+      welcome: new WelcomePageComponent({ screen: this.screen, $parent: this.$el })
     };
 
     this.emitter.on(EVENTS.UPDATE_ERRORS, this.renderDebugConsole.bind(this));
@@ -49,12 +49,14 @@ export default class ScreenComponent extends Component {
 
   render() {
     let screenStore = ScreenStore.getInstance();
-    let page = this._pages[screenStore.pageId];
-    Object.keys(this._pages).forEach((key) => {
-      this._pages[key].$el.hide();
-    });
-    page.$el.show();
-    page.$el.focus();
+    let $page = this._$pages[screenStore.pageId];
+    Object
+      .keys(this._$pages)
+      .filter((key) => key !== screenStore.pageId)
+      .forEach((key) => this._$pages[key].$el.hide())
+    ;
+    $page.$el.show();
+    $page.$el.focus();
     this.screen.render();
   }
 }

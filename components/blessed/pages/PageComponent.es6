@@ -8,8 +8,8 @@ export default class PageComponent extends Component {
   constructor(...args) {
     super(...args);
 
-    this._$el = blessed.box({
-      parent: this._$parent,
+    this.$el = blessed.box({
+      parent: this.$parent,
       top: 'top',
       left: 'left',
       width: '100%',

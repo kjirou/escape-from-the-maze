@@ -1,15 +1,16 @@
 import EventManager from 'lib/EventManager';
-import ScreenManager from 'lib/ScreenManager';
 
 
 export default class Component {
 
-  constructor($parent = null) {
-    this._$parent = $parent;
-    this._$el = null;
+  /*
+   * @param {blessed.screen} screen
+   * @param {blessed.screen|blessed.element} $parent
+   */
+  constructor({ screen, $parent }) {
+    this.screen = screen;
     this.emitter = EventManager.getInstance().emitter;
-    this.screen = ScreenManager.getInstance().screen;
-
-    Object.defineProperty(this, '$el', { get() { return this._$el; } });
+    this.$parent = $parent;
+    this.$el = null;
   }
 }
