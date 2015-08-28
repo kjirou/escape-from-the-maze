@@ -1,10 +1,10 @@
 import blessed from 'blessed';
 import chalk from 'chalk';
 
-import Component from 'components/component';
-import EVENTS from 'consts/events';
-import GamePageComponent from 'components/pages/game';
-import WelcomePageComponent from 'components/pages/welcome';
+import Component from './Component';
+import GamePageComponent from './pages/GamePageComponent';
+import WelcomePageComponent from './pages/WelcomePageComponent';
+import {EVENTS} from 'consts';
 import ScreenStore from 'stores/ScreenStore';
 
 

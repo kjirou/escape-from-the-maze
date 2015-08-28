@@ -32,3 +32,6 @@ nosetests.xml
 npm-debug.log
 pip-log.txt
 testem.*.*.*.json
+
+
+public/dist/

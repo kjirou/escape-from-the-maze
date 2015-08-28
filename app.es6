@@ -1,4 +1,4 @@
-import ScreenComponent from 'components/screen';
+import ScreenComponent from 'components/blessed/ScreenComponent';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import AppInput from 'input/AppInput';
 import EventManager from 'lib/EventManager';

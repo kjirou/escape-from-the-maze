@@ -1,7 +1,7 @@
 import blessed from 'blessed';
 
-import PageComponent from 'components/pages/page';
-import EVENTS from 'consts/events';
+import PageComponent from './PageComponent';
+import {EVENTS} from 'consts';
 import GameStore from 'stores/GameStore';
 
 
