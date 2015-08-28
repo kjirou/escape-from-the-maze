@@ -1,6 +1,10 @@
+import path from 'path';
+
+
 let conf = {
   fps: 30,
-  ignoreScreenOutput: false
+  ignoreScreenOutput: false,
+  root: path.join(__dirname, '/..')
 };
 
 
