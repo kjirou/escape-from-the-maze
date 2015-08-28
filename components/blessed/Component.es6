@@ -13,4 +13,13 @@ export default class Component {
     this.$parent = $parent;
     this.$el = null;
   }
+
+  prepareRendering() {
+    throw new Error('Not implemented');
+  }
+
+  render() {
+    this.prepareRendering();
+    this.screen.render();
+  }
 }

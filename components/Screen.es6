@@ -59,15 +59,6 @@ export default class Screen {
 
   _createReactBlessedScreen() {
   }
-
-  render() {
-    switch (this._componentMode) {
-      case 'blessed':
-      case 'react-blessed':
-        this._screen.render();
-        break;
-    }
-  }
 }
 
 Object.assign(Screen, SingletonMixin);

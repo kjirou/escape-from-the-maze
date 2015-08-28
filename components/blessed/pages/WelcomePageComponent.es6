@@ -18,4 +18,12 @@ export default class WelcomePageComponent extends PageComponent {
     }).join('\n');
     this.$el.setContent(content);
   }
+
+  prepareRendering() {
+    this.toggleActivation();
+  }
 }
+
+Object.assign(WelcomePageComponent, {
+  pageId: 'welcome'
+});

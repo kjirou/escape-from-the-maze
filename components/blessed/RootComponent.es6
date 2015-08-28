@@ -47,16 +47,9 @@ export default class RootComponent extends Component {
     this.screen.debug(chalk.red(err));
   }
 
-  render() {
-    let screenStore = ScreenStore.getInstance();
-    let $page = this._$pages[screenStore.pageId];
-    Object
-      .keys(this._$pages)
-      .filter((key) => key !== screenStore.pageId)
-      .forEach((key) => this._$pages[key].$el.hide())
-    ;
-    $page.$el.show();
-    $page.$el.focus();
-    this.screen.render();
+  prepareRendering() {
+    Object.keys(this._$pages).forEach((pageId) => {
+      this._$pages[pageId].prepareRendering();
+    });
   }
 }

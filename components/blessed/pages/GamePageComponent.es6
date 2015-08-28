@@ -60,7 +60,7 @@ export default class GamePageComponent extends PageComponent {
     this.emitter.on(EVENTS.UPDATE_GAME_STATUS, this.renderStatusBarBox.bind(this));
   }
 
-  renderMazeBox() {
+  _prepareMazeBoxRendering() {
     let gameStore = GameStore.getInstance();
 
     if (gameStore.isStarted()) {
@@ -79,12 +79,14 @@ export default class GamePageComponent extends PageComponent {
     } else {
       this._$resultBox.hide();
     }
+  }
 
+  renderMazeBox() {
+    this._prepareMazeBoxRendering();
     this.screen.render();
   }
 
-  // FIXME: Too heavy
-  renderStatusBarBox() {
+  _prepareStatusBarBoxRendering() {
     let gameStore = GameStore.getInstance();
     let gameTimeBySeconds = ~~(gameStore.gameTime / 1000);
     let timeLimitBySeconds = ~~(gameStore.timeLimit / 1000);
@@ -97,6 +99,20 @@ export default class GamePageComponent extends PageComponent {
       content += picksContent;
     }
     this._$statusBarBox.setContent(content);
+  }
+
+  renderStatusBarBox() {
+    this._prepareStatusBarBoxRendering();
     this.screen.render();
   }
+
+  prepareRendering() {
+    this.toggleActivation();
+    this._prepareMazeBoxRendering();
+    this._prepareStatusBarBoxRendering();
+  }
 }
+
+Object.assign(GamePageComponent, {
+  pageId: 'game'
+});

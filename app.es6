@@ -1,3 +1,4 @@
+import ScreenActionCreators from 'actions/ScreenActionCreators';
 import Screen from 'components/Screen';
 import conf from 'conf';
 import AppDispatcher from 'dispatcher/AppDispatcher';
@@ -25,8 +26,8 @@ export default class App {
 
   static purgeInstances() {
     [
-      () => AppInput.clearInstance(),
       () => Screen.clearInstance(),
+      () => AppInput.clearInstance(),
       () => ScreenStore.clearInstance(),
       () => GameStore.clearInstance(),
       () => AppDispatcher.clearInstance(),
@@ -38,9 +39,9 @@ export default class App {
     this.constructor.initializeInstances();
   }
 
-  run() {
-    let screen = Screen.getInstance({ componentMode: conf.componentMode });
-    screen.render();
+  start() {
+    Screen.getInstance({ componentMode: conf.componentMode });
+    ScreenActionCreators.changePage('welcome');
   }
 }
 
