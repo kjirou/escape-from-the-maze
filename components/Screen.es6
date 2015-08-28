@@ -1,9 +1,10 @@
 import blessed from 'blessed';
 import devnull from 'dev-null';
 import _ from 'lodash';
+import reactBlessed from 'react-blessed';
 
 import BlessedRootComponent from './blessed/RootComponent';
-//import ReactBlessedRootComponent from './react-blessed/RootComponent';
+import ReactBlessedRootComponent from './react-blessed/RootComponent';
 import conf from 'conf';
 import EventManager from 'lib/EventManager';
 import SingletonMixin from 'lib/mixins/SingletonMixin';
@@ -22,20 +23,13 @@ export default class Screen {
     if (!COMPONENT_MODES.some((v) => componentMode === v)) {
       throw new Error(`${componentMode} is invalid component-mode`);
     }
-    this._componentMode = componentMode;
 
-    let screen;
-    switch (this._componentMode) {
-      case 'blessed':
-        screen = this._createBlessedScreen();
-        break;
-      case 'react-blessed':
-        screen = this._createReactBlessedScreen();
-        break;
-    }
-    this._screen = screen;
+    let initializeScreen = {
+      'blessed': this._initializeBlessedScreen.bind(this),
+      'react-blessed': this._initializeReactBlessedScreen.bind(this)
+    }[componentMode];
 
-    Object.defineProperty(this, 'screen', { get() { return this._screen; } });
+    this._screen = initializeScreen();
   }
 
   _createBlessedOptions() {
@@ -51,13 +45,17 @@ export default class Screen {
     return options;
   }
 
-  _createBlessedScreen() {
+  _initializeBlessedScreen() {
     let screen = blessed.screen(this._createBlessedOptions());
+    // Disable default key bind for debug
+    // Ref) blessed/lib/widgets/screen.js#L374
+    screen.debugLog.unkey(['q', 'escape'], () => {});
     new BlessedRootComponent({ screen, $parent: screen });
     return screen;
   }
 
-  _createReactBlessedScreen() {
+  _initializeReactBlessedScreen() {
+    return reactBlessed.render(<RootComponent />, this._createBlessedOptions());
   }
 }
 
