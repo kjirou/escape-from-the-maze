@@ -37,7 +37,7 @@ const NormalStage = Object.assign({}, Stage, {
   typeId: 'normal',
   mazeCount: 3,
   timeLimit: 75000,
-  picksCount: 2,
+  picksCount: 1,
   description: 'Plural mazes continue'
 });
 
@@ -45,7 +45,7 @@ const HardStage = Object.assign({}, Stage, {
   typeId: 'hard',
   mazeCount: 3,
   timeLimit: 45000,
-  picksCount: 2,
+  picksCount: 1,
   description: 'More difficult'
 });
 
@@ -53,7 +53,7 @@ const LunaticStage = Object.assign({}, Stage, {
   typeId: 'lunatic',
   mazeCount: 5,
   timeLimit: 60000,
-  picksCount: 3,
+  picksCount: 2,
   description: 'For a person of leisure'
 });
 
