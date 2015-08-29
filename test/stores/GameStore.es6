@@ -90,6 +90,12 @@ describe(heading(__filename), function() {
     assert(store._timeLimit > baseTimeLimit);
   });
 
+  it('_forwardGameTime', function() {
+    var store = _createGameStore();
+    assert.strictEqual(store._forwardGameTime(999), false);
+    assert.strictEqual(store._forwardGameTime(1), true);
+  });
+
 
   context('action subscription', function() {
 

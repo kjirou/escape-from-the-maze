@@ -92,8 +92,9 @@ export default class GameStore extends Store {
           emitter.emit(EVENTS.UPDATE_GAME_STATUS);
           break;
         case ACTIONS.FORWARD_GAME_TIME_BY_FRAME:
-          this._gameTime += calculateMillisecondsPerFrame();
-          emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          if (this._forwardGameTime(calculateMillisecondsPerFrame())) {
+            emitter.emit(EVENTS.UPDATE_GAME_STATUS);
+          }
           break;
         case ACTIONS.RESET_GAME:
           this._reset();
@@ -179,6 +180,15 @@ export default class GameStore extends Store {
       player,
       upstairs
     };
+  }
+
+  /*
+   * @return {boolean}  A second advanced or is not so
+   */
+  _forwardGameTime(ms) {
+    let beforeGameTime = this._gameTime;
+    this._gameTime += ms;
+    return ~~(beforeGameTime / 1000) !== ~~(this._gameTime / 1000);
   }
 
   /*
