@@ -10,7 +10,7 @@ export default class PlayerThingModel extends ThingModel {
   }
 
   toContent() {
-    return '{green-fg}' + this._symbol + '{/}';
+    return '{magenta-fg}' + this._symbol + '{/}';
   }
 }
 
