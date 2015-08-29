@@ -2,7 +2,25 @@
 
 require('../env/cli');
 
-var App = require('../app');
+var minimist = require('minimist');
+
+var App = require('app');
+var libUtil = require('lib/util');
+
+
+var commandOptions = minimist(process.argv.slice(), {
+  default: {
+    help: false
+  },
+  alias: {
+    help: ['h']
+  }
+});
+
+if (commandOptions.help) {
+  console.log(libUtil.createHelpText());
+  process.exit(0);
+}
 
 
 var app = App.getInstance();
