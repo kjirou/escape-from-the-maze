@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+global.ESCAPE_FROM_THE_MAZE_AWS_LAMBDA_DEBUG = true;
+
 var awsLambda = require('./index');
 
 

@@ -10,6 +10,9 @@ var awsConfig = require('./aws-config.json');
 var AWS_ENDPOINT = 's3-us-west-1.amazonaws.com';
 var BUCKET_NAME = 'escape-from-the-maze';
 var GAME_RESULTS_BUCKET_KEY = 'game-results.json';
+if (global.ESCAPE_FROM_THE_MAZE_AWS_LAMBDA_DEBUG || process.env.ESCAPE_FROM_THE_MAZE_AWS_LAMBDA_DEBUG) {
+  GAME_RESULTS_BUCKET_KEY = 'game-results-for-local-test.json';
+}
 
 
 exports.handler = function(event, context) {
