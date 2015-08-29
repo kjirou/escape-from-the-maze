@@ -2,17 +2,28 @@
 
 var async = require('async');
 var AWS = require('aws-sdk');
+var _ = require('lodash');
 
 var awsConfig = require('./aws-config.json');
 
 
+var AWS_ENDPOINT = 's3-us-west-1.amazonaws.com';
 var BUCKET_NAME = 'escape-from-the-maze';
 var GAME_RESULTS_BUCKET_KEY = 'game-results.json';
 
 
 exports.handler = function(event, context) {
 
-  var s3 = new AWS.S3(awsConfig);
+  // Must configure the endpoint.
+  // Occured the following error at running AWS Lambda (but, not occured in local).
+  // ----
+  // PermanentRedirect: The bucket you are attempting to access must be addressed using the specified endpoint.
+  // Please send all future requests to this endpoint.
+  // ----
+  var endpoint = new AWS.Endpoint(AWS_ENDPOINT);
+  var s3 = new AWS.S3(_.assign({}, awsConfig, {
+    endpoint: endpoint
+  }));
 
   var gameResults;
 
@@ -34,6 +45,7 @@ exports.handler = function(event, context) {
 
     function readData(next) {
       console.log('Game Results:', gameResults);
+      next();
     }
 
   ], function(err) {
