@@ -14,8 +14,55 @@ if (global.ESCAPE_FROM_THE_MAZE_AWS_LAMBDA_DEBUG || process.env.ESCAPE_FROM_THE_
   GAME_RESULTS_BUCKET_KEY = 'game-results-for-local-test.json';
 }
 
+var START_TIME = (new Date()).getTime();
+var API_MODES = [
+  'ADD_GAME_RESULT',
+  'GET_RANKING'
+];
+var STAGE_TYPE_IDS = [
+  'simple',
+  'easy',
+  'normal',
+  'hard',
+  'lunatic'
+];
+
+function isWithinMonth(timestamp) {
+  var monthTime = 86400 * 30 * 1000;
+  return timestamp >= START_TIME - monthTime;
+}
+
 
 exports.handler = function(event, context) {
+
+  //
+  // Arrange and validate inputs
+  //
+
+  var apiMode = event.api_mode;
+  var playerName = event.name;
+  var stageTypeId = event.stage;
+  var score = ~~(event.score);
+
+  if (API_MODES.indexOf(apiMode) === -1) {
+    return context.done(null, apiMode + ' is invalid api_mode');
+  }
+
+  if (apiMode === 'ADD_GAME_RESULT') {
+
+    if (!playerName) {
+      return context.done(null, 'name is blank');
+    }
+
+    if (STAGE_TYPE_IDS.indexOf(stageTypeId) === -1) {
+      return context.done(null, stageTypeId + ' is invalid stage');
+    }
+
+    if (score < 1) {
+      return context.done(null, score + ' is invalid score');
+    }
+  }
+
 
   // Must configure the endpoint.
   // Occured the following error at running AWS Lambda (but, not occured in local).
@@ -32,7 +79,7 @@ exports.handler = function(event, context) {
 
   async.series([
 
-    function readData(next) {
+    function readGameResults(next) {
       var params = {
         Bucket: BUCKET_NAME,
         Key: GAME_RESULTS_BUCKET_KEY
@@ -46,8 +93,35 @@ exports.handler = function(event, context) {
       });
     },
 
-    function readData(next) {
-      console.log('Game Results:', gameResults);
+    function addGameResult(next) {
+      if (apiMode !== 'ADD_GAME_RESULT') {
+        return next();
+      }
+
+      gameResults.push({
+        created_at: (new Date()).getTime(),
+        name: playerName.slice(0, 16),
+        score: score,
+        stage: stageTypeId
+      });
+
+      var params = {
+        Bucket: BUCKET_NAME,
+        Key: GAME_RESULTS_BUCKET_KEY,
+        Body: JSON.stringify(gameResults)
+      };
+      s3.upload(params, function(err, data) {
+        if (err) {
+          return next(err);
+        }
+        next();
+      });
+    },
+
+    function filterGameResults(next) {
+      gameResults = gameResults.filter(function(v) {
+        return isWithinMonth(v.created_at);
+      });
       next();
     }
 
@@ -57,90 +131,6 @@ exports.handler = function(event, context) {
       console.error(err);
       return;
     }
-    context.done(null, 'Finish');
+    context.done(null, JSON.stringify(gameResults));
   });
 };
-
-//    console.log('Received event:', JSON.stringify(event, null, 2));
-//    //console.log('value1 =', event.key1);
-//    //console.log('value2 =', event.key2);
-//    //console.log('value3 =', event.key3);
-//    //context.succeed(event.key1);  // Echo back the first key value
-//    //context.done(null, { message: 'Hello, world: ' + event.foo });
-//    context.done(null, { message: 'Received event data is :' + JSON.stringify(event, null, 2) });
-//    // context.fail('Something went wrong');
-
-
-//
-// aws-sdk:
-//   http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-intro.html
-// Config:
-//   http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html
-// S3 example:
-//   http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-examples.html
-// S3 APIs:
-//   http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html
-//
-/*
-var async = require('async');
-var AWS = require('aws-sdk');
-
-var awsConfig = require('./aws-config.json');
-
-
-var s3 = new AWS.S3(awsConfig);
-
-var uploadRoot = 'nodejs-codes/examples/aws-sdk/s3';
-
-async.series([
-
-  // バケット一覧取得
-  function(next) {
-    s3.listBuckets(function(err, data) {
-      if (err) {
-        return next(err);
-      }
-      console.log(data);
-      next();
-    });
-  },
-
-  // ファイル新規作成 or 上書き
-  function(next) {
-    var params = {
-      Bucket: 'kjirou-sandbox',
-      Key: uploadRoot + '/now.txt',
-      Body: '!!' + (new Date()).toString() + '!!'
-    };
-    s3.upload(params, function(err, data) {
-      if (err) {
-        return next(err);
-      }
-      console.log(data);
-      next();
-    });
-  },
-
-  // ファイル読み出し
-  function(next) {
-    var params = {
-      Bucket: 'kjirou-sandbox',
-      Key: uploadRoot + '/now.txt'
-    };
-    s3.getObject(params, function(err, data) {
-      if (err) {
-        return next(err);
-      }
-      console.log(data);
-      console.log(data.Body.toString());
-      next();
-    });
-  }
-], function(err) {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  console.log('Finish');
-});
-*/

@@ -5,8 +5,19 @@ global.ESCAPE_FROM_THE_MAZE_AWS_LAMBDA_DEBUG = true;
 var awsLambda = require('./index');
 
 
-var eventMock = {
-};
+var eventMock;
+if (0) {
+  eventMock = {
+    api_mode: 'ADD_GAME_RESULT',
+    name: 'Testuser',
+    stage: 'simple',
+    score: ~~(Math.random() * 50000)
+  };
+} else {
+  eventMock = {
+    api_mode: 'GET_RANKING'
+  };
+}
 
 var contextMock = {
   done: function done(err, response) {
