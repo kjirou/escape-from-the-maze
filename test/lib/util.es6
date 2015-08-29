@@ -1,5 +1,6 @@
 import assert from 'power-assert';
 
+import conf from 'conf';
 import {
   calculateMillisecondsPerFrame,
   dictionarize
@@ -10,7 +11,7 @@ import {heading} from 'test/support/helpers';
 describe(heading(__filename), function() {
 
   it('calculateMillisecondsPerFrame', function() {
-    assert.strictEqual(calculateMillisecondsPerFrame(), 33);
+    assert.strictEqual(calculateMillisecondsPerFrame(), ~~(1000 / conf.fps));
   });
 
   it('dictionarize', function() {

@@ -1,9 +1,10 @@
 import path from 'path';
 
+import conf from 'conf';
+
 
 export function heading(filePath) {
-  let root = process.env.NODE_PATH.split(':')[0];
-  let relativePath = path.relative(root, filePath);
+  let relativePath = path.relative(conf.root, filePath);
   relativePath = relativePath.replace(/^test\//, '');
   relativePath = relativePath.replace(/\.es6$/, '');
   return relativePath;
