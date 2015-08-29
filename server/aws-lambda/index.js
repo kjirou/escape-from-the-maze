@@ -38,10 +38,15 @@ exports.handler = function(event, context) {
   //
   // Arrange and validate inputs
   //
+  // Notice:
+  //
+  //   Don't forget to sync AWS Gateway's Integration Request settings
+  //   Ref) https://gyazo.com/055d399e5b26ddb5be8a87527826ff97
+  //
 
   var apiMode = event.api_mode;
-  var playerName = event.name;
   var stageTypeId = event.stage;
+  var playerName = event.name;
   var score = ~~(event.score);
 
   if (API_MODES.indexOf(apiMode) === -1) {
@@ -50,12 +55,12 @@ exports.handler = function(event, context) {
 
   if (apiMode === 'ADD_GAME_RESULT') {
 
-    if (!playerName) {
-      return context.done(null, 'name is blank');
-    }
-
     if (STAGE_TYPE_IDS.indexOf(stageTypeId) === -1) {
       return context.done(null, stageTypeId + ' is invalid stage');
+    }
+
+    if (!playerName) {
+      return context.done(null, 'name is blank');
     }
 
     if (score < 1) {
