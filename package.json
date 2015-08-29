@@ -56,6 +56,6 @@
     "lint": "eslint --ext .es6 *.es6 actions components conf consts dispatcher env input lib models stores test",
     "start": "node bin/escape-from-the-maze",
     "test": "mocha",
-    "zip-server": "cd server/aws-lambda && zip -r ../../tmp/aws-lambda-`date '+%Y%m%d-%H%M%S'`.zip index.js aws-config.json && cd ../.."
+    "zip-server": "cd server/aws-lambda && npm i && zip -r ../../tmp/aws-lambda-`date '+%Y%m%d-%H%M%S'`.zip index.js aws-config.json node_modules && cd ../.."
   }
 }

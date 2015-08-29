@@ -1,18 +1,48 @@
 // arn:aws:lambda:ap-northeast-1:227307664587:function:serveEscapeFromTheMazeAPI
 
+var async = require('async');
 var AWS = require('aws-sdk');
 
 var awsConfig = require('./aws-config.json');
 
 
+var BUCKET_NAME = 'escape-from-the-maze';
+var GAME_RESULTS_BUCKET_KEY = 'game-results.json';
+
+
 exports.handler = function(event, context) {
+
   var s3 = new AWS.S3(awsConfig);
-  s3.listBuckets(function(err, data) {
-    if (err) {
-      return context.done(err);
+
+  var gameResults;
+
+  async.series([
+
+    function readData(next) {
+      var params = {
+        Bucket: BUCKET_NAME,
+        Key: GAME_RESULTS_BUCKET_KEY
+      };
+      s3.getObject(params, function(err, data) {
+        if (err) {
+          return next(err);
+        }
+        gameResults = JSON.parse(data.Body.toString());
+        next();
+      });
+    },
+
+    function readData(next) {
+      console.log('Game Results:', gameResults);
     }
-    console.log(data);
-    context.done(null, data);
+
+  ], function(err) {
+
+    if (err) {
+      console.error(err);
+      return;
+    }
+    context.done(null, 'Finish');
   });
 };
 
