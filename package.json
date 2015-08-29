@@ -19,6 +19,7 @@
     "keymirror": "0.1.1",
     "keypress": "0.2.1",
     "lodash": "3.10.1",
+    "minimist": "1.2.0",
     "react": "0.14.0-beta3",
     "react-blessed": "0.0.2",
     "rx": "3.0.0",
@@ -51,6 +52,7 @@
     "url": "git+https://github.com/kjirou/escape-from-the-maze.git"
   },
   "scripts": {
+    "help": "node bin/escape-from-the-maze --help",
     "lint": "eslint --ext .es6 *.es6 actions components conf consts dispatcher env input lib models stores test",
     "start": "node bin/escape-from-the-maze",
     "test": "mocha"

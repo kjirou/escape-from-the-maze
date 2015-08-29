@@ -3,6 +3,7 @@ import assert from 'power-assert';
 import conf from 'conf';
 import {
   calculateMillisecondsPerFrame,
+  createHelpText,
   dictionarize
 } from 'lib/util';
 import {heading} from 'test/support/helpers';
@@ -25,5 +26,9 @@ describe(heading(__filename), function() {
         bar: { type: 'bar', value: 2 }
       }
     );
+  });
+
+  it('createHelpText', function() {
+    assert.strictEqual(typeof createHelpText(), 'string');
   });
 });

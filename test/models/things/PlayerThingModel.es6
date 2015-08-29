@@ -33,6 +33,6 @@ describe(heading(__filename), function() {
 
   it('toContent', function() {
     let thing = new PlayerThingModel();
-    assert.strictEqual(thing.toContent(), '{green-fg}@{/}');
+    assert.strictEqual(thing.toContent(), '{magenta-fg}@{/}');
   });
 });

@@ -77,6 +77,11 @@ function acceptKeyOnGamePage(keyName, isControl) {
 export function onKeypress({ name, ctrl }) {
   let screenStore = ScreenStore.getInstance();
 
+  if (name === 'escape' || ctrl && name === 'c') {
+    ScreenActionCreators.exit();
+    return;
+  }
+
   let acceptKeyByActivePage = {
     game: acceptKeyOnGamePage,
     welcome: acceptKeyOnWelcomePage
@@ -89,11 +94,6 @@ export function onKeypress({ name, ctrl }) {
   }
 
   if (acceptKeyByActivePage(name, ctrl)) {
-    return;
-  }
-
-  if (name === 'escape' || ctrl && name === 'c') {
-    ScreenActionCreators.exit();
     return;
   }
 }

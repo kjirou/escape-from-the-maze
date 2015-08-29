@@ -173,7 +173,7 @@ describe(heading(__filename), function() {
     ]).setThing(new UpstairsThingModel());
     assert.strictEqual(maze.toContent(),
       '###\n' +
-      '#{green-fg}@{/}#\n' +
+      '#{magenta-fg}@{/}#\n' +
       '# #\n' +
       '#{magenta-fg}<{/}#\n' +
       '###'
