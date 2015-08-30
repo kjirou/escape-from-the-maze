@@ -41,8 +41,8 @@ const EasyStage = Object.assign({}, Stage, {
 const NormalStage = Object.assign({}, Stage, {
   typeId: 'normal',
   sortOrder: counter(),
-  mazeCount: 3,
-  timeLimit: 75000,
+  mazeCount: 2,
+  timeLimit: 45000,
   picksCount: 1,
   description: 'Plural mazes continue'
 });
