@@ -6,6 +6,7 @@ import GamePageComponent from './pages/GamePageComponent';
 import WelcomePageComponent from './pages/WelcomePageComponent';
 import {EVENTS} from 'consts';
 import EventManager from 'lib/EventManager';
+import DialogStore from 'stores/DialogStore';
 import GameStore from 'stores/GameStore';
 import ScreenStore from 'stores/ScreenStore';
 
@@ -17,15 +18,16 @@ const PAGE_COMPONENTS = {
 
 function getStateFromStores() {
   let screenStore = ScreenStore.getInstance();
+  let dialogStore = DialogStore.getInstance();
   let gameStore = GameStore.getInstance();
   return {
-    dialogInputValue: screenStore.dialogInputValue,
+    dialogInputValue: dialogStore.dialogInputValue,
     hasBeenDefeat: gameStore.hasBeenDefeat,
     hasBeenVictory: gameStore.hasBeenVictory,
     gameTime: gameStore.gameTime,
     isAssumedPicksMode: gameStore.isAssumedPicksMode,
-    isDialogActive: screenStore.isDialogActive,
-    isValidDialogInput: screenStore.isValidDialogInput,
+    isDialogActive: dialogStore.isDialogActive,
+    isValidDialogInput: dialogStore.isValidDialogInput,
     mazeContent: gameStore.isStarted() ? gameStore.maze.toContent() : '',
     mazeCount: gameStore.getMazeCount(),
     pageId: screenStore.pageId,

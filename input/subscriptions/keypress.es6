@@ -2,6 +2,7 @@ import GameActionCreators from 'actions/GameActionCreators';
 import ScreenActionCreators from 'actions/ScreenActionCreators';
 import {KEYS} from 'consts';
 import MazeModel from 'models/MazeModel';
+import DialogStore from 'stores/DialogStore';
 import GameStore from 'stores/GameStore';
 import ScreenStore from 'stores/ScreenStore';
 
@@ -88,20 +89,21 @@ function acceptKeyOnGamePage(keyName, isControl) {
 
 export function onKeypress({ name, ctrl, sequence }) {
   let screenStore = ScreenStore.getInstance();
+  let dialogStore = DialogStore.getInstance();
   let gameStore = GameStore.getInstance();
 
-  if (screenStore.isDialogActive) {
+  if (dialogStore.isDialogActive) {
     // FIXME: Generalize dialog's action
     if (name === 'enter') {
-      if (!screenStore.isValidDialogInput) {
+      if (!dialogStore.isValidDialogInput) {
         return;
       }
       if (
         screenStore.pageId === 'game' &&
-        screenStore.isValidDialogInput &&
+        dialogStore.isValidDialogInput &&
         gameStore.hasBeenVictory
       ) {
-        GameActionCreators.requestAddingGameResult(screenStore.dialogInputValue); // async
+        GameActionCreators.requestAddingGameResult(dialogStore.dialogInputValue); // async
         ScreenActionCreators.closeDialog();
         GameActionCreators.resetGame();
         ScreenActionCreators.changePage('welcome');

@@ -5,6 +5,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import AppInput from 'input/AppInput';
 import EventManager from 'lib/EventManager';
 import SingletonMixin from 'lib/mixins/SingletonMixin';
+import DialogStore from 'stores/DialogStore';
 import GameStore from 'stores/GameStore';
 import ScreenStore from 'stores/ScreenStore';
 
@@ -18,6 +19,7 @@ export default class App {
     [
       () => EventManager.getInstance(),
       () => AppDispatcher.getInstance(),
+      () => DialogStore.getInstance(),
       () => GameStore.getInstance(),
       () => ScreenStore.getInstance(),
       () => AppInput.getInstance()
