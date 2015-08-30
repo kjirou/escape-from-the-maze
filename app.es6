@@ -31,6 +31,7 @@ export default class App {
       () => Screen.clearInstance(),
       () => AppInput.clearInstance(),
       () => ScreenStore.clearInstance(),
+      () => DialogStore.clearInstance(),
       () => GameStore.clearInstance(),
       () => AppDispatcher.clearInstance(),
       () => EventManager.clearInstance()
