@@ -49,7 +49,7 @@ export function createHelpText() {
     '- "' + penaltyTime3Symbol + '" Time limit is reduced 3 seconds.',
     '',
     '## Others',
-    '- You can look ranking by `npm run ranking`.',
+    '- You can look ranking by `escape-from-the-maze --ranking`.',
   ];
   return lines.join('\n');
 }

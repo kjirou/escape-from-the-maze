@@ -19,7 +19,7 @@ export default class WelcomePageComponent extends Component {
     content += 'The purpose of the game is to escape from the maze by operating the "{magenta-fg}@{/}" ';
     content += 'by [{green-fg}wasd{/}] [{green-fg}hjkl{/}] or {green-fg}arrow keys{/}. ';
     content += 'Futher, by using [{green-fg}space{/}], you can also break the wall by consuming a pickaxe.\n';
-    content += '{yellow-fg}npm run help{/} shows more helps!\n\n';
+    content += '{yellow-fg}--help{/} option shows more helps!\n\n';
 
     // Choices of stages
     let invertedKeys = _.invert(KEYS.STAGE_SELECTION);
