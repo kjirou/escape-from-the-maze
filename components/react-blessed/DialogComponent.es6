@@ -10,10 +10,6 @@ export default class DialogComponent extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.refs.root.setIndex(99999999);
-  }
-
   render() {
 
     let content = '';
@@ -48,6 +44,9 @@ export default class DialogComponent extends Component {
       content: content,
       hidden: !this.props.isDialogActive,
     };
+    if (this.props.isDialogActive) {
+      this.refs.root.setFront();
+    }
 
     let inputBoxProps = {
       top: 3,

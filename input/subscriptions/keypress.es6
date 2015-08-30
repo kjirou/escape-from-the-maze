@@ -68,9 +68,10 @@ function acceptKeyOnGamePage(keyName, isControl) {
   };
 
   if (gameStore.hasBeenVictory) {
-    if (keyName.toLowerCase() === 'y' || keyName === 'enter') {
+    if (keyName === 'y' || keyName === 'enter') {
+      ScreenActionCreators.openDialog();
       return true;
-    } else if (keyName.toLowerCase() === 'n') {
+    } else if (keyName === 'n') {
       backToWelcomePage();
       return true;
     }
@@ -87,10 +88,22 @@ function acceptKeyOnGamePage(keyName, isControl) {
 
 export function onKeypress({ name, ctrl, sequence }) {
   let screenStore = ScreenStore.getInstance();
+  let gameStore = GameStore.getInstance();
 
   if (screenStore.isDialogActive) {
+    // TODO: Generalize dialog's action
     if (name === 'enter') {
       if (!screenStore.isValidDialogInput) {
+        return;
+      }
+      if (
+        screenStore.pageId === 'game' &&
+        screenStore.isValidDialogInput &&
+        gameStore.hasBeenVictory
+      ) {
+        ScreenActionCreators.closeDialog();
+        GameActionCreators.resetGame();
+        ScreenActionCreators.changePage('welcome');
         return;
       }
       ScreenActionCreators.closeDialog();
@@ -105,12 +118,6 @@ export function onKeypress({ name, ctrl, sequence }) {
       ScreenActionCreators.inputKeyToDialog(sequence);
       return;
     }
-  }
-
-  // tmp
-  if (name === 'o' && ctrl) {
-    ScreenActionCreators.openDialog();
-    return;
   }
 
   if (name === 'escape' || ctrl && name === 'c') {
