@@ -90,10 +90,13 @@ export function onKeypress({ name, ctrl, sequence }) {
 
   if (screenStore.isDialogActive) {
     if (name === 'enter') {
-      ScreenActionCreators.submitDialog();
+      if (!screenStore.isValidDialogInput) {
+        return;
+      }
+      ScreenActionCreators.closeDialog();
       return;
     } else if (name === 'escape') {
-      ScreenActionCreators.cancelDialog();
+      ScreenActionCreators.closeDialog();
       return;
     } else if (name === 'backspace' || name === 'delete') {
       ScreenActionCreators.deleteLastInputFromDialog();

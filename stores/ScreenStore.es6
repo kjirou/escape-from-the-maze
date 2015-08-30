@@ -23,13 +23,11 @@ class ScreenStore extends Store {
     this._isDialogActive = false;
     this._dialogInputValue = '';
     this._isValidDialogInput = false;
-    this._isDialogCanceled = true;
 
     Object.defineProperty(this, 'pageId', { get() { return this._pageId; } });
     Object.defineProperty(this, 'isDialogActive', { get() { return this._isDialogActive; } });
     Object.defineProperty(this, 'dialogInputValue', { get() { return this._dialogInputValue; } });
     Object.defineProperty(this, 'isValidDialogInput', { get() { return this._isValidDialogInput; } });
-    Object.defineProperty(this, 'isDialogCanceled', { get() { return this._isDialogCanceled; } });
 
     let dispatcher = AppDispatcher.getInstance();
     let {emitter} = EventManager.getInstance();
@@ -40,15 +38,14 @@ class ScreenStore extends Store {
       ]);
 
       switch (action.type) {
-        case ACTIONS.CANCEL_DIALOG:
-          this._isDialogActive = false;
-          this._dialogInputValue = '';
-          this._isDialogCanceled = true;
-          emitter.emit(EVENTS.UPDATE_DIALOG);
-          break;
         case ACTIONS.CHANGE_PAGE:
           this._pageId = action.pageId;
           emitter.emit(EVENTS.CHANGE_PAGE);
+          break;
+        case ACTIONS.CLOSE_DIALOG:
+          this._isDialogActive = false;
+          this._dialogInputValue = '';
+          emitter.emit(EVENTS.UPDATE_DIALOG);
           break;
         case ACTIONS.DELETE_LAST_INPUT_FROM_DIALOG:
           this._dialogInputValue = this._dialogInputValue.slice(0, -1);
@@ -65,12 +62,8 @@ class ScreenStore extends Store {
           break;
         case ACTIONS.OPEN_DIALOG:
           this._isDialogActive = true;
-          emitter.emit(EVENTS.UPDATE_DIALOG);
-          break;
-        case ACTIONS.SUBMIT_DIALOG:
-          this._isDialogActive = false;
           this._dialogInputValue = '';
-          this._isDialogCanceled = false;
+          this._isValidDialogInput = false;
           emitter.emit(EVENTS.UPDATE_DIALOG);
           break;
         case ACTIONS.THROW_RUNTIME_ERROR:

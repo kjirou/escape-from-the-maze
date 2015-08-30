@@ -4,16 +4,16 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 
 const ScreenActionCreators = {
 
-  cancelDialog() {
-    AppDispatcher.getInstance().dispatch({
-      type: ACTIONS.CANCEL_DIALOG
-    });
-  },
-
   changePage(pageId) {
     AppDispatcher.getInstance().dispatch({
       type: ACTIONS.CHANGE_PAGE,
       pageId
+    });
+  },
+
+  closeDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.CLOSE_DIALOG
     });
   },
 
@@ -46,12 +46,6 @@ const ScreenActionCreators = {
     AppDispatcher.getInstance().dispatch({
       type: ACTIONS.PREPARE_GAME,
       stageTypeId
-    });
-  },
-
-  submitDialog() {
-    AppDispatcher.getInstance().dispatch({
-      type: ACTIONS.SUBMIT_DIALOG
     });
   },
 
