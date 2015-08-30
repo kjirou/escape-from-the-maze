@@ -25,11 +25,11 @@ function generateStatusBarContent({
 }
 
 function generateVictoryResultBoxContent({ score }) {
-  return `Escape success!\n\nScore: ${score}\n\nPush [space]`;
+  return `Escape success!\n\nScore: ${score}\n\nPush [enter]`;
 }
 
 function generateDefeatResultBoxContent() {
-  return 'Escape failure..\n\nPush [space]';
+  return 'Escape failure..\n\nPush [{green-fg}enter{/}]';
 }
 
 

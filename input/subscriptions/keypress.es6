@@ -63,7 +63,7 @@ function acceptKeyOnGamePage(keyName, isControl) {
   }
 
   if (gameStore.isDecided()) {
-    if (keyName === 'space') {
+    if (keyName === 'enter') {
       GameActionCreators.resetGame();
       ScreenActionCreators.changePage('welcome');
       return true;
