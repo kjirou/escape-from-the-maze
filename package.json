@@ -1,7 +1,7 @@
 {
   "name": "escape-from-the-maze",
   "description": "A simple & tiny CUI maze game",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "kjirou",
   "bin": {
     "escape-from-the-maze": "./bin/escape-from-the-maze"
