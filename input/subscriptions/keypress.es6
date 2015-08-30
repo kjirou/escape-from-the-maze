@@ -85,8 +85,30 @@ function acceptKeyOnGamePage(keyName, isControl) {
 }
 
 
-export function onKeypress({ name, ctrl }) {
+export function onKeypress({ name, ctrl, sequence }) {
   let screenStore = ScreenStore.getInstance();
+
+  if (screenStore.isDialogActive) {
+    if (name === 'enter') {
+      ScreenActionCreators.submitDialog();
+      return;
+    } else if (name === 'escape') {
+      ScreenActionCreators.cancelDialog();
+      return;
+    } else if (name === 'backspace' || name === 'delete') {
+      ScreenActionCreators.deleteLastInputFromDialog();
+      return;
+    } else if (!ctrl) {
+      ScreenActionCreators.inputKeyToDialog(sequence);
+      return;
+    }
+  }
+
+  // tmp
+  if (name === 'o' && ctrl) {
+    ScreenActionCreators.openDialog();
+    return;
+  }
 
   if (name === 'escape' || ctrl && name === 'c') {
     ScreenActionCreators.exit();

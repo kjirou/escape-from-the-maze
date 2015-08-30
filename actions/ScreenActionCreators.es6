@@ -4,10 +4,22 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 
 const ScreenActionCreators = {
 
+  cancelDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.CANCEL_DIALOG
+    });
+  },
+
   changePage(pageId) {
     AppDispatcher.getInstance().dispatch({
       type: ACTIONS.CHANGE_PAGE,
       pageId
+    });
+  },
+
+  deleteLastInputFromDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.DELETE_LAST_INPUT_FROM_DIALOG
     });
   },
 
@@ -17,10 +29,29 @@ const ScreenActionCreators = {
     });
   },
 
+  inputKeyToDialog(keyName) {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.INPUT_KEY_TO_DIALOG,
+      keyName
+    });
+  },
+
+  openDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.OPEN_DIALOG
+    });
+  },
+
   prepareGame(stageTypeId) {
     AppDispatcher.getInstance().dispatch({
       type: ACTIONS.PREPARE_GAME,
       stageTypeId
+    });
+  },
+
+  submitDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.SUBMIT_DIALOG
     });
   },
 
