@@ -1,10 +1,13 @@
 import _s from 'underscore.string';
 
-import {dictionarize} from 'lib/util';
+import {createCounter, dictionarize} from 'lib/util';
+
+let counter = createCounter();
 
 
 export const Stage = {
   typeId: '_stage',
+  sortOrder: 0,
   mazeCount: 1,
   timeLimit: 60000,
   bonusTimeThingCount: 5,
@@ -20,6 +23,7 @@ export const Stage = {
 
 const SimpleStage = Object.assign({}, Stage, {
   typeId: 'simple',
+  sortOrder: counter(),
   bonusTimeThingCount: 0,
   penaltyTimeThingCount: 0,
   picksThingCount: 0,
@@ -28,6 +32,7 @@ const SimpleStage = Object.assign({}, Stage, {
 
 const EasyStage = Object.assign({}, Stage, {
   typeId: 'easy',
+  sortOrder: counter(),
   picksCount: 1,
   timeLimit: 45000,
   description: 'Enable gimmicks'
@@ -35,6 +40,7 @@ const EasyStage = Object.assign({}, Stage, {
 
 const NormalStage = Object.assign({}, Stage, {
   typeId: 'normal',
+  sortOrder: counter(),
   mazeCount: 3,
   timeLimit: 75000,
   picksCount: 1,
@@ -43,6 +49,7 @@ const NormalStage = Object.assign({}, Stage, {
 
 const HardStage = Object.assign({}, Stage, {
   typeId: 'hard',
+  sortOrder: counter(),
   mazeCount: 3,
   timeLimit: 45000,
   picksCount: 1,
@@ -51,6 +58,7 @@ const HardStage = Object.assign({}, Stage, {
 
 const LunaticStage = Object.assign({}, Stage, {
   typeId: 'lunatic',
+  sortOrder: counter(),
   mazeCount: 5,
   timeLimit: 60000,
   picksCount: 2,

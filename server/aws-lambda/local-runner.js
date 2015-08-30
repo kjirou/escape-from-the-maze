@@ -8,14 +8,14 @@ var awsLambda = require('./index');
 var eventMock;
 if (0) {
   eventMock = {
-    api_mode: 'ADD_GAME_RESULT',
+    api_mode: 'add_game_result',
     name: 'Testuser',
     stage: 'simple',
     score: ~~(Math.random() * 50000)
   };
 } else {
   eventMock = {
-    api_mode: 'GET_RANKING'
+    api_mode: 'get_ranking'
   };
 }
 

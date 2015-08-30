@@ -2,7 +2,7 @@ import path from 'path';
 
 
 const conf = {
-  // TODO: Receivable by command option
+  apiUrl: 'https://94uubrff77.execute-api.us-east-1.amazonaws.com/prod',
   componentMode: 'react-blessed',
   //componentMode: 'blessed',
   fps: 60,

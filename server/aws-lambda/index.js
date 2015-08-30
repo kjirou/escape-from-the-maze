@@ -16,8 +16,8 @@ if (global.ESCAPE_FROM_THE_MAZE_AWS_LAMBDA_DEBUG || process.env.ESCAPE_FROM_THE_
 
 var START_TIME = (new Date()).getTime();
 var API_MODES = [
-  'ADD_GAME_RESULT',
-  'GET_RANKING'
+  'add_game_result',
+  'get_ranking'
 ];
 var STAGE_TYPE_IDS = [
   'simple',
@@ -53,7 +53,7 @@ exports.handler = function(event, context) {
     return context.done(null, apiMode + ' is invalid api_mode');
   }
 
-  if (apiMode === 'ADD_GAME_RESULT') {
+  if (apiMode === 'add_game_result') {
 
     if (STAGE_TYPE_IDS.indexOf(stageTypeId) === -1) {
       return context.done(null, stageTypeId + ' is invalid stage');
@@ -99,7 +99,7 @@ exports.handler = function(event, context) {
     },
 
     function addGameResult(next) {
-      if (apiMode !== 'ADD_GAME_RESULT') {
+      if (apiMode !== 'add_game_result') {
         return next();
       }
 
