@@ -14,7 +14,7 @@ function generateStatusBarContent({
   let content = `${runningMazeCount}/${mazeCount}F, ` +
     `Time: ${gameTimeBySeconds}/${timeLimitBySeconds}, `;
 
-  let picksContent = `Picks: ${picksCount}`;
+  let picksContent = `Pickaxe: ${picksCount}`;
   if (isAssumedPicksMode) {
     content += `{green-fg}${picksContent}{/}`;
   } else {
