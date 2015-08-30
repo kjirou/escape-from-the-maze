@@ -3,6 +3,11 @@ import chalk from 'chalk';
 import conf from 'conf';
 
 
+export function createCounter(start = 1) {
+  start -= 1;
+  return () => start += 1;
+}
+
 export function calculateMillisecondsPerFrame() {
   return ~~(1000 / conf.fps);
 }
@@ -42,6 +47,9 @@ export function createHelpText() {
     '- "' + pickaxeSymbol + '" You get a extra pickaxe.',
     '- "' + bonusTime5Symbol + '" Time limit is increased 5 seconds.',
     '- "' + penaltyTime3Symbol + '" Time limit is reduced 3 seconds.',
+    '',
+    '## Others',
+    '- You can look ranking by `npm run ranking`.',
   ];
   return lines.join('\n');
 }

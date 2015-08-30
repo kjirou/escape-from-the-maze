@@ -1,0 +1,11 @@
+{
+  "name": "for-aws-lambda",
+  "version": "0.0.0",
+  "description": "For ZIP file creation that is uploaded to AWS Lambda",
+  "dependencies": {
+    "async": "1.4.2",
+    "aws-sdk": "2.1.48",
+    "lodash": "3.10.1"
+  },
+  "private": true
+}

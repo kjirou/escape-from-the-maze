@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 
+import DialogComponent from './DialogComponent';
 import GamePageComponent from './pages/GamePageComponent';
 import WelcomePageComponent from './pages/WelcomePageComponent';
 import {EVENTS} from 'consts';
@@ -18,10 +19,13 @@ function getStateFromStores() {
   let screenStore = ScreenStore.getInstance();
   let gameStore = GameStore.getInstance();
   return {
+    dialogInputValue: screenStore.dialogInputValue,
     hasBeenDefeat: gameStore.hasBeenDefeat,
     hasBeenVictory: gameStore.hasBeenVictory,
     gameTime: gameStore.gameTime,
     isAssumedPicksMode: gameStore.isAssumedPicksMode,
+    isDialogActive: screenStore.isDialogActive,
+    isValidDialogInput: screenStore.isValidDialogInput,
     mazeContent: gameStore.isStarted() ? gameStore.maze.toContent() : '',
     mazeCount: gameStore.getMazeCount(),
     pageId: screenStore.pageId,
@@ -48,6 +52,9 @@ export default class RootComponent extends Component {
     emitter.on(EVENTS.CHANGE_PAGE, () => {
       this.setState(getStateFromStores());
     });
+    emitter.on(EVENTS.UPDATE_DIALOG, () => {
+      this.setState(getStateFromStores());
+    });
     emitter.on(EVENTS.UPDATE_MAZE, () => {
       this.setState(getStateFromStores());
     })
@@ -68,12 +75,14 @@ export default class RootComponent extends Component {
       }
     };
 
+    let dialogProps = Object.assign({}, this.state);
+
     let ActivePageComponent = PAGE_COMPONENTS[this.state.pageId];
-    let pageProps = {};
-    Object.assign(pageProps, this.state);
+    let pageProps = Object.assign({}, this.state);
 
     return (
       <box {...props} >
+        <DialogComponent {...dialogProps} />
         <ActivePageComponent {...pageProps} />
       </box>
     );

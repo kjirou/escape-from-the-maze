@@ -4,6 +4,7 @@ import {ACTIONS, EVENTS} from 'consts';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import EventManager from 'lib/EventManager';
 import {stages} from 'lib/stages';
+import {requestAddingGameResult} from 'lib/apis';
 import {calculateMillisecondsPerFrame} from 'lib/util';
 import GameResultModel from 'models/GameResultModel';
 import MazeModel from 'models/MazeModel';
@@ -100,6 +101,14 @@ export default class GameStore extends Store {
           this._reset();
           emitter.emit(EVENTS.UPDATE_MAZE);
           break;
+        case ACTIONS.REQUEST_ADDING_GAME_RESULT:
+          // FIXME: Could not receive callback now
+          requestAddingGameResult({
+            stageTypeId: this._getStage().typeId,
+            playerName: action.playerName,
+            score: this.gameResult.calculateScore(),
+          });
+          break;
         case ACTIONS.SAVE_DEFEAT:
           this._hasBeenDefeat = true;
           emitter.emit(EVENTS.UPDATE_MAZE);
@@ -133,14 +142,15 @@ export default class GameStore extends Store {
     this._runningMazeCount = 1;
     this._picksCount = 0;
     this._isAssumedPicksMode = false;
-    this._resetMaze();
+    this._hasBeenVictory = false;
+    this._hasBeenDefeat = false;
+    this._isDuringInputForScoring = false;
     this._gameResult = null;
+    this._resetMaze();
   }
 
   _resetMaze() {
     this._maze = null;
-    this._hasBeenVictory = false;
-    this._hasBeenDefeat = false;
     this._things = createDefaultThings();
   }
 

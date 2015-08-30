@@ -11,9 +11,34 @@ const ScreenActionCreators = {
     });
   },
 
+  closeDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.CLOSE_DIALOG
+    });
+  },
+
+  deleteLastInputFromDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.DELETE_LAST_INPUT_FROM_DIALOG
+    });
+  },
+
   exit() {
     AppDispatcher.getInstance().dispatch({
       type: ACTIONS.EXIT
+    });
+  },
+
+  inputKeyToDialog(keyName) {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.INPUT_KEY_TO_DIALOG,
+      keyName
+    });
+  },
+
+  openDialog() {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.OPEN_DIALOG
     });
   },
 

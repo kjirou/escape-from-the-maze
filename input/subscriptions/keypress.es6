@@ -62,10 +62,22 @@ function acceptKeyOnGamePage(keyName, isControl) {
     }
   }
 
-  if (gameStore.isDecided()) {
-    if (keyName === 'space') {
-      GameActionCreators.resetGame();
-      ScreenActionCreators.changePage('welcome');
+  let backToWelcomePage = () => {
+    GameActionCreators.resetGame();
+    ScreenActionCreators.changePage('welcome');
+  };
+
+  if (gameStore.hasBeenVictory) {
+    if (keyName === 'y' || keyName === 'enter') {
+      ScreenActionCreators.openDialog();
+      return true;
+    } else if (keyName === 'n') {
+      backToWelcomePage();
+      return true;
+    }
+  } else if (gameStore.hasBeenDefeat) {
+    if (keyName === 'enter') {
+      backToWelcomePage();
       return true;
     }
   }
@@ -74,8 +86,40 @@ function acceptKeyOnGamePage(keyName, isControl) {
 }
 
 
-export function onKeypress({ name, ctrl }) {
+export function onKeypress({ name, ctrl, sequence }) {
   let screenStore = ScreenStore.getInstance();
+  let gameStore = GameStore.getInstance();
+
+  if (screenStore.isDialogActive) {
+    // FIXME: Generalize dialog's action
+    if (name === 'enter') {
+      if (!screenStore.isValidDialogInput) {
+        return;
+      }
+      if (
+        screenStore.pageId === 'game' &&
+        screenStore.isValidDialogInput &&
+        gameStore.hasBeenVictory
+      ) {
+        GameActionCreators.requestAddingGameResult(screenStore.dialogInputValue); // async
+        ScreenActionCreators.closeDialog();
+        GameActionCreators.resetGame();
+        ScreenActionCreators.changePage('welcome');
+        return;
+      }
+      ScreenActionCreators.closeDialog();
+      return;
+    } else if (name === 'escape') {
+      ScreenActionCreators.closeDialog();
+      return;
+    } else if (name === 'backspace' || name === 'delete') {
+      ScreenActionCreators.deleteLastInputFromDialog();
+      return;
+    } else if (!ctrl) {
+      ScreenActionCreators.inputKeyToDialog(sequence);
+      return;
+    }
+  }
 
   if (name === 'escape' || ctrl && name === 'c') {
     ScreenActionCreators.exit();

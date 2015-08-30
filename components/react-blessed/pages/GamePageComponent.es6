@@ -25,11 +25,11 @@ function generateStatusBarContent({
 }
 
 function generateVictoryResultBoxContent({ score }) {
-  return `Escape success!\n\nScore: ${score}\n\nPush [space]`;
+  return `Escape success!\n\nScore: ${score}\n\nSend to server? [{green-fg}Y{/}/{green-fg}n{/}]`;
 }
 
 function generateDefeatResultBoxContent() {
-  return 'Escape failure..\n\nPush [space]';
+  return 'Escape failure..\n\nPush [{green-fg}enter{/}]';
 }
 
 
@@ -60,7 +60,7 @@ export default class GamePageComponent extends Component {
     let resultBoxProps = {
       top: 'center',
       left: 'center',
-      width: 21,
+      width: 27,
       height: 9,
       tags: true,
       border: {

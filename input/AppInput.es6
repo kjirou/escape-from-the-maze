@@ -34,7 +34,8 @@ export default class AppInput {
             if (!key) {
               key = {
                 name: chr,
-                ctrl: false
+                ctrl: false,
+                sequence: chr
               };
             }
             handler(key);
