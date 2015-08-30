@@ -91,7 +91,7 @@ export function onKeypress({ name, ctrl, sequence }) {
   let gameStore = GameStore.getInstance();
 
   if (screenStore.isDialogActive) {
-    // TODO: Generalize dialog's action
+    // FIXME: Generalize dialog's action
     if (name === 'enter') {
       if (!screenStore.isValidDialogInput) {
         return;
@@ -101,6 +101,7 @@ export function onKeypress({ name, ctrl, sequence }) {
         screenStore.isValidDialogInput &&
         gameStore.hasBeenVictory
       ) {
+        GameActionCreators.requestAddingGameResult(screenStore.dialogInputValue); // async
         ScreenActionCreators.closeDialog();
         GameActionCreators.resetGame();
         ScreenActionCreators.changePage('welcome');

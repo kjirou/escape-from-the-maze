@@ -3,7 +3,8 @@ import assert from 'power-assert';
 import conf from 'conf';
 import {
   _formatRankingDataToText,
-  _restructGameResultRowsForRanking
+  _restructGameResultRowsForRanking,
+  requestRanking
 } from 'lib/apis';
 import {heading} from 'test/support/helpers';
 
@@ -75,5 +76,9 @@ describe(heading(__filename), function() {
     assert(/2\. hutarime /.test(text));
     assert(/3\. sann /.test(text));
     assert(/1\. sann /.test(text));
+  });
+
+  it('requestRanking', function(done) {
+    requestRanking(done);
   });
 });

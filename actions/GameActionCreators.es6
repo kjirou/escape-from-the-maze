@@ -35,6 +35,14 @@ const GameActionCreators = {
     });
   },
 
+  /* async */
+  requestAddingGameResult(playerName) {
+    AppDispatcher.getInstance().dispatch({
+      type: ACTIONS.REQUEST_ADDING_GAME_RESULT,
+      playerName
+    });
+  },
+
   resetGame() {
     AppDispatcher.getInstance().dispatch({
       type: ACTIONS.RESET_GAME

@@ -96,9 +96,26 @@ export function requestRanking(callback) {
     } else if (response.statusCode !== 200) {
       return callback(new Error(`Returned HTTP status ${response.statusCode} from AWS API Gateway`));
     }
-    let gameResultRows = JSON.parse(body);
+    let gameResultRows = JSON.parse(body.toString());
     let rankingData = _restructGameResultRowsForRanking(gameResultRows);
     let text = _formatRankingDataToText(rankingData);
     callback(null, text);
+  });
+}
+
+export function requestAddingGameResult({ stageTypeId, playerName, score }, callback = function(){}) {
+  let url = conf.apiUrl + '?' + querystring.stringify({
+    api_mode: 'add_game_result',
+    stage: stageTypeId,
+    name: playerName,
+    score: score
+  });
+  request(url, function onRequested(err, response, body) {
+    if (err) {
+      return callback(err);
+    } else if (response.statusCode !== 200) {
+      return callback(new Error(`Returned HTTP status ${response.statusCode} from AWS API Gateway`));
+    }
+    callback();
   });
 }

@@ -14,6 +14,7 @@ const ACTIONS = keymirror({
   INPUT_KEY_TO_DIALOG: null,
   OPEN_DIALOG: null,
   PREPARE_GAME: null,
+  REQUEST_ADDING_GAME_RESULT: null,
   RESET_GAME: null,
   SAVE_DEFEAT: null,
   SAVE_VICTORY: null,

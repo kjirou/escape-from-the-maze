@@ -136,6 +136,6 @@ exports.handler = function(event, context) {
       console.error(err);
       return;
     }
-    context.done(null, JSON.stringify(gameResults));
+    context.done(null, gameResults);
   });
 };

@@ -4,6 +4,7 @@ import {ACTIONS, EVENTS} from 'consts';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import EventManager from 'lib/EventManager';
 import {stages} from 'lib/stages';
+import {requestAddingGameResult} from 'lib/apis';
 import {calculateMillisecondsPerFrame} from 'lib/util';
 import GameResultModel from 'models/GameResultModel';
 import MazeModel from 'models/MazeModel';
@@ -99,6 +100,14 @@ export default class GameStore extends Store {
         case ACTIONS.RESET_GAME:
           this._reset();
           emitter.emit(EVENTS.UPDATE_MAZE);
+          break;
+        case ACTIONS.REQUEST_ADDING_GAME_RESULT:
+          // FIXME: Could not receive callback now
+          requestAddingGameResult({
+            stageTypeId: this._getStage().typeId,
+            playerName: action.playerName,
+            score: this.gameResult.calculateScore(),
+          });
           break;
         case ACTIONS.SAVE_DEFEAT:
           this._hasBeenDefeat = true;
