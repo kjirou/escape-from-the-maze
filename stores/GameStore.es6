@@ -133,14 +133,15 @@ export default class GameStore extends Store {
     this._runningMazeCount = 1;
     this._picksCount = 0;
     this._isAssumedPicksMode = false;
-    this._resetMaze();
+    this._hasBeenVictory = false;
+    this._hasBeenDefeat = false;
+    this._isDuringInputForScoring = false;
     this._gameResult = null;
+    this._resetMaze();
   }
 
   _resetMaze() {
     this._maze = null;
-    this._hasBeenVictory = false;
-    this._hasBeenDefeat = false;
     this._things = createDefaultThings();
   }
 

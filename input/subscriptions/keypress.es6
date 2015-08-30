@@ -62,10 +62,21 @@ function acceptKeyOnGamePage(keyName, isControl) {
     }
   }
 
-  if (gameStore.isDecided()) {
+  let backToWelcomePage = () => {
+    GameActionCreators.resetGame();
+    ScreenActionCreators.changePage('welcome');
+  };
+
+  if (gameStore.hasBeenVictory) {
+    if (keyName.toLowerCase() === 'y' || keyName === 'enter') {
+      return true;
+    } else if (keyName.toLowerCase() === 'n') {
+      backToWelcomePage();
+      return true;
+    }
+  } else if (gameStore.hasBeenDefeat) {
     if (keyName === 'enter') {
-      GameActionCreators.resetGame();
-      ScreenActionCreators.changePage('welcome');
+      backToWelcomePage();
       return true;
     }
   }
