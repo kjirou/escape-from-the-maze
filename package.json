@@ -21,7 +21,7 @@
     "lodash": "3.10.1",
     "minimist": "1.2.0",
     "react": "0.14.0-beta3",
-    "react-blessed": "0.0.2",
+    "react-blessed": "0.1.0",
     "request": "2.61.0",
     "rx": "3.0.0",
     "underscore.string": "3.1.1",

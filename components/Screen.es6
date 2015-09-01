@@ -17,7 +17,10 @@ export default class Screen {
 
   constructor() {
 
-    this._screen = this._initialize();
+    let screen = blessed.screen(this._createBlessedOptions());
+    screen.debugLog.unkey(['q', 'escape']);
+    render(<RootComponent />, screen);
+    this._screen = screen;
 
     let {emitter} = EventManager.getInstance();
     emitter.on(EVENTS.UPDATE_ERRORS, this._debug.bind(this));
@@ -35,12 +38,6 @@ export default class Screen {
     }
 
     return options;
-  }
-
-  _initialize() {
-    let screen = render(<RootComponent />, this._createBlessedOptions());
-    screen.debugLog.unkey(['q', 'escape'], () => {});
-    return screen;
   }
 
   _exit() {
