@@ -31,6 +31,8 @@
     "eslint": "1.1.0",
     "espower-babel": "3.2.0",
     "fixpack": "2.2.0",
+    "gulp": "3.9.0",
+    "gulp-babel": "5.2.1",
     "mocha": "2.2.5",
     "power-assert": "0.11.0",
     "sinon": "1.16.0",
@@ -53,10 +55,11 @@
     "url": "git+https://github.com/kjirou/escape-from-the-maze.git"
   },
   "scripts": {
-    "help": "node bin/escape-from-the-maze --help",
+    "build": "gulp build",
+    "help": "node bin/escape-from-the-maze -d -h",
     "lint": "eslint --ext .es6 *.es6 actions components conf consts dispatcher env input lib models stores test",
-    "ranking": "node bin/escape-from-the-maze --ranking",
-    "start": "node bin/escape-from-the-maze",
+    "ranking": "node bin/escape-from-the-maze -d -r",
+    "start": "node bin/escape-from-the-maze -d",
     "test": "mocha",
     "zip-server": "cd server/aws-lambda && npm i && zip -r ../../tmp/aws-lambda-`date '+%Y%m%d-%H%M%S'`.zip index.js aws-config.json node_modules && cd ../.."
   }
