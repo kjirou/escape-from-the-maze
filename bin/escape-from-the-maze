@@ -1,8 +1,26 @@
 #!/usr/bin/env node
 
-require('../env/cli');
-
 var minimist = require('minimist');
+
+var commandOptions = minimist(process.argv.slice(2), {
+  default: {
+    development: false,
+    help: false,
+    ranking: false
+  },
+  alias: {
+    development: ['d'],
+    help: ['h'],
+    ranking: ['r']
+  }
+});
+
+if (commandOptions.development) {
+  require('../env/development');
+} else {
+  require('../env/production');
+}
+
 
 var App = require('app');
 var apis = require('lib/apis');
