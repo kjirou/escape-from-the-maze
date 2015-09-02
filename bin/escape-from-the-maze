@@ -6,12 +6,14 @@ var commandOptions = minimist(process.argv.slice(2), {
   default: {
     development: false,
     help: false,
-    ranking: false
+    ranking: false,
+    version: false
   },
   alias: {
     development: ['d'],
     help: ['h'],
-    ranking: ['r']
+    ranking: ['r'],
+    version: ['v']
   }
 });
 
@@ -21,25 +23,17 @@ if (commandOptions.development) {
   require('../env/production');
 }
 
-
+var pkg = require('../package.json');
 var App = require('app');
 var apis = require('lib/apis');
 var libUtil = require('lib/util');
 
 
-var commandOptions = minimist(process.argv.slice(2), {
-  default: {
-    help: false,
-    ranking: false
-  },
-  alias: {
-    help: ['h'],
-    ranking: ['r']
-  }
-});
-
 if (commandOptions.help) {
   console.log(libUtil.createHelpText());
+  process.exit(0);
+} else if (commandOptions.version) {
+  console.log(pkg.version);
   process.exit(0);
 } else if (commandOptions.ranking) {
   apis.requestRanking(function(err, text) {
